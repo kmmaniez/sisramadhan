@@ -21,7 +21,7 @@ class JadwalAjarController extends Controller
         $jadwal['senin'] = [];
         $jadwal['selasa'] = [];
         $jadwal['rabu'] = [];
-        $jadwal['kamis'] = [];
+        $jadwal['kabis'] = [];
         $jadwal['jumat'] = [];
         $jadwal['sabtu'] = [];
 

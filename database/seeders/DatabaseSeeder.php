@@ -31,6 +31,130 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
+        /* START SETTINGS ROLE & OTHER */
+            $listTahun = ['2023', '2022', '2021', '2020', '2019'];
+            $listHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu', 'Minggu'];
+            $listGender = ['pria', 'wanita']; // sesuai tabel migration
+            $listRole = ['takmir', 'panitia'];
+            for ($i = 0; $i < count($listRole); $i++) {
+                Role::create([
+                    'nama_role' => $listRole[$i],
+                ]);
+            }
+        /* END SETTINGS ROLE & OTHER */
 
+        /* WARGA SEEDER START*/
+            for ($i = 0; $i < 10; $i++) {
+                Warga::create([
+                    'nama_keluarga' => 'Keluarga ' . fake('id_ID')->lastName(),
+                    'nama_asli'     => fake('id_ID')->name(),
+                    'nama_alias'    => fake('id_ID')->firstName(),
+                    'alamat'        => fake('id_ID')->streetAddress(),
+                    'rt'            => rand(1, 20),
+                    'rw'            => rand(1, 10),
+                    'nomor_hp'      => fake('id_ID')->phoneNumber(),
+                    'email'         => fake('id_ID')->email(),
+                ]);
+            }
+            /* WARGA SEEDER END*/
+
+            /* TADARUS START*/
+
+            // Kelompok tadarus
+            $kelompok = ['Bapak-bapak', 'Ibu-ibu', 'Anak-anak', 'Ibu-ibu Arisan'];
+            for ($i = 0; $i < count($kelompok); $i++) {
+                KelTadarus::create([
+                    'nama_kelompok'     => $kelompok[$i],
+                ]);
+            }
+
+            // Tadarus
+            // for ($i=0; $i < 10; $i++) { 
+            //     Tadarus::create([
+            //         'id_kel_tadarus'    => rand(1,3),
+            //         'id_warga'          => $i + 1,
+            //         'jumlah_khatam'     => rand(1,30),
+            //         'keterangan'        => fake('id_ID')->text(rand(5,15)),
+            //     ]);
+            // }
+        /* TADARUS END*/
+
+        /* TPA SEEDER START */
+            // Hari
+            $listHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu', 'Minggu'];
+            for ($i = 0; $i < count($listHari); $i++) {
+                Hari::create([
+                    'nama_hari' => $listHari[$i]
+                ]);
+            }
+
+            // Ustad/h
+            for ($i = 0; $i < 5; $i++) {
+                Ustadh::create([
+                    'nama'          => fake('id_ID')->name(),
+                    'jenis_kelamin' => $listGender[rand(0, 1)],
+                    'no_hp'         => fake('id_ID')->phoneNumber,
+                    'status'        => 'A',
+                ]);
+            }
+
+            // Jadwal ajar
+            for ($i = 0; $i < 5; $i++) {
+                JadwalAjar::create([
+                    'id_ustadh'     => $i + 1,
+                    'id_hari'       => rand(1, 7),
+                    'tahun'         => $listTahun[$i],
+                    'tgl_masehi'    => fake()->date('Y/m/d'),
+                ]);
+            }
+        /* TPA SEEDER END*/
+
+        /* SEEDER SHOLAT IED, KHATAMAN, ZAKAT */
+            // Sholat
+            for ($i = 0; $i < 5; $i++) {
+                Sholatied::create([
+                    'tgl_kegiatan'  => fake()->date(),
+                    'tmpt_sholat'   => 'Masjid Darussalam',
+                    'keterangan'    => 'Melaksanakan sholat IED di Masjid Darussalam',
+                ]);
+            }
+
+            // Khataman
+            for ($i = 0; $i < 5; $i++) {
+                Khataman::create([
+                    'tgl_kegiatan'      => fake()->date(),
+                    'jenis_kegiatan'    => fake()->text(15),
+                    'keterangan'        => fake()->text('25'),
+                ]);
+            }
+
+            // Zakat
+            $petugasZakat = [];
+            $penerimaZakat = [];
+            for ($i = 0; $i < 4; $i++) {
+                $petugasZakat[]     = fake('id_ID')->firstName();
+                $penerimaZakat[]    = fake('id_ID')->lastName();
+            }
+            $listPetugasZakat   = json_encode($petugasZakat);
+            $listPenerimaZakat  = json_encode($penerimaZakat);
+            for ($i = 0; $i < 5; $i++) {
+                Zakat::create([
+                    'nama_petugas_zakat'    => $listPetugasZakat,
+                    'nama_penerima_zakat'   => $listPenerimaZakat,
+                    'tgl_kegiatan'          => fake()->date(),
+                    'keterangan'            => fake()->text(15),
+                ]);
+            }
+        /* SEEDER SHOLAT IED, KHATAMAN, ZAKAT */
+
+        /* TAKBIRAN SEEDER START*/
+            for ($i = 0; $i < 5; $i++) {
+                Takbiran::create([
+                    'id_warga'      => rand(1, 10),
+                    'tgl_kegiatan'  => fake()->date(),
+                    'keterangan'    => 'Takbiran di Masjid Darussalam',
+                ]);
+            }
+        /* TAKBIRAN SEEDER END*/
     }
 }

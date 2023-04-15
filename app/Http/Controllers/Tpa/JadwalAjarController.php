@@ -21,10 +21,10 @@ class JadwalAjarController extends Controller
         $jadwal['senin'] = [];
         $jadwal['selasa'] = [];
         $jadwal['rabu'] = [];
-        $jadwal['kabis'] = [];
+        $jadwal['kamis'] = [];
         $jadwal['jumat'] = [];
         $jadwal['sabtu'] = [];
-        
+
         return view('admin.tpa.index', compact('jadwalajar','jadwal'));
     }
 

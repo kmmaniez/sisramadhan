@@ -38,38 +38,55 @@
                 <th scope="col">Rabu</th>
                 <th scope="col">Kamis</th>
                 <th scope="col">Jum'at</th>
-                <th scope="col">Sabtu</th>
+                {{-- <th scope="col">Aksi</th> --}}
             </tr>
             </thead>
             <tbody class="table-group-divider">
                 {{-- @dump($jadwal) --}}
                 
+                {{-- <tr>
+                    <td>
+                        <p>Kholid</p>
+                        <p>Iin</p>
+                    </td>
+                    <td>
+                        <p>Kholid</p>
+                        <p>Maryam</p>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr> --}}
                 <tr>
                     <td>
-                        <p>Kholid</p>
-                        <p>Iin</p>
+                        @foreach ($jadwal['senin'] as $key => $value)
+                        <p>{{ $value->nama }}</p>
+                        @endforeach
                     </td>
                     <td>
-                        <p>Kholid</p>
-                        <p>Maryam</p>
+                        @foreach ($jadwal['selasa'] as $key => $value)
+                        <p>{{ $value->nama }}</p>
+                        @endforeach
                     </td>
                     <td>
-                        <p>Kholid</p>
-                        <p>Iin</p>
+                        @foreach ($jadwal['rabu'] as $key => $value)
+                        <p>{{ $value->nama }}</p>
+                        @endforeach
                     </td>
                     <td>
-                        <p>Kholid</p>
-                        <p>Maryam</p>
+                        @foreach ($jadwal['kamis'] as $key => $value)
+                        <p>{{ $value->nama }}</p>
+                        @endforeach
                     </td>
                     <td>
-                        <p>Kholid</p>
-                        <p>Iin</p>
+                        @foreach ($jadwal['jumat'] as $key => $value)
+                        <p>{{ $value->nama }}</p>
+                        @endforeach
                     </td>
-                    <td>
-                        <p>Kholid</p>
-                        <p>Maryam</p>
-                    </td>
-                    
                 </tr>
             </tbody>
         </table>

@@ -29,31 +29,25 @@
         </tr>
         </thead>
         <tbody class="table-group-divider">
+            @foreach ($warga as $data)
             <tr>
-                <td>1</td>
-                <td>Keluarga Bambang</td>
-                <td>Bambang Suryanto | Bambang</td>
-                <td>Bogor | RT 4 | RW 2</td>
-                <td>08162721611</td>
-                <td>bambang@mail.com</td>
+                <th scope="row">{{ $loop->iteration }}</th>
+                <td>{{ $data->nama_keluarga }}</td>
+                <td>{{ $data->nama_asli }} | {{ $data->nama_alias }}</td>
+                <td>{{ $data->alamat }} | RT {{ $data->rt }} | RW {{ $data->rw }}</td>
+                <td>{{ $data->nomor_hp }}</td>
+                <td>{{ $data->email }}</td>
                 <td>
-                    <a href="" class="btn btn-sm btn-warning">Edit</a>
-                    <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Keluarga Aminah</td>
-                <td>Aminah Putri | Aminah</td>
-                <td>Jakarta | RT 4 | RW 2</td>
-                <td>087128122</td>
-                <td>aminah@mail.com</td>
-                <td>
-                    <a href="" class="btn btn-sm btn-warning">Edit</a>
-                    <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
+                    <form action="{{ route('warga.destroy', $data->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <a href="{{ route('warga.edit', $data->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
+                    </form>
                 </td>
             </tr>
                 
+            @endforeach
         </tbody>
     </table>
 

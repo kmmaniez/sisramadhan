@@ -39,18 +39,24 @@
             </tr>
             </thead>
             <tbody class="table-group-divider">
-              <tr>
-                <td>1</td>
-                <td>Senin, 12 Januari 2022</td>
-                <td>Bahrun</td>
-                <td>Ibar</td>
-                <td>Jaka</td>
-                <td>-</td>
-                <td>
-                  <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                  <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
-                </td>
-              </tr>
+                @foreach ($tarawih as $data)
+                <tr>
+                  <th scope="row">{{ $loop->iteration }}</th>
+                  <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }}, {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
+                  <td>{{ $data->imam->nama_alias }}</td>
+                  <td>{{ $data->penceramah->nama_alias }}</td>
+                  <td>{{ $data->bilal->nama_alias }}</td>
+                  <td>{{ $data->keterangan }}</td>
+                  <td>
+                    <form action="{{ route('tarawih.destroy', $data->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <a href="{{ route('tarawih.edit', $data->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+                @endforeach
             </tbody>
         </table>
 

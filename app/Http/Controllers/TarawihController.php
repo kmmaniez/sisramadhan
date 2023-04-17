@@ -13,6 +13,8 @@ class TarawihController extends Controller
      */
     public function index()
     {
+    // $ea = date('D');
+        // echo $ea;
         $tarawih = Tarawih::all();
         return view('admin.tarawih.index', compact('tarawih'));
     }
@@ -32,6 +34,15 @@ class TarawihController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->all());
+        Tarawih::create([
+            'tgl_kegiatan' => $request->tanggal,
+            'id_imam' => $request->id_imam,
+            'id_penceramah' => $request->id_penceramah,
+            'id_bilal' => $request->id_bilal,
+            'keterangan' => $request->keterangan,
+        ]);
+        return redirect(route('tarawih.index'));
     }
 
     /**
@@ -63,6 +74,7 @@ class TarawihController extends Controller
      */
     public function destroy(Tarawih $tarawih)
     {
-        // 
+        $tarawih->delete();
+        return redirect(route('tarawih.index'));
     }
 }

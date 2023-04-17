@@ -30,6 +30,12 @@ class SholatiedController extends Controller
     public function store(Request $request)
     {
         //
+        Sholatied::create([
+            'tgl_kegiatan' => $request->tanggal,
+            'tmpt_sholat' => $request->tempat,
+            'keterangan' => $request->keterangan,
+        ]);
+        return redirect(route('sholatied.index'));
     }
 
     /**
@@ -61,6 +67,7 @@ class SholatiedController extends Controller
      */
     public function destroy(Sholatied $sholatied)
     {
-        // 
+        $sholatied->delete();
+        return redirect(route('sholatied.index'));
     }
 }

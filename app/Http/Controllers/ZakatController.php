@@ -13,6 +13,7 @@ class ZakatController extends Controller
     public function index()
     {
         $zakat = Zakat::all();
+        // dd($zakat);
         return view('admin.zakat.index', compact('zakat'));
     }
 
@@ -29,7 +30,18 @@ class ZakatController extends Controller
      */
     public function store(Request $request)
     {
-        // 
+        // dd($request->all());
+        $penerima   = json_encode(explode(',', $request->penerima));
+        $petugas    = json_encode(explode(',', $request->petugas));
+        // print_r($new);
+        // die;
+        Zakat::create([
+           'nama_petugas_zakat'     => $petugas, 
+           'nama_penerima_zakat'    => $penerima, 
+           'tgl_kegiatan'           => $request->tanggal, 
+           'keterangan'             => $request->keterangan, 
+        ]);
+        return redirect(route('zakat.index'));
     }
 
     /**
@@ -61,6 +73,7 @@ class ZakatController extends Controller
      */
     public function destroy(Zakat $zakat)
     {
-        // 
+        $zakat->delete();
+        return redirect(route('zakat.index'));
     }
 }

@@ -22,12 +22,14 @@ class WargaController extends Controller
      */
     public function create()
     {
+        //
         $listrt = [];
         $listrw = [];
         for ($i=1; $i <= 10; $i++) { 
             array_push($listrt, $i);
             array_push($listrw, $i);
         }
+        // dd($list, $warga, $aw);
         return view('admin.warga.create', [
             'listrt' => $listrt,
             'listrw' => $listrw,
@@ -39,7 +41,18 @@ class WargaController extends Controller
      */
     public function store(Request $request)
     {
-        // 
+        // dd($request->all());
+        Warga::create([
+            'nama_keluarga' => $request->nama_keluarga,
+            'nama_asli' => $request->nama_asli,
+            'nama_alias' => $request->nama_alias,
+            'alamat' => $request->alamat,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'nomor_hp' => $request->nomorhp,
+            'email' => $request->email,
+        ]);
+        return redirect(route('warga.index'));
     }
 
     /**
@@ -56,6 +69,17 @@ class WargaController extends Controller
     public function edit(Warga $warga)
     {
         //
+        $listrt = [];
+        $listrw = [];
+        for ($i=1; $i <= 10; $i++) { 
+            array_push($listrt, $i);
+            array_push($listrw, $i);
+        }
+        return view('admin.warga.edit', [
+            'warga' => $warga,
+            'listrt' => $listrt,
+            'listrw' => $listrw,
+        ]);
     }
 
     /**
@@ -71,6 +95,7 @@ class WargaController extends Controller
      */
     public function destroy(Warga $warga)
     {
+        //
         $warga->delete();
         return redirect(route('warga.index'));
     }

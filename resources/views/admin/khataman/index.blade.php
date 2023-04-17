@@ -27,16 +27,22 @@
             </tr>
             </thead>
             <tbody class="table-group-divider">
+                @foreach ($khataman as $data)
                 <tr>
-                  <td>1</td>
-                  <td>Rabu, 20 Januri 2022</td>
-                  <td>Lailatul Qodar</td>
-                  <td>-</td>
+                  <th scope="row">{{ $loop->iteration }}</th>
+                  <td>{{ $data?->tgl_kegiatan }}</td>
+                  <td>{{ $data->jenis_kegiatan }}</td>
+                  <td>{{ $data?->keterangan }}</td>
                   <td>
-                    <a href="" class="btn btn-sm btn-warning">Edit</a>
-                    <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
+                    <form action="{{ route('khataman.destroy', $data->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <a href="{{ route('khataman.edit', $data->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
+                    </form>
                   </td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
 

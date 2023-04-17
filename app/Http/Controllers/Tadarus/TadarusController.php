@@ -17,8 +17,37 @@ class TadarusController extends Controller
     {
         $tadarus = Tadarus::all();
         $warga  = Warga::all();
-
+        $datawarga = [];
+        $saw = [];
+        foreach ($tadarus as $key => $value) {
+            // $a = json_decode($value['nama_lengkap']);
+            $saw[] = json_decode($value->nama_warga);
+            // dump($value);
+        }
+        
+        // dump($tadarus, $saw);
+        // die;
+        foreach ($tadarus as $key => $value) {
+            $datawarga['data'] = json_decode($value->nama_warga);
+        }
+        // $wargaDetail = $warga->whereIn('id',$datawarga['data']);
         return view('admin.tadarus.index', compact('tadarus'));
+        
+        $wargajson = [];
+        // $wargajson['data'][key][value]
+        // foreach ($wargajson['data'] as $key => $value) {
+        //     foreach ($value as $values) {
+        //         # code...
+        //         // echo $values. ' ';
+        //     }
+        //     // echo $key. ' ';
+        // }
+        // dump($tadarus, $wargajson['data']);
+        // die;
+        $aw = $tadarus->whereIn('id',$datawarga['data']);
+        $wargaDetail = $warga->whereIn('id',$datawarga['data']);
+        // dd($tadarus, $wargaDetail);
+        return view('admin.tadarus.index', compact('tadarus','wargaDetail'));
     }
 
     /**
@@ -27,6 +56,7 @@ class TadarusController extends Controller
     public function create()
     {
         $warga  = Warga::all()->pluck('nama_alias','id');
+        // dd($warga);
         $listkelompok  = KelTadarus::all()->pluck('nama_kelompok','id');
         return view('admin.tadarus.create', compact('warga', 'listkelompok'));
     }
@@ -37,6 +67,14 @@ class TadarusController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->all());
+        Tadarus::create([
+            'nama_kelompok' => $request->nama_kelompok,
+            'nama_warga' => json_encode($request->anggota),
+            'jumlah_khatam' => $request->jumlah_khatam,
+            'keterangan' => '1',
+        ]);
+        return redirect(route('tadarus.index'));
     }
 
     /**
@@ -68,6 +106,7 @@ class TadarusController extends Controller
      */
     public function destroy(Tadarus $tadaru)
     {
-        //
+        $tadaru->delete();
+        return redirect(route('tadarus.index'));
     }
 }

@@ -14,6 +14,7 @@ class TakbiranController extends Controller
     public function index()
     {
         $takbiran = Takbiran::all();
+        // dd($takbiran);
         return view('admin.takbiran.index', compact('takbiran'));
     }
 
@@ -23,6 +24,7 @@ class TakbiranController extends Controller
     public function create()
     {
         $warga = Warga::all()->pluck('nama_alias','id');
+        // dd($warga);
         return view('admin.takbiran.create', compact('warga'));
     }
 
@@ -32,6 +34,13 @@ class TakbiranController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->all());
+        Takbiran::create([
+            'id_warga' => $request->id_warga,
+            'tgl_kegiatan' => $request->tanggal,
+            'keterangan' => $request->keterangan,
+        ]);
+        return redirect(route('takbiran.index'));
     }
 
     /**
@@ -63,6 +72,7 @@ class TakbiranController extends Controller
      */
     public function destroy(Takbiran $takbiran)
     {
-        // 
+        $takbiran->delete();
+        return redirect(route('takbiran.index'));
     }
 }

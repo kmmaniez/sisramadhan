@@ -26,16 +26,24 @@
                 <th scope="col">Aksi</th>
             </tr>
             </thead>
-            <tr>
-                <td>1</td>
-                <td>Senin, 22 Maret 2022</td>
-                <td>Vira</td>
-                <td>-</td>
-                <td>
-                    <a href="" class="btn btn-sm btn-warning">Edit</a>
-                    <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
-                </td>
-            </tr>
+            <tbody class="table-group-divider">
+                @foreach ($takbiran as $data)
+                <tr>
+                  <th scope="row">{{ $loop->iteration }}</th>
+                  <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }}, {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
+                  <td>{{ $data->warga->nama_alias }}</td>
+                  <td>{{ $data->keterangan }}</td>
+                  <td>
+                    <form action="{{ route('takbiran.destroy', $data->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <a href="{{ route('takbiran.edit', $data->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+                @endforeach
+            </tbody>
         </table>
 
         {{-- <a href="/" class="btn btn-lg btn-secondary">Kembali</a> --}}

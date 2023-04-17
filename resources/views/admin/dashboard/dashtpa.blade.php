@@ -7,12 +7,14 @@
         <h1>Laporan TPA</h1>
         <div class="form-tahun d-flex justify-content-center gap-2 align-items-center">
             <h1>Tahun 2022/1443 H</h1>
-            <form action="" method="post">
-                <select name="" id="" style="width: 24px">
+            <form action="/admin/dashtpa" method="get">
+              @csrf
+                <select name="selec" id="" style="width: 24px">
                     <option value="2022" style="width: 100px;">2022/1443 H</option>
                     <option value="2021" style="width: 100px;">2021/1442 H</option>
                     <option value="2020" style="width: 100px;">2020/1441 H</option>
                 </select>
+                <button type="submit">ea</button>
             </form>
         </div>
       </div>
@@ -21,11 +23,13 @@
 
       <div class="container d-flex flex-column justify-content-center align-items-center mt-3" style="height: 420px; margin:0;">
         <div class="title">
-          <h3>Diagram Kontribusi Pelajar {{ $title }}</h3>
+          {{-- @dump($listustad['total_ajar']) --}}
+          {{-- @dump($namakelompok) --}}
+          {{-- @dump($qq) --}}
+          <h3>Diagram Kontribusi Pelajar</h3>
         </div>
         <canvas id="tpa"></canvas>
       </div>
-
     </div>
 @endsection
 
@@ -34,14 +38,15 @@
 
 <script>
   const chartTpa = document.getElementById('tpa');
-
   new Chart(chartTpa, {
     type: 'bar',
     data: {
-      labels: ['Nama Pengajar 1','Nama Pengajar 2','Nama Pengajar 3','Nama Pengajar 4'],
+      // labels: ['Nama Pengajar 1','Nama Pengajar 2','Nama Pengajar 3','Nama Pengajar 4'],
+      labels: {{ Js::from($listustad['nama_ustadh'])}},
       datasets: [{
         label: 'Jumlah pertemuan',
-        data: [4,5,3,5,6],
+        // data: [4,5,3,5,6],
+        data:{{ Js::from($listustad['total_ajar']) }},
         borderWidth: 1,
         // borderColor: '#FF6384',
         backgroundColor: 'rgba(68, 68, 255, 0.693)',

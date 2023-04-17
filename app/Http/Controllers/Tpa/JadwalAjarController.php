@@ -18,13 +18,34 @@ class JadwalAjarController extends Controller
     public function index()
     {
         $jadwalajar = JadwalAjar::all();
-        $jadwal['senin'] = [];
-        $jadwal['selasa'] = [];
-        $jadwal['rabu'] = [];
-        $jadwal['kamis'] = [];
-        $jadwal['jumat'] = [];
-        $jadwal['sabtu'] = [];
+        // dd($jadwalajar);
+        $jadwal['senin'] = DB::select("SELECT u.nama FROM `jadwal_ajar` as j
+        JOIN hari as h ON j.id_hari = h.id 
+        JOIN ustadh as u ON j.id_ustadh = u.kode_ust
+        WHERE h.nama_hari='Senin'");
 
+        $jadwal['selasa'] = DB::select("SELECT u.nama FROM `jadwal_ajar` as j
+        JOIN hari as h ON j.id_hari = h.id 
+        JOIN ustadh as u ON j.id_ustadh = u.kode_ust
+        WHERE h.nama_hari='Selasa'");
+
+        $jadwal['rabu'] = DB::select("SELECT u.nama FROM `jadwal_ajar` as j
+        JOIN hari as h ON j.id_hari = h.id 
+        JOIN ustadh as u ON j.id_ustadh = u.kode_ust
+        WHERE h.nama_hari='Rabu'");
+
+        $jadwal['kamis'] = DB::select("SELECT u.nama FROM `jadwal_ajar` as j
+        JOIN hari as h ON j.id_hari = h.id 
+        JOIN ustadh as u ON j.id_ustadh = u.kode_ust
+        WHERE h.nama_hari='kamis'");
+
+$jadwal['jumat'] = DB::select("SELECT u.nama FROM `jadwal_ajar` as j
+JOIN hari as h ON j.id_hari = h.id 
+JOIN ustadh as u ON j.id_ustadh = u.kode_ust
+WHERE h.nama_hari='Jumat'");
+
+        $jj = JadwalAjar::all()->where('id_hari','=',2);
+        // dd($jadwalajar, $jj, $jadwal);
         return view('admin.tpa.index', compact('jadwalajar','jadwal'));
     }
 

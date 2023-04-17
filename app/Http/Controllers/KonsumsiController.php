@@ -29,6 +29,7 @@ class KonsumsiController extends Controller
     public function store(Request $request)
     {
         //
+        dd($request->all());
     }
 
     /**
@@ -60,6 +61,7 @@ class KonsumsiController extends Controller
      */
     public function destroy(Konsumsi $konsumsi)
     {
-        // 
+        $konsumsi->delete();
+        return redirect(route('konsumsi.index'));
     }
 }

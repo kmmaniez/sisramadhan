@@ -27,16 +27,23 @@
             </tr>
             </thead>
             <tbody class="table-group-divider">
+                @foreach ($sholatied as $data)
                 <tr>
-                    <td>1</td>
-                    <td>Selasa, 12 Januari 2022</td>
-                    <td>Masjid Al-Falah</td>
-                    <td>-</td>
-                    <td>
-                        <a href="" class="btn btn-sm btn-warning">Edit</a>
+                  <th scope="row">{{ $loop->iteration }}</th>
+                  <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }}, {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
+                  <td>{{ $data->tmpt_sholat }}</td>
+                  <td>{{ $data->keterangan }}</td>
+                  <td>
+                    <form action="{{ route('sholatied.destroy', $data->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <a href="{{ route('sholatied.edit', $data->id) }}" class="btn btn-sm btn-warning">Edit</a>
                         <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
-                    </td>
+                    </form>
+                  </td>
                 </tr>
+                    
+                @endforeach
             </tbody>
         </table>
 

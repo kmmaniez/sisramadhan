@@ -37,37 +37,27 @@
             </tr>
             </thead>
             <tbody class="table-group-divider">
+                {{-- @dd($u1) --}}
+                @foreach ($tadarus as $data)
                 <tr>
-                    <td>1</td>
-                    <td>Anak</td>
-                    <td>2</td>
-                    <td>Udin, Cika</td>
-                    <td>
-                        <a href="" class="btn btn-sm btn-warning">Edit</a>
+                  <th scope="row">{{ $loop->iteration }}</th>
+                  <td>{{ $data->nama_kelompok }}</td>
+                  <td>{{ $data->jumlah_khatam }}</td>
+                  <td>
+                     @foreach (json_decode($data->nama_warga) as $key => $warga)
+                        {{ $warga }},
+                    @endforeach
+                  </td>
+                  <td>
+                    <form action="{{ route('tadarus.destroy', $data->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <a href="{{ route('tadarus.edit', $data->id) }}" class="btn btn-sm btn-warning">Edit</a>
                         <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
-                    </td>
+                    </form>
+                  </td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Remaja Masjid</td>
-                    <td>11</td>
-                    <td>Herman, Cakra, Pablo, Rehan</td>
-                    <td>
-                        <a href="" class="btn btn-sm btn-warning">Edit</a>
-                        <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Ibu</td>
-                    <td>5</td>
-                    <td>Siti, Jihan</td>
-                    <td>
-                        <a href="" class="btn btn-sm btn-warning">Edit</a>
-                        <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
-                    </td>
-                </tr>
-
+                @endforeach
             </tbody>
         </table>
 

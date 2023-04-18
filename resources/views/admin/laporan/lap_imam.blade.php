@@ -21,26 +21,23 @@
                 </tr>
               </thead>
               <tbody class="table-group-divider">
+                @foreach ($listkonsumsi as $data)
                 <tr>
-                  <th scope="row">1</th>
-                  <td>Rabu, 20 April 2022</td>
-                  <td>-</td>
-                  <td>-</td>
+                  <td>{{ $loop->iteration }}</td>
+                  <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }}, {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
+                  <td>
+                    @foreach (json_decode($data->warga_takjil) as $key => $donaturtakjil )
+                      <span>{{ $donaturtakjil }}, </span>
+                    @endforeach
+                  </td>
+                  <td>
+                    @foreach (json_decode($data->warga_jabur) as $key => $donaturjabur )
+                      <span>{{ $donaturjabur }}, </span>
+                    @endforeach
+                  </td>
                 </tr>
+              @endforeach
               </tbody>
-              {{-- <tbody class="table-group-divider">
-                @foreach ($warga as $data)
-                <tr>
-                  <th scope="row">{{ $loop->iteration }}</th>
-                  <td>{{ $data->nama_keluarga }}</td>
-                  <td>{{  $data->nama_asli }}</td>
-                  <td>{{  $data->alamat }}</td>
-                  <td>{{  $data->nomor_hp }}</td>
-                  <td>{{  $data->email }}</td>
-                </tr>
-                @endforeach
-              </tbody> --}}
-
           </table>
 
         </div>

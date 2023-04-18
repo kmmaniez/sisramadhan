@@ -23,31 +23,32 @@
     <br>
     <br>
     <table border="1">
-        <thead>
+        <thead style="position: sticky; top:0;">
             <tr>
-                <th scope="col">No</th>
-                <th scope="col">Tanggal Kegiatan</th>
-                <th scope="col">Nama Donatur Takjil</th>
-                <th scope="col">Nama Donatur Jabur</th>
-              </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Rabu, 3 Agustus 2022</td>
-                <td>Jajang | Agus | Bagyo</td>
-                <td>Rehan | Majang | Agus</td>
+              <th scope="col">No</th>
+              <th scope="col">Tanggal Kegiatan</th>
+              <th scope="col">Nama Donatur Takjil</th>
+              <th scope="col">Nama Donatur Jabur</th>
             </tr>
-            {{-- @foreach ($warga as $data)
-                <tr>
-                  <th scope="row">{{ $loop->iteration }}</th>
-                  <td>{{ $data->nama_keluarga }}</td>
-                  <td>{{  $data->nama_asli }}</td>
-                  <td>{{  $data->nomor_hp }}</td>
-                  <td>{{  $data->email }}</td>
-                </tr>
-            @endforeach --}}
-        </tbody>
+          </thead>
+          <tbody class="table-group-divider">
+            @foreach ($listkonsumsi as $data)
+            <tr>
+              <td>{{ $loop->iteration }}</td>
+              <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }}, {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
+              <td>
+                @foreach (json_decode($data->warga_takjil) as $key => $donaturtakjil )
+                  <span>{{ $donaturtakjil }}, </span>
+                @endforeach
+              </td>
+              <td>
+                @foreach (json_decode($data->warga_jabur) as $key => $donaturjabur )
+                  <span>{{ $donaturjabur }}, </span>
+                @endforeach
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
     </table>
 </body>
 </html>

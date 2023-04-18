@@ -12,4 +12,9 @@ class Ustadh extends Model
     protected $guarded = ['id'];
 
     public $timestamps = false;
+
+    public function jadwalajar()
+    {
+        return $this->hasMany(JadwalAjar::class,'id');
+    } 
 }

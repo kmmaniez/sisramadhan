@@ -22,75 +22,36 @@
         <form action="{{ route('konsumsi.store') }}" method="post">
             @csrf
             <div class="form-group mb-3">
-                <label for="exampleFormControlInput1" class="form-label"><strong>Tanggal</strong></label>
-                <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                <label for="tanggal" class="form-label"><strong>Tanggal</strong></label>
+                <input type="date" class="form-control" name="tanggal" id="tanggal" placeholder="name@example.com">
             </div>
             <div class="form-group mb-3">
-                <label for="exampleFormControlInput1" class="form-label"><strong>Nama Donatur Buka Bersama</strong></label>
-                <select class="form-select mb-2" name="donaturbukber[]" aria-label="Default select example" @if (date('D') === 'Sun') disabled @endif>
-                    {{-- <option selected>Donatur 1</option> --}}
-                    <option value="1">Haji 1</option>
-                    <option value="2">Haji 2</option>
-                    <option value="3">Haji 3</option>
-                </select>
-                <select class="form-select mb-2" name="donaturbukber[]" aria-label="Default select example" @if (date('D') === 'Sun') disabled @endif>
-                    {{-- <option selected>Donatur 2</option> --}}
-                    <option value="4">Haji 4</option>
-                    <option value="5">Haji 5</option>
-                    <option value="6">Haji 6</option>
-                </select>
-                <select class="form-select mb-2" name="donaturbukber[]" aria-label="Default select example" @if (date('D') === 'Sun') disabled @endif>
-                    {{-- <option selected>Donatur 3</option> --}}
-                    <option value="7">Haji 7</option>
-                    <option value="8">Haji 8</option>
-                    <option value="9">Haji 9</option>
+                <label for="wargabukber" class="form-label"><strong>Nama Donatur Buka Bersama</strong></label>
+                <select class="form-select select-anggota" id="wargabukber" multiple="multiple" name="wargabukber[]" aria-label="Default select example" @if (date('D') === 'Mon') disabled @endif>
+                    @foreach ($warga as $key => $value)
+                        <option value="{{ $value->nama_alias }}">{{ $value->nama_alias }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group mb-3">
                 <label for="exampleFormControlInput1" class="form-label"><strong>Nama Donatur Takjil</strong></label>
-                <select class="form-select mb-2" aria-label="Default select example">
-                    <option selected>Donatur 1</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-                <select class="form-select mb-2" aria-label="Default select example">
-                    <option selected>Donatur 2</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-                <select class="form-select mb-2" aria-label="Default select example">
-                    <option selected>Donatur 3</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <select class="form-select select-anggota" id="wargatakjil" multiple="multiple" name="wargatakjil[]" aria-label="Default select example" @if (date('D') === 'Sat') disabled @endif>
+                    @foreach ($warga as $key => $value)
+                        <option value="{{ $value->nama_alias }}">{{ $value->nama_alias }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group mb-3">
                 <label for="exampleFormControlInput1" class="form-label"><strong>Nama Donatur Jabur</strong></label>
-                <select class="form-select mb-2" aria-label="Default select example">
-                    <option selected>Donatur 1</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-                <select class="form-select mb-2" aria-label="Default select example">
-                    <option selected>Donatur 2</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-                <select class="form-select mb-2" aria-label="Default select example">
-                    <option selected>Donatur 3</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <select class="form-select select-anggota" id="wargajabur" multiple="multiple" name="wargajabur[]" aria-label="Default select example">
+                    @foreach ($warga as $key => $value)
+                        <option value="{{ $value->nama_alias }}">{{ $value->nama_alias }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="form-group">
-                <label for=""><strong>Keterangan</strong></label>
+                <label for="keterangan"><strong>Keterangan</strong></label>
                 <textarea class="form-control" name="keterangan" id="keterangan" cols="5" rows="5"></textarea>
             </div>
             
@@ -101,3 +62,16 @@
     </div>
 
 @endsection
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            // Select2 Multiple
+            $('.select-anggota').select2({
+                placeholder: "Pilih anggota",
+                allowClear: true
+            });
+
+        });
+    </script>
+@endpush

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('jadwal_ajar', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_ustadh')->references('kode_ust')->on('ustadh')->cascadeOnUpdate()->cascadeOnDelete();;
+            $table->foreignId('id_ustadh')->references('id')->on('ustadh')->cascadeOnUpdate()->cascadeOnDelete();;
             $table->foreignId('id_hari')->references('id')->on('hari')->cascadeOnUpdate()->cascadeOnDelete();;
             $table->string('tahun',10);
             $table->date('tgl_masehi');

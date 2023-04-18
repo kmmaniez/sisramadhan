@@ -28,7 +28,7 @@
                 <label for="listustadh" class="form-label">Pilih Ustadz/Ustadzah</label>
                 <select class="form-select" name="listustadh" id="listustadh" aria-label="Default select example">
                     @foreach ($listustadh as $data)
-                        <option value="{{ $data->kode_ust }}">@if ($data->jenis_kelamin === 'wanita') Ustadzah @else Ustadz @endif {{ $data->nama }}</option>
+                        <option value="{{ $data->id }}">@if ($data->jenis_kelamin === 'wanita') Ustadzah @else Ustadz @endif {{ $data->nama }}</option>
                     @endforeach
                 </select>
             </div>

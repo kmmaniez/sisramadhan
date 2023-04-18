@@ -12,6 +12,7 @@ use App\Models\Role;
 use App\Models\Sholatied;
 use App\Models\Tadarus;
 use App\Models\Takbiran;
+use App\Models\Tarawih;
 use App\Models\Ustadh;
 use App\Models\Warga;
 use App\Models\Zakat;
@@ -24,7 +25,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(5)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
@@ -44,7 +45,7 @@ class DatabaseSeeder extends Seeder
         /* END SETTINGS ROLE & OTHER */
 
         /* WARGA SEEDER START*/
-            for ($i = 0; $i < 10; $i++) {
+            for ($i = 0; $i < 15; $i++) {
                 Warga::create([
                     'nama_keluarga' => 'Keluarga ' . fake('id_ID')->lastName(),
                     'nama_asli'     => fake('id_ID')->name(),
@@ -60,24 +61,19 @@ class DatabaseSeeder extends Seeder
 
             /* TADARUS START*/
 
-            // Kelompok tadarus
             $kelompok = ['Bapak-bapak', 'Ibu-ibu', 'Anak-anak', 'Ibu-ibu Arisan'];
-            for ($i = 0; $i < count($kelompok); $i++) {
-                KelTadarus::create([
-                    'nama_kelompok'     => $kelompok[$i],
+
+            for ($i=0; $i < 10; $i++) { 
+                Tadarus::create([
+                    'nama_kelompok'     => $kelompok[rand(0,count($kelompok) - 1)],
+                    'nama_warga'        => json_encode([
+                        'Jajang','Miranda','Hendra'
+                    ]),
+                    'jumlah_khatam'     => rand(1,30),
+                    'keterangan'        => fake('id_ID')->text(rand(5,15)),
                 ]);
             }
-
-            // Tadarus
-            // for ($i=0; $i < 10; $i++) { 
-            //     Tadarus::create([
-            //         'id_kel_tadarus'    => rand(1,3),
-            //         'id_warga'          => $i + 1,
-            //         'jumlah_khatam'     => rand(1,30),
-            //         'keterangan'        => fake('id_ID')->text(rand(5,15)),
-            //     ]);
-            // }
-        /* TADARUS END*/
+        /* WARGA SEEDER END*/
 
         /* TPA SEEDER START */
             // Hari
@@ -156,5 +152,17 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         /* TAKBIRAN SEEDER END*/
+        
+        /* TARAWIH SEEDER START*/
+            for ($i = 0; $i < 15; $i++) {
+                Tarawih::create([
+                    'tgl_kegiatan'  => fake()->date(),
+                    'id_imam'       => rand(1, 5),
+                    'id_penceramah' => rand(5, 10),
+                    'id_bilal'      => rand(10, 15),
+                    'keterangan'    => 'TARAWIH di Masjid Darussalam',
+                ]);
+            }
+        /* TARAWIH SEEDER END*/
     }
 }

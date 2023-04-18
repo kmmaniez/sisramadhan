@@ -32,22 +32,31 @@
               </tr>
         </thead>
         <tbody>
+            @foreach ($listkonsumsi as $data)
             <tr>
-                <th scope="row">1</th>
-                <td>Rabu, 3 Agustus 2022</td>
-                <td>Jajang | Agus | Bagyo</td>
-                <td>Rehan | Majang | Agus</td>
-                <td>Mustarim</td>
+              <td>{{ $loop->iteration }}</td>
+              <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }}, {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
+              <td>
+                @foreach (json_decode($data->warga_takjil) as $key => $donaturtakjil )
+                  <span>{{ $donaturtakjil }}, </span>
+                @endforeach
+              </td>
+              <td>
+                @foreach (json_decode($data->warga_jabur) as $key => $donaturjabur )
+                  <span>{{ $donaturjabur }}, </span>
+                @endforeach
+              </td>
+              <td>
+                @if (is_null(json_decode($data['warga_bukber'])))
+                    <p>-</p>
+                  @else
+                    @foreach (json_decode($data->warga_bukber) as $key => $donaturbukber)
+                      <span>{{ $donaturbukber }}, </span>
+                    @endforeach
+                  @endif
+              </td>
             </tr>
-            {{-- @foreach ($warga as $data)
-                <tr>
-                  <th scope="row">{{ $loop->iteration }}</th>
-                  <td>{{ $data->nama_keluarga }}</td>
-                  <td>{{  $data->nama_asli }}</td>
-                  <td>{{  $data->nomor_hp }}</td>
-                  <td>{{  $data->email }}</td>
-                </tr>
-            @endforeach --}}
+          @endforeach
         </tbody>
     </table>
 </body>

@@ -57,8 +57,8 @@ class TadarusController extends Controller
     {
         $warga  = Warga::all()->pluck('nama_alias','id');
         // dd($warga);
-        $listkelompok  = KelTadarus::all()->pluck('nama_kelompok','id');
-        return view('admin.tadarus.create', compact('warga', 'listkelompok'));
+        // $listkelompok  = KelTadarus::all()->pluck('nama_kelompok','id');
+        return view('admin.tadarus.create', compact('warga'));
     }
 
     /**

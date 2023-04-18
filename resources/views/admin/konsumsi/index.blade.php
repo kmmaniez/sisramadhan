@@ -23,9 +23,8 @@
             </div>
             <a href="{{ route('konsumsi.create') }}" class="btn btn-lg btn-dark">Tambah Data</a>
         </form>
-
-
         <table class="table table-striped">
+          {{-- @dump($konsumsi) --}}
             <thead>
               <tr>
                 <th scope="col">No</th>
@@ -38,48 +37,36 @@
             </tr>
             </thead>
             <tbody class="table-group-divider">
-              <tr>
-                <th scope="row">1</th>
-                <td>{{ Carbon::now() }}</td>
-                <td>-</td>
-                <td>
-                    <div style="display: flex; flex-direction: column;">
-                        <span>User 1</span>
-                        <span>User 2</span>
-                        <span>User 3</span>
-                    </div>
-                </td>
-                <td>-</td>
-                <td>-</td>
-                <td>
-                    <button class="btn btn-sm btn-warning">Edit</button>
-                    <button class="btn btn-sm btn-danger">Edit</button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>{{ Carbon::now() }}</td>
-                <td>-</td>
-                <td>
-                    <div style="display: flex; flex-direction: column;">
-                        <span>User 1</span>
-                        <span>User 2</span>
-                        <span>User 3</span>
-                    </div>
-                </td>
-                <td>
-                    <div style="display: flex; flex-direction: column;">
-                        <span>User 1</span>
-                        <span>User 2</span>
-                        <span>User 3</span>
-                    </div>
-                </td>
-                <td>Kurang 20</td>
-                <td>
-                    <button class="btn btn-sm btn-warning">Edit</button>
-                    <button class="btn btn-sm btn-danger">Edit</button>
-                </td>
-              </tr>
+              @foreach ($konsumsi as $data)
+                <tr>
+                  <th scope="row">{{ $loop->iteration }}</th>
+                  <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }}, {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
+                  <td class="d-flex flex-column">
+                    @foreach (json_decode($data->warga_takjil) as $key => $donaturtakjil )
+                      <span>{{ $donaturtakjil }}, </span>
+                    @endforeach
+                  </td>
+                  <td class="">
+                    @foreach (json_decode($data->warga_jabur) as $key => $donaturjabur)
+                      <span>{{ $donaturjabur }}, </span>
+                    @endforeach
+                  </td>
+                  <td class="">
+                      @if (is_null(json_decode($data['warga_bukber'])))
+                        <p>-</p>
+                      @else
+                        @foreach (json_decode($data->warga_bukber) as $key => $donaturbukber)
+                          <span>{{ $donaturbukber }}, </span>
+                        @endforeach
+                      @endif
+                  </td>
+                  <td>{{ $data->keterangan }}</td>
+                  <td>
+                      <button class="btn btn-sm btn-warning">Edit</button>
+                      <button class="btn btn-sm btn-danger">Edit</button>
+                  </td>
+                </tr>
+              @endforeach
             </tbody>
         </table>
        {{-- <p class="text-center">Pagination soon</p> --}}

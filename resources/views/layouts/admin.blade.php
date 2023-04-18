@@ -15,14 +15,7 @@
       .child{
         list-style-type: none;
       }
-      body{
-        /* overflow: hidden; */
-      }
       header{
-        /* background-color: red; */
-        /* opacity: 0.3; */
-        /* position: absolute; */
-        /* top: 0; */
         background-color: #eaeaea;
       }
 
@@ -30,28 +23,19 @@
         width: 100%;
         min-height: 100vh;
         height: max-content;
-        /* height: 100%; */
         padding: 0 16px;
-        /* background-color: salmon; */
         display: flex;
         flex-direction: row;
         gap: 2rem;
         overflow: scroll;
       }
       section#ramadhan aside#nav{
-        /* width: 280px; */
         width: 324px;
         padding-top: 40px;
         height: initial;
-        /* height: 100%; */
-        /* background-color: lightblue; */
       }
       section#ramadhan #content{
         margin-top: 40px;
-        /* width: 100%; */
-        /* height: 100%; */
-        /* padding: 16px; */
-        /* background-color: blue; */
       }
     </style>
   </head>
@@ -63,7 +47,6 @@
         <div class="form-group">
           <form action="{{ route('logout') }}" method="post">
             @csrf
-            
             @if (Auth::check())
               <div class="title">
                 <button type="submit" class="btn btn-lg btn-primary">Logout</button>
@@ -71,7 +54,6 @@
             @else
               <a href="/login" class="btn btn-lg btn-none"><strong>Login</strong></a>
             @endif
-            {{-- <a href="/login" class="btn btn-lg btn-none"><strong>Lougut</strong></a> --}}
           </form>
 
         </div>
@@ -81,7 +63,10 @@
   <section id="ramadhan">
 
     <aside class="d-flex border-end" id="nav">
+      <!-- Cek user dengan role panitia / 1 -->
       <ul class="nav flex-column gap-2 w-100">
+
+        @if (Auth::user()->id_role == 1) 
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#dashboarCollapse" role="button" aria-expanded="false" aria-controls="dashboarCollapse">Dashboard</a>
             <ul class="child collapse border-0" id="dashboarCollapse">
@@ -91,6 +76,8 @@
               <li class="ps-4 mt-1 py-1"><a href="/admin/dashtadarus" class="dropdown-item ">Tadarus</a></li>
             </ul>
         </li>
+        @endif
+
         <li class="nav-item">
           <a class="nav-link" href="{{ route('tpa.index') }}">TPA</a>
         </li>
@@ -139,14 +126,6 @@
   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-  <script>
-    let awe = [];
-    // fetch('/admin/getTadarus')
-    // .then(res => res.json())
-    // .then(data => {
-    //   console.log(JSON.parse(data));
-    // })
-  </script>
        
   </body>
     @stack('script')

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('nama_kelompok')->nullable();
             $table->json('nama_warga')->nullable();
             $table->integer('jumlah_khatam');
-            $table->string('keterangan');
             $table->timestamps();
         });
     }

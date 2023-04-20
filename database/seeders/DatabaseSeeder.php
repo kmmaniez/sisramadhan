@@ -57,11 +57,10 @@ class DatabaseSeeder extends Seeder
                     'email'         => fake('id_ID')->email(),
                 ]);
             }
-            /* WARGA SEEDER END*/
+        /* WARGA SEEDER END*/
 
-            /* TADARUS START*/
-
-            $kelompok = ['Bapak-bapak', 'Ibu-ibu', 'Anak-anak', 'Ibu-ibu Arisan'];
+        /* TADARUS SEEDER START*/
+        $kelompok = ['Bapak-bapak', 'Ibu-ibu', 'Anak-anak', 'Ibu-ibu Arisan'];
 
             for ($i=0; $i < 10; $i++) { 
                 Tadarus::create([
@@ -70,14 +69,13 @@ class DatabaseSeeder extends Seeder
                         'Jajang','Miranda','Hendra'
                     ]),
                     'jumlah_khatam'     => rand(1,30),
-                    'keterangan'        => fake('id_ID')->text(rand(5,15)),
                 ]);
             }
-        /* WARGA SEEDER END*/
+        /* TADARUS SEEDER END*/
 
         /* TPA SEEDER START */
             // Hari
-            $listHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu', 'Minggu'];
+            $listHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
             for ($i = 0; $i < count($listHari); $i++) {
                 Hari::create([
                     'nama_hari' => $listHari[$i]
@@ -98,9 +96,10 @@ class DatabaseSeeder extends Seeder
             for ($i = 0; $i < 5; $i++) {
                 JadwalAjar::create([
                     'id_ustadh'     => $i + 1,
-                    'id_hari'       => rand(1, 7),
+                    'id_hari'       => rand(1, 6),
                     'tahun'         => $listTahun[$i],
                     'tgl_masehi'    => fake()->date('Y/m/d'),
+                    'keterangan'    => 'Mengajar Al-Qur\'an & iqra',
                 ]);
             }
         /* TPA SEEDER END*/

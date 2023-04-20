@@ -56,7 +56,11 @@ class TakbiranController extends Controller
      */
     public function edit(Takbiran $takbiran)
     {
-        //
+        $warga = Warga::all();
+        return view('admin.takbiran.edit', [
+            'warga' => $warga,
+            'takbiran' => $takbiran,
+        ]);
     }
 
     /**
@@ -65,6 +69,13 @@ class TakbiranController extends Controller
     public function update(Request $request, Takbiran $takbiran)
     {
         //
+        // dd($request->all());
+        Takbiran::where('id', $takbiran->id)->update([
+            'id_warga' => $request->id_warga,
+            'tgl_kegiatan' => $request->tanggal,
+            'keterangan' => $request->keterangan,
+        ]);
+        return redirect()->route('takbiran.index')->with('success','Berhasil diupdate');
     }
 
     /**

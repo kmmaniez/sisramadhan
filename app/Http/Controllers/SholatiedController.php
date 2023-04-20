@@ -51,7 +51,9 @@ class SholatiedController extends Controller
      */
     public function edit(Sholatied $sholatied)
     {
-        //
+        return view('admin.sholatied.edit', [
+            'sholatied' => $sholatied
+        ]);
     }
 
     /**
@@ -60,6 +62,12 @@ class SholatiedController extends Controller
     public function update(Request $request, Sholatied $sholatied)
     {
         //
+        Sholatied::where('id', $sholatied->id)->update([
+            'tgl_kegiatan' => $request->tanggal,
+            'tmpt_sholat' => $request->tempat,
+            'keterangan' => $request->keterangan,
+        ]);
+        return redirect(route('sholatied.index'));
     }
 
     /**

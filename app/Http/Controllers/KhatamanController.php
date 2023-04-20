@@ -13,7 +13,7 @@ class KhatamanController extends Controller
     public function index()
     {
         //
-        $khataman = Khataman::all();
+        $khataman = Khataman::paginate(5);
         // dd($khataman);
         return view('admin.khataman.index', compact('khataman'));
     }
@@ -55,6 +55,9 @@ class KhatamanController extends Controller
     public function edit(Khataman $khataman)
     {
         //
+        return view('admin.khataman.edit',[
+            'khataman' => $khataman
+        ]);
     }
 
     /**
@@ -63,6 +66,12 @@ class KhatamanController extends Controller
     public function update(Request $request, Khataman $khataman)
     {
         //
+        Khataman::where('id', $khataman->id)->update([
+            'jenis_kegiatan'    => $request->jenis_kegiatan,
+            'tgl_kegiatan'      => $request->tanggal,
+            'keterangan'        => $request->keterangan,
+        ]);
+        return redirect(route('khataman.index'));
     }
 
     /**

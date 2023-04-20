@@ -13,7 +13,9 @@ class WargaController extends Controller
     public function index()
     {
         //
-        $warga = Warga::all();
+        // $warga = Warga::all();
+        $warga = Warga::paginate(5);
+        // dump($warga);
         return view('admin.warga.index', compact('warga'));
     }
 
@@ -87,7 +89,17 @@ class WargaController extends Controller
      */
     public function update(Request $request, Warga $warga)
     {
-        //
+        Warga::where('id', $warga->id)->update([
+            'nama_keluarga' => $request->nama_keluarga,
+            'nama_asli' => $request->nama_asli,
+            'nama_alias' => $request->nama_alias,
+            'alamat' => $request->alamat,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'nomor_hp' => $request->nomorhp,
+            'email' => $request->email,
+        ]);
+        return redirect(route('warga.index'));
     }
 
     /**

@@ -7,7 +7,7 @@
             <h1>Form Data Warga</h1>
         </div>
 
-        <form action="{{ route('warga.store') }}" method="post">
+        <form action="{{ route('warga.update', $warga->id) }}" method="post">
             @csrf
             @method('PUT')
 
@@ -37,7 +37,11 @@
                     <select class="form-select" name="rt" id="rt" style="width: 80px;" aria-label="Default select example">
                         {{-- <option value="" selected style="display: none">0</option> --}}
                         @foreach ($listrt as $datart)
-                            <option value="{{ $datart }}">{{ $datart }}</option>
+                            @if (old('rt', $warga->rt) == $datart)
+                                <option value="{{ $datart }}" selected>{{ $warga->rt }}</option>
+                            @else  
+                                <option value="{{ $datart }}">{{ $datart }}</option>
+                            @endif
                         @endforeach
                     </select>
                     
@@ -46,7 +50,11 @@
                     <select class="form-select" name="rw" id="rw" style="width: 80px;" aria-label="Default select example">
                         {{-- <option value="" selected style="display: none">0</option> --}}
                         @foreach ($listrw as $datarw)
-                            <option value="{{ $datarw }}">{{ $datarw }}</option>
+                            @if (old('rt', $warga->rw) == $datarw)
+                                <option value="{{ $datarw }}" selected>{{ $warga->rw }}</option>
+                            @else  
+                                <option value="{{ $datarw }}">{{ $datarw }}</option>
+                            @endif
                         @endforeach
                     </select>
                     

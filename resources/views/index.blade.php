@@ -88,7 +88,7 @@
                       <img src="{{ asset('assets/icon/sholat-ied.png') }}" class="card-img-top w-50" alt="...">
                       <h5 class="card-title mt-3">Sholat Ied</h5>
                       <p class="card-text">Agenda kegiatan sholat ied </p>
-                      <a href="/ied" class="btn btn-dark w-100">Selengkapnya</a>
+                      <a href="/sholatied" class="btn btn-dark w-100">Selengkapnya</a>
                     </div>
                   </div>
                 </div>

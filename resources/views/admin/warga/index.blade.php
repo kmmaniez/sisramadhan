@@ -50,7 +50,7 @@
             @endforeach
         </tbody>
     </table>
-
+    {{ $warga->links() }}
     <a href="/" class="btn btn-lg btn-secondary">Kembali</a>
 
 @endsection

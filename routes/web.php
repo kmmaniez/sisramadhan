@@ -73,8 +73,18 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('tarawih', TarawihController::class)->except('show');
     
     // ROUTE TADARUS
-    Route::resource('tadarus', TadarusController::class)->except('show');
-    
+    // Route::resource('tadarus', TadarusController::class)->except('show');
+    Route::controller(TadarusController::class)->group(function(){
+        Route::get('/tadarus', 'index')->name('tadarus.index');
+        
+        Route::get('/tadarus/create', 'create')->name('tadarus.create');
+        Route::post('/tadarus', 'store')->name('tadarus.store');
+
+        Route::get('/tadarus/edit/{tadarus}', 'edit')->name('tadarus.edit');
+        Route::put('/tadarus/edit/{tadarus}/edit', 'update')->name('tadarus.update');
+        Route::delete('/tadarus/{tadarus}', 'destroy')->name('tadarus.destroy');
+    });
+
     // ROUTE KHATAMAN
     Route::resource('khataman', KhatamanController::class)->except('show');
     
@@ -83,6 +93,15 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     // ROUTE TAKBIRAN
     Route::resource('takbiran', TakbiranController::class)->except('show');
+    // Route::controller(TakbiranController::class)->group(function(){
+    //     Route::get('/takbiran', 'index')->name('takbiran.index');
+        
+    //     Route::get('/takbiran/create', 'create')->name('takbiran.create');
+    //     Route::post('/takbiran/create', 'store')->name('takbiran.store');
+
+    //     Route::get('/takbiran/edit/{takbiran}', 'edit')->name('takbiran.edit');
+    //     Route::delete('/takbiran/{takbiran}', 'destroy')->name('takbiran.destroy');
+    // });
     
     // ROUTE SHOLATIED
     Route::resource('sholatied',SholatiedController::class)->except('show');

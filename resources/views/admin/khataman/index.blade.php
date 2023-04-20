@@ -45,9 +45,9 @@
                 @endforeach
             </tbody>
         </table>
-
+        {{ $khataman->links() }}
         {{-- <p class="text-center">pagination soon</p> --}}
-        <nav aria-label="Page navigation example">
+        {{-- <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
               <li class="page-item">
                 <a class="page-link" href="#" aria-label="Previous">
@@ -63,7 +63,7 @@
                 </a>
               </li>
             </ul>
-        </nav>
+        </nav> --}}
         {{-- <a href="/" class="btn btn-lg btn-secondary">Kembali</a> --}}
        
     {{-- </div> --}}

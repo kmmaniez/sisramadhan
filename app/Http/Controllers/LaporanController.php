@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Konsumsi;
 use App\Models\Warga;
 use Illuminate\Http\Request;
 use PDF;
@@ -12,15 +13,19 @@ class LaporanController extends Controller
     public function index()
     {
         $warga = Warga::all();
+        $listkonsumsi = Konsumsi::all();
         return view('admin.laporan.lap_imam', [
-            'warga' => $warga
+            'warga' => $warga,
+            'listkonsumsi'  => $listkonsumsi
         ]);
     }
     public function cetakImam()
     {
         $data = Warga::all();
+        $listkonsumsi = Konsumsi::all();
         $pdf    = PDF::loadView('admin.laporan.print.cetak_imam',[
-            'warga'  => $data 
+            'warga'  => $data,
+            'listkonsumsi'  => $listkonsumsi
         ]);
         return $pdf->download('cetak-imam.pdf');
     }
@@ -28,13 +33,16 @@ class LaporanController extends Controller
     // INDEX & CETAK KULTUM
     public function indexKultum()
     {
-        return view('admin.laporan.lap_kultum');
+        $listkonsumsi = Konsumsi::all();
+        return view('admin.laporan.lap_kultum', compact('listkonsumsi'));
     }
     public function cetakKultum()
     {
         $data = Warga::all();
+        $listkonsumsi = Konsumsi::all();
         $pdf    = PDF::loadView('admin.laporan.print.cetak_kultum',[
-            'warga'  => $data 
+            'warga'  => $data,
+            'listkonsumsi'  => $listkonsumsi
         ]);
         return $pdf->download('cetak-kultum.pdf');
     }
@@ -42,13 +50,16 @@ class LaporanController extends Controller
     // INDEX & CETAK KONSUMSI
     public function indexKonsumsi()
     {
-        return view('admin.laporan.lap_konsumsi');
+        $listkonsumsi = Konsumsi::all();
+        return view('admin.laporan.lap_konsumsi', compact('listkonsumsi'));
     }
     public function cetakKonsumsi()
     {
         $data = Warga::all();
+        $listkonsumsi = Konsumsi::all();
         $pdf    = PDF::loadView('admin.laporan.print.cetak_konsumsi',[
-            'warga'  => $data 
+            'warga'  => $data ,
+            'listkonsumsi'  => $listkonsumsi ,
         ]);
         return $pdf->download('cetak-konsumsi.pdf');
     }

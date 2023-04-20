@@ -33,6 +33,11 @@
                 </select>
             </div>
 
+            <div class="form-group mb-3">
+                <label for="keterangan" class="form-label">Keterangan</label>
+                <input type="text" class="form-control" name="keterangan" id="keterangan" placeholder="contoh: Mengajar iqra">
+            </div>
+
             <button type="submit" class="btn btn-lg btn-dark mt-3">Simpan</button>
 
         </form>

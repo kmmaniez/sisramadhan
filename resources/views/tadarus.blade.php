@@ -17,12 +17,18 @@
               </tr>
             </thead>
             <tbody class="table-group-divider">
-              <tr>
-                <th scope="row">1</th>
-                <td>Bapak-bapak</td>
-                <td>1</td>
-                <td>-</td>
-              </tr>
+              @foreach ($tadarus as $data)
+                <tr>
+                  <th scope="row">{{ $loop->iteration }}</th>
+                  <td>{{ $data->nama_kelompok }}</td>
+                  <td>{{ $data->jumlah_khatam }}</td>
+                  <td> Anggota yang aktif
+                     @foreach (json_decode($data->nama_warga) as $key => $warga)
+                        {{ $warga }},
+                    @endforeach
+                  </td>
+                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

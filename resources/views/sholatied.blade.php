@@ -16,12 +16,14 @@
               </tr>
             </thead>
             <tbody class="table-group-divider">
+              @foreach ($sholatied as $data)
               <tr>
-                <th scope="row">1</th>
-                <td>{{ date('d-m-Y') }}</td>
-                <td>Masjid</td>
-                <td>-</td>
+                <th scope="row">{{ $loop->iteration }}</th>
+                <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }}, {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
+                <td>{{ $data->tmpt_sholat }}</td>
+                <td>{{ $data->keterangan }}</td>
               </tr>
+              @endforeach
             </tbody>
           </table>
     </div>

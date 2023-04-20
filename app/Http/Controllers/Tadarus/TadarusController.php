@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\KelTadarus;
 use App\Models\Tadarus;
 use App\Models\Warga;
+use Illuminate\Console\View\Components\Warn;
 use Illuminate\Http\Request;
 
 class TadarusController extends Controller
@@ -72,7 +73,6 @@ class TadarusController extends Controller
             'nama_kelompok' => $request->nama_kelompok,
             'nama_warga' => json_encode($request->anggota),
             'jumlah_khatam' => $request->jumlah_khatam,
-            'keterangan' => '1',
         ]);
         return redirect(route('tadarus.index'));
     }
@@ -90,7 +90,10 @@ class TadarusController extends Controller
      */
     public function edit(Tadarus $tadarus)
     {
-        //
+        return view('admin.tadarus.edit', [
+            'tadarus' => $tadarus,
+            'warga' => Warga::all()
+        ]);
     }
 
     /**
@@ -98,15 +101,21 @@ class TadarusController extends Controller
      */
     public function update(Request $request, Tadarus $tadarus)
     {
-        //
+        dd($request->all());
+        Tadarus::where('id', $tadarus->id)->update([
+            'nama_kelompok' => $request->nama_kelompok,
+            'nama_warga' => json_encode($request->anggota),
+            'jumlah_khatam' => $request->jumlah_khatam,
+        ]);
+        return redirect(route('tadarus.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tadarus $tadaru)
+    public function destroy(Tadarus $tadarus)
     {
-        $tadaru->delete();
+        $tadarus->delete();
         return redirect(route('tadarus.index'));
     }
 }

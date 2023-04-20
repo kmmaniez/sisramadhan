@@ -29,6 +29,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+Route::get('/dashboard', function(){
+    return view('admin.dashboard.index');
+})->middleware('auth')->name('dashboard');
 
 Route::controller(PublicController::class)->group(function(){
     Route::get('/tpa', 'tpaIndex');
@@ -41,10 +44,7 @@ Route::controller(PublicController::class)->group(function(){
     Route::get('/sholatied', 'sholatiedIndex');
 });
 
-Route::middleware('auth')->group(function(){
-    // Route::get('/login', fn() => view('login'))->name('login');
-    // Route::post('/logout', [AuthController::class,'destroy'])->name('logout');
-    
+Route::middleware('guest')->group(function(){
     // LOGIN GOOGLE
     Route::get('/auth/{provider}',          [SocialiteController::class, 'redirectToProvider']);
     Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
@@ -93,15 +93,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     // ROUTE TAKBIRAN
     Route::resource('takbiran', TakbiranController::class)->except('show');
-    // Route::controller(TakbiranController::class)->group(function(){
-    //     Route::get('/takbiran', 'index')->name('takbiran.index');
-        
-    //     Route::get('/takbiran/create', 'create')->name('takbiran.create');
-    //     Route::post('/takbiran/create', 'store')->name('takbiran.store');
-
-    //     Route::get('/takbiran/edit/{takbiran}', 'edit')->name('takbiran.edit');
-    //     Route::delete('/takbiran/{takbiran}', 'destroy')->name('takbiran.destroy');
-    // });
     
     // ROUTE SHOLATIED
     Route::resource('sholatied',SholatiedController::class)->except('show');

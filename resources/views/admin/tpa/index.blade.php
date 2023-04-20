@@ -38,6 +38,7 @@
                 <th scope="col">Rabu</th>
                 <th scope="col">Kamis</th>
                 <th scope="col">Jum'at</th>
+                <th scope="col">Sabtu</th>
                 {{-- <th scope="col">Aksi</th> --}}
             </tr>
             </thead>
@@ -84,6 +85,11 @@
                     </td>
                     <td>
                         @foreach ($jadwal['jumat'] as $key => $value)
+                        <p>{{ $value->nama }}</p>
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach ($jadwal['sabtu'] as $key => $value)
                         <p>{{ $value->nama }}</p>
                         @endforeach
                     </td>

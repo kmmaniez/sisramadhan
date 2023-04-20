@@ -18,7 +18,8 @@
                     <hr style="width: 35%"><span>Atau</span><hr style="width: 35%">
                 </div>
 
-                <form action="" method="post">
+                <form action="{{ route('login') }}" method="post">
+                    @csrf
                     <div class="form-group">
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">

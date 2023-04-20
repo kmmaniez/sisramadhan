@@ -17,12 +17,14 @@
               </tr>
             </thead>
             <tbody class="table-group-divider">
-              <tr>
-                <th scope="row">1</th>
-                <td>{{ date('D') }}, {{ date('d-m-Y') }}</td>
-                <td>Ibu Rizka</td>
-                <td>Mengajar Iqra</td>
-              </tr>
+              @foreach ($tpa as $data)
+                <tr>
+                  <td>{{ $loop->iteration }}</td>
+                  <td>{{ Carbon::parse($data->tgl_masehi)->translatedFormat('l') }}, {{ Carbon::parse($data->tgl_masehi)->translatedFormat('d F Y') }}</td>
+                  <td>{{ $data->ustadh->nama }}</td>
+                  <td>{{ $data->keterangan }}</td>
+                </tr>
+              @endforeach
             </tbody>
           </table>
     </div>

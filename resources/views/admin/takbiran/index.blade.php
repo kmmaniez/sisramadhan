@@ -8,13 +8,17 @@
         </div>
         <hr class="mb-4">
         <form action="" method="get" class="d-flex justify-content-between align-items-center mb-3">
+            @csrf
             <div class="form-group  d-flex justify-content-start gap-2">
                 <input type="text" class="form-control" name="search" id="search" placeholder="Search">
                 <button type="submit" class="btn btn-md btn-secondary">Search</button>
             </div>
             <a href="{{ route('takbiran.create') }}" class="btn btn-lg btn-dark">Tambah Data</a>
         </form>
-        
+        @if (Session::has('success'))
+        <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+            
+        @endif
         {{-- <h1 class="text-secondary w-25 mx-auto" style="margin-top: 10rem; margin-bottom: 15rem;">Belum Ada Data</h1> --}}
         <table class="table table-striped">
             <thead>

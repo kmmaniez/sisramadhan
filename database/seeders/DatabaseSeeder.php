@@ -17,6 +17,7 @@ use App\Models\Ustadh;
 use App\Models\Warga;
 use App\Models\Zakat;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,21 +26,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory(5)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
-        /* START SETTINGS ROLE & OTHER */
+        /* START SETTINGS ROLE, USERS (TAKMIR/PANITIA) & OTHER */
             $listTahun = ['2023', '2022', '2021', '2020', '2019'];
             $listHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu', 'Minggu'];
             $listGender = ['pria', 'wanita']; // sesuai tabel migration
-            $listRole = ['takmir', 'panitia'];
+            $listRole = ['panitia','takmir'];
             for ($i = 0; $i < count($listRole); $i++) {
                 Role::create([
                     'nama_role' => $listRole[$i],
+                ]);
+            }
+
+            // CREATE USER TAKMIR/PANITIA
+            for ($i=0; $i < 5; $i++) { 
+                \App\Models\User::factory()->create([
+                    'id_role'           => $i%2==0 ? 1 : 2,
+                    'name'              => $i%2==0 ? 'Panitia' : 'Takmir',
+                    'email'             => $i%2==0 ? 'panitia'.$i.'@gmail.com' : 'takmir'.$i.'@gmail.com',
+                    'email_verified_at' => now(),
+                    'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                    'remember_token'    => Str::random(10),
                 ]);
             }
         /* END SETTINGS ROLE & OTHER */
@@ -60,7 +67,7 @@ class DatabaseSeeder extends Seeder
         /* WARGA SEEDER END*/
 
         /* TADARUS SEEDER START*/
-        $kelompok = ['Bapak-bapak', 'Ibu-ibu', 'Anak-anak', 'Ibu-ibu Arisan'];
+            $kelompok = ['Bapak-bapak', 'Ibu-ibu', 'Anak-anak', 'Ibu-ibu Arisan'];
 
             for ($i=0; $i < 10; $i++) { 
                 Tadarus::create([

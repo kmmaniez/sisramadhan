@@ -44,8 +44,13 @@ JOIN hari as h ON j.id_hari = h.id
 JOIN ustadh as u ON j.id_ustadh = u.id
 WHERE h.nama_hari='Jumat'");
 
+$jadwal['sabtu'] = DB::select("SELECT u.nama FROM `jadwal_ajar` as j
+JOIN hari as h ON j.id_hari = h.id 
+JOIN ustadh as u ON j.id_ustadh = u.id
+WHERE h.nama_hari='Sabtu'");
+
         $jj = JadwalAjar::all()->where('id_hari','=',2);
-        // dd($jadwalajar, $jj, $jadwal);
+        // dump($jadwal['senin']);
         return view('admin.tpa.index', compact('jadwalajar','jadwal'));
     }
 
@@ -71,6 +76,7 @@ WHERE h.nama_hari='Jumat'");
             'id_ustadh'     => $request->listustadh,
             'id_hari'       => $request->listhari,
             'tahun'         => Carbon::parse($request->tanggal)->translatedFormat('Y'),
+            'keterangan'    => $request->keterangan,
             'tgl_masehi'    => $request->tanggal,
         ]);
         return redirect(route('tpa.index'));

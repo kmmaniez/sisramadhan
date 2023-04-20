@@ -25,7 +25,7 @@
         </div>
         <canvas id="tadarus"></canvas>
       </div>
-      {{-- {{ json_encode($namakelompok) }} --}}
+      {{-- {{ json_encode($tadarus['listnama']) }} --}}
     </div>
 
 @endsection
@@ -35,15 +35,15 @@
 
 <script>
   const chartTadarus = document.getElementById('tadarus');
-  // var ea = {{ Js::from($namakelompok) }};
   new Chart(chartTadarus, {
     type: 'bar',
     data: {
       // labels: ['Kelompok 1','Kelompok 2','Kelompok 3','Kelompok 4'],
-      labels: <?= json_encode($namakelompok) ?>,
+      labels: <?= json_encode($tadarus['listnama']) ?>,
       datasets: [{
         label: 'Jumlah Khataman',
-        data: [4,2,3,6,7],
+        // data: [4,2,3,6,7],
+        data: <?= json_encode($tadarus['jumlah']); ?>,
         borderWidth: 1,
         // borderColor: '#FF6384',
         backgroundColor: 'rgba(68, 68, 255, 0.693)',

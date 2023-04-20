@@ -25,7 +25,7 @@
         <div class="title">
           {{-- @dump($listustad['total_ajar']) --}}
           {{-- @dump($namakelompok) --}}
-          {{-- @dump($qq) --}}
+          {{-- @dump($listustad['total_ajar']) --}}
           <h3>Diagram Kontribusi Pelajar</h3>
         </div>
         <canvas id="tpa"></canvas>
@@ -38,6 +38,7 @@
 
 <script>
   const chartTpa = document.getElementById('tpa');
+  
   new Chart(chartTpa, {
     type: 'bar',
     data: {
@@ -46,7 +47,7 @@
       datasets: [{
         label: 'Jumlah pertemuan',
         // data: [4,5,3,5,6],
-        data:{{ Js::from($listustad['total_ajar']) }},
+        data: <?= json_encode(Arr::collapse($listustad['total_ajar'])) ?>,
         borderWidth: 1,
         // borderColor: '#FF6384',
         backgroundColor: 'rgba(68, 68, 255, 0.693)',

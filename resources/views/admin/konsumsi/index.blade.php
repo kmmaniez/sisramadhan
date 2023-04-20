@@ -41,15 +41,29 @@
                 <tr>
                   <th scope="row">{{ $loop->iteration }}</th>
                   <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }}, {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
-                  <td class="d-flex flex-column">
-                    @foreach (json_decode($data->warga_takjil) as $key => $donaturtakjil )
+                  <td class="">
+                    {{-- @foreach (json_decode($data->warga_takjil) as $key => $donaturtakjil )
                       <span>{{ $donaturtakjil }}, </span>
-                    @endforeach
+                    @endforeach --}}
+                    @if (is_null(json_decode($data['warga_takjil'])))
+                      <p>-</p>
+                    @else
+                      @foreach (json_decode($data->warga_takjil) as $key => $donaturtakjil)
+                        <span>{{ $donaturtakjil }}, </span>
+                      @endforeach
+                    @endif
                   </td>
                   <td class="">
-                    @foreach (json_decode($data->warga_jabur) as $key => $donaturjabur)
+                    {{-- @foreach (json_decode($data->warga_jabur) as $key => $donaturjabur)
                       <span>{{ $donaturjabur }}, </span>
-                    @endforeach
+                    @endforeach --}}
+                    @if (is_null(json_decode($data['warga_jabur'])))
+                      <p>-</p>
+                    @else
+                      @foreach (json_decode($data->warga_jabur) as $key => $donaturjabur)
+                        <span>{{ $donaturjabur }}, </span>
+                      @endforeach
+                    @endif
                   </td>
                   <td class="">
                       @if (is_null(json_decode($data['warga_bukber'])))
@@ -62,30 +76,35 @@
                   </td>
                   <td>{{ $data->keterangan }}</td>
                   <td>
-                      <button class="btn btn-sm btn-warning">Edit</button>
-                      <button class="btn btn-sm btn-danger">Edit</button>
+                      <form action="{{ route('konsumsi.destroy', $data->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <a href="{{ route('konsumsi.edit', $data->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
+                    </form>
                   </td>
                 </tr>
               @endforeach
             </tbody>
         </table>
+        {{ $konsumsi->links() }}
        {{-- <p class="text-center">Pagination soon</p> --}}
-       <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-    </nav>
+    {{-- <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav> --}}
 
 @endsection

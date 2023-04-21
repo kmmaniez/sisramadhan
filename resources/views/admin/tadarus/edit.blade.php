@@ -25,10 +25,15 @@
             <div class="form-group mb-3 d-flex justify-content-start align-items-center gap-4">
                 <label for="jumlah_khatam" class="form-label">Jumlah Khataman</label>
                 <select class="form-select mb-2" id="jumlah_khatam" name="jumlah_khatam" style="width: 100px" aria-label="Default select example">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                    @foreach ($listJuz as $juz)
+                        @if (old('jumlah_khatam', $tadarus->jumlah_khatam) == $juz)
+                        <option value="{{ $juz }}" selected>{{ $juz }}</option>
+                            
+                        @else
+                        <option value="{{ $juz }}">{{ $juz }}</option>
+                            
+                        @endif
+                    @endforeach
                 </select>
             </div>
             {{-- @dd($listkelompok) --}}
@@ -39,10 +44,13 @@
             <div class="form-group mb-3">
                 <label for="anggota" class="form-label">Anggota Aktif</label>
                 <select class="form-select select-anggota" id="anggota" multiple="multiple" name="anggota[]" aria-label="Default select example">
-                    @foreach ($warga as $key => $data)
+                    {{-- <option value="">asd</option>
+                    <option value="">read</option>
+                    <option value="" selected>qqas</option>
+                    <option value="">tada</option> --}}
+                    {{-- @foreach ($warga as $key => $data)
                     <option value="{{ $data->nama_alias }}">{{ $data->nama_alias }}</option>
-                       
-                    @endforeach
+                    @endforeach --}}
                 </select>
             </div>
 
@@ -56,11 +64,18 @@
 
 @push('script')
     <script>
+        let data = [
+            {id:0, text:'awewe'},
+            {id:1, text:'aw1'},
+            {id:2, text:'aw2'},
+            {id:3, text:'aw3'},
+        ]
         $(document).ready(function() {
             // Select2 Multiple
             $('.select-anggota').select2({
-                placeholder: "Pilih anggota",
-                allowClear: true,
+                // placeholder: "Pilih anggota",
+                // data: data,
+                // allowClear: true,
             });
 
         });

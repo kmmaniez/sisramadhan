@@ -24,13 +24,12 @@
             <div class="form-group mb-3 d-flex justify-content-start align-items-center gap-4">
                 <label for="jumlah_khatam" class="form-label">Jumlah Khataman</label>
                 <select class="form-select mb-2" id="jumlah_khatam" name="jumlah_khatam" style="width: 100px" aria-label="Default select example">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                    @foreach ($listJuz as $juz)
+                        <option value="{{ $juz }}">{{ $juz }}</option>
+                    @endforeach
                 </select>
             </div>
-            {{-- @dd($listkelompok) --}}
+            {{-- @dump($listJuz) --}}
             <div class="form-group mb-3">
                 <label for="nama_kelompok" class="form-label">Nama Kelompok Tadarus</label>
                 <input type="text" class="form-control" name="nama_kelompok" id="nama_kelompok">

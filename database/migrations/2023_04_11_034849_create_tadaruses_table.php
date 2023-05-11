@@ -17,6 +17,7 @@ return new class extends Migration
             // $table->foreignId('id_warga')->references('id')->on('warga');
             $table->string('nama_kelompok')->nullable();
             $table->json('nama_warga')->nullable();
+            $table->date('tahun_kegiatan');
             $table->integer('jumlah_khatam');
             $table->timestamps();
         });

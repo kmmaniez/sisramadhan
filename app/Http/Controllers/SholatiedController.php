@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sholatied;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SholatiedController extends Controller
 {
@@ -13,7 +14,14 @@ class SholatiedController extends Controller
     public function index()
     {
         $sholatied = Sholatied::all();
-        return view('admin.sholatied.index', compact('sholatied'));
+        $resultSearch = [];
+
+        if (request()->search) {
+            $params = request()->search;
+            $searchQuery = DB::select("SELECT * FROM sholatied WHERE tmpt_sholat LIKE '%$params%' ");
+            array_push($resultSearch, $searchQuery);
+        }
+        return view('admin.sholatied.index', compact('sholatied', 'resultSearch'));
     }
 
     /**

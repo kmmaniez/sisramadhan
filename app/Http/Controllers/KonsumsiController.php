@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Konsumsi;
 use App\Models\Warga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 use function PHPUnit\Framework\isNull;
@@ -16,16 +17,38 @@ class KonsumsiController extends Controller
      */
     public function index()
     {
-        $konsumsi = Konsumsi::paginate(4);
-        return view('admin.konsumsi.index', compact('konsumsi'));
+        $konsumsi = Konsumsi::paginate(5);
+        $konsumsis = Konsumsi::all();
+        $resultSearch = [];
+        if (request()->search) {
+            $params = request()->search;
+            $users = DB::table('konsumsi')
+                ->whereJsonContains('warga_takjil', $params)
+                ->orWhereJsonContains('warga_jabur', $params)
+                ->orWhereJsonContains('warga_bukber', $params)
+                ->get();
+            $resultSearch['data'] = $users;
+        }
+        return view('admin.konsumsi.index', compact('konsumsi', 'resultSearch'));
     }
-    
+
+    public function filterDataByYears(Request $request)
+    {
+        if ($request->year) {
+            $data = DB::select("SELECT * FROM `konsumsi` WHERE YEAR(tgl_kegiatan)='$request->year'");
+            return response()->json([
+                'status' => 'success',
+                'data' => $data,
+            ]);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $warga = Warga::select(['id','nama_alias'])->get();
+        $warga = Warga::select(['id', 'nama_alias'])->get();
         return view('admin.konsumsi.create', compact('warga'));
     }
 
@@ -45,7 +68,7 @@ class KonsumsiController extends Controller
         ]);
         return Redirect::to(route('konsumsi.index'));
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -60,9 +83,10 @@ class KonsumsiController extends Controller
      */
     public function edit(Konsumsi $konsumsi)
     {
-        return view('admin.konsumsi.edit',[
+        return view('admin.konsumsi.edit', [
             'konsumsi' => $konsumsi,
-            'warga' => Warga::all()
+            'warga' => Warga::all(),
+            'jabur' => Konsumsi::select('warga_jabur')->where('id', $konsumsi->id)->get()
         ]);
     }
 

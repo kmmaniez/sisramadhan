@@ -18,7 +18,7 @@ class JadwalAjarController extends Controller
     public function index()
     {
         $jadwalajar = JadwalAjar::all();
-        // dd($jadwalajar);
+
         $jadwal['senin'] = DB::select("SELECT u.nama FROM `jadwal_ajar` as j
         JOIN hari as h ON j.id_hari = h.id 
         JOIN ustadh as u ON j.id_ustadh = u.id
@@ -39,18 +39,16 @@ class JadwalAjarController extends Controller
         JOIN ustadh as u ON j.id_ustadh = u.id
         WHERE h.nama_hari='kamis'");
 
-$jadwal['jumat'] = DB::select("SELECT u.nama FROM `jadwal_ajar` as j
-JOIN hari as h ON j.id_hari = h.id 
-JOIN ustadh as u ON j.id_ustadh = u.id
-WHERE h.nama_hari='Jumat'");
+        $jadwal['jumat'] = DB::select("SELECT u.nama FROM `jadwal_ajar` as j
+        JOIN hari as h ON j.id_hari = h.id 
+        JOIN ustadh as u ON j.id_ustadh = u.id
+        WHERE h.nama_hari='Jumat'");
 
-$jadwal['sabtu'] = DB::select("SELECT u.nama FROM `jadwal_ajar` as j
-JOIN hari as h ON j.id_hari = h.id 
-JOIN ustadh as u ON j.id_ustadh = u.id
-WHERE h.nama_hari='Sabtu'");
+        $jadwal['sabtu'] = DB::select("SELECT u.nama FROM `jadwal_ajar` as j
+        JOIN hari as h ON j.id_hari = h.id 
+        JOIN ustadh as u ON j.id_ustadh = u.id
+        WHERE h.nama_hari='Sabtu'");
 
-        $jj = JadwalAjar::all()->where('id_hari','=',2);
-        // dump($jadwal['senin']);
         return view('admin.tpa.index', compact('jadwalajar','jadwal'));
     }
 
@@ -61,7 +59,6 @@ WHERE h.nama_hari='Sabtu'");
     {
         $listhari = Hari::all();
         $listustadh = Ustadh::all();
-        // dd($listustadh);
         return view('admin.tpa.create', compact('listhari','listustadh'));
     }
 
@@ -70,8 +67,6 @@ WHERE h.nama_hari='Sabtu'");
      */
     public function store(Request $request)
     {
-        //
-        // dd($request->all());
         JadwalAjar::create([
             'id_ustadh'     => $request->listustadh,
             'id_hari'       => $request->listhari,

@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Tarawih;
 use App\Models\Warga;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Termwind\Components\Raw;
+
+use function Pest\Laravel\get;
 
 class TarawihController extends Controller
 {
@@ -13,13 +18,40 @@ class TarawihController extends Controller
      */
     public function index()
     {
-    // $ea = date('D');
-        // echo $ea;
         $tarawih = Tarawih::paginate(5);
-        // $pag = Tarawih::paginate(5);
-        // dump($pag);
-        return view('admin.tarawih.index', compact('tarawih'));
-}
+        $resultSearch = [];
+
+        if (request()->search) {
+            $params = request()->search;
+            $searchQuery = Tarawih::join('warga', function (JoinClause $join){
+                $join->on('tarawih.id_imam','=','warga.id')
+                    ->orOn('tarawih.id_penceramah','=','warga.id')
+                    ->orOn('tarawih.id_bilal','=','warga.id');
+            })->where('warga.nama_alias','LIKE', "%$params%")->get();
+            array_push($resultSearch, $searchQuery);            
+        }
+        return view('admin.tarawih.index', compact('tarawih','resultSearch'));
+    }
+
+    public function filterDataByYears(Request $request)
+    {
+        $data = Tarawih::select('*')->where(DB::raw('YEAR(tgl_kegiatan)'), $request->year)->get();
+        $result = array('data' => []);
+        foreach ($data as $key => $value) {
+            array_push($result['data'], [
+                'id'            => $value->id,
+                'tgl_kegiatan'  => $value->tgl_kegiatan,
+                'imam'          => $value->imam->nama_alias,
+                'penceramah'    => $value->penceramah->nama_alias,
+                'bilal'         => $value->bilal->nama_alias,
+                'keterangan'    => $value->keterangan,
+            ]);
+        } 
+        return response()->json([
+            'status' => 'success',
+            'data' => $result['data'],
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -35,8 +67,6 @@ class TarawihController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // dd($request->all());
         Tarawih::create([
             'tgl_kegiatan' => $request->tanggal,
             'id_imam' => $request->id_imam,

@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
     {
 
         /* START SETTINGS ROLE, USERS (TAKMIR/PANITIA) & OTHER */
-            $listTahun = ['2023', '2022', '2021', '2020', '2019'];
+            $fakerID = fake('id_ID');
+            $listTahun = ['2023', '2022', '2021'];
             $listHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu', 'Minggu'];
             $listGender = ['pria', 'wanita']; // sesuai tabel migration
             $listRole = ['panitia','takmir'];
@@ -54,14 +55,14 @@ class DatabaseSeeder extends Seeder
         /* WARGA SEEDER START*/
             for ($i = 0; $i < 15; $i++) {
                 Warga::create([
-                    'nama_keluarga' => 'Keluarga ' . fake('id_ID')->lastName(),
-                    'nama_asli'     => fake('id_ID')->name(),
-                    'nama_alias'    => fake('id_ID')->firstName(),
-                    'alamat'        => fake('id_ID')->streetAddress(),
+                    'nama_keluarga' => 'Keluarga ' . $fakerID->lastName(),
+                    'nama_asli'     => $fakerID->name(),
+                    'nama_alias'    => $fakerID->firstName(),
+                    'alamat'        => $fakerID->streetAddress(),
                     'rt'            => rand(1, 20),
                     'rw'            => rand(1, 10),
-                    'nomor_hp'      => fake('id_ID')->phoneNumber(),
-                    'email'         => fake('id_ID')->email(),
+                    'nomor_hp'      => $fakerID->phoneNumber(),
+                    'email'         => $fakerID->email(),
                 ]);
             }
         /* WARGA SEEDER END*/
@@ -69,9 +70,10 @@ class DatabaseSeeder extends Seeder
         /* TADARUS SEEDER START*/
             $kelompok = ['Bapak-bapak', 'Ibu-ibu', 'Anak-anak', 'Ibu-ibu Arisan'];
 
-            for ($i=0; $i < 10; $i++) { 
+            for ($i=0; $i < 4; $i++) { 
                 Tadarus::create([
-                    'nama_kelompok'     => $kelompok[rand(0,count($kelompok) - 1)],
+                    'tahun_kegiatan'    => $fakerID->date(),
+                    'nama_kelompok'     => $kelompok[$i],
                     'nama_warga'        => json_encode([
                         'Jajang','Miranda','Hendra'
                     ]),
@@ -82,7 +84,6 @@ class DatabaseSeeder extends Seeder
 
         /* TPA SEEDER START */
             // Hari
-            $listHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
             for ($i = 0; $i < count($listHari); $i++) {
                 Hari::create([
                     'nama_hari' => $listHari[$i]
@@ -92,9 +93,9 @@ class DatabaseSeeder extends Seeder
             // Ustad/h
             for ($i = 0; $i < 5; $i++) {
                 Ustadh::create([
-                    'nama'          => fake('id_ID')->name(),
+                    'nama'          => $fakerID->name(),
                     'jenis_kelamin' => $listGender[rand(0, 1)],
-                    'no_hp'         => fake('id_ID')->phoneNumber,
+                    'no_hp'         => $fakerID->phoneNumber,
                     'status'        => 'A',
                 ]);
             }
@@ -104,8 +105,8 @@ class DatabaseSeeder extends Seeder
                 JadwalAjar::create([
                     'id_ustadh'     => $i + 1,
                     'id_hari'       => rand(1, 6),
-                    'tahun'         => $listTahun[$i],
-                    'tgl_masehi'    => fake()->date('Y/m/d'),
+                    'tahun'         => $listTahun[rand(0, count($listTahun) -1)],
+                    'tgl_masehi'    => $fakerID->date('Y/m/d'),
                     'keterangan'    => 'Mengajar Al-Qur\'an & iqra',
                 ]);
             }
@@ -115,7 +116,7 @@ class DatabaseSeeder extends Seeder
             // Sholat
             for ($i = 0; $i < 5; $i++) {
                 Sholatied::create([
-                    'tgl_kegiatan'  => fake()->date(),
+                    'tgl_kegiatan'  => $fakerID->date(),
                     'tmpt_sholat'   => 'Masjid Darussalam',
                     'keterangan'    => 'Melaksanakan sholat IED di Masjid Darussalam',
                 ]);
@@ -124,9 +125,9 @@ class DatabaseSeeder extends Seeder
             // Khataman
             for ($i = 0; $i < 5; $i++) {
                 Khataman::create([
-                    'tgl_kegiatan'      => fake()->date(),
-                    'jenis_kegiatan'    => fake()->text(15),
-                    'keterangan'        => fake()->text('25'),
+                    'tgl_kegiatan'      => $fakerID->date(),
+                    'jenis_kegiatan'    => $fakerID->text(15),
+                    'keterangan'        => $fakerID->text('25'),
                 ]);
             }
 
@@ -134,8 +135,8 @@ class DatabaseSeeder extends Seeder
             $petugasZakat = [];
             $penerimaZakat = [];
             for ($i = 0; $i < 4; $i++) {
-                $petugasZakat[]     = fake('id_ID')->firstName();
-                $penerimaZakat[]    = fake('id_ID')->lastName();
+                $petugasZakat[]     = $fakerID->firstName();
+                $penerimaZakat[]    = $fakerID->lastName();
             }
             $listPetugasZakat   = json_encode($petugasZakat);
             $listPenerimaZakat  = json_encode($penerimaZakat);
@@ -143,8 +144,8 @@ class DatabaseSeeder extends Seeder
                 Zakat::create([
                     'nama_petugas_zakat'    => $listPetugasZakat,
                     'nama_penerima_zakat'   => $listPenerimaZakat,
-                    'tgl_kegiatan'          => fake()->date(),
-                    'keterangan'            => fake()->text(15),
+                    'tgl_kegiatan'          => $fakerID->date(),
+                    'keterangan'            => $fakerID->text(15),
                 ]);
             }
         /* SEEDER SHOLAT IED, KHATAMAN, ZAKAT */
@@ -153,7 +154,7 @@ class DatabaseSeeder extends Seeder
             for ($i = 0; $i < 5; $i++) {
                 Takbiran::create([
                     'id_warga'      => rand(1, 10),
-                    'tgl_kegiatan'  => fake()->date(),
+                    'tgl_kegiatan'  => $fakerID->date(),
                     'keterangan'    => 'Takbiran di Masjid Darussalam',
                 ]);
             }
@@ -162,7 +163,7 @@ class DatabaseSeeder extends Seeder
         /* TARAWIH SEEDER START*/
             for ($i = 0; $i < 15; $i++) {
                 Tarawih::create([
-                    'tgl_kegiatan'  => fake()->date(),
+                    'tgl_kegiatan'  => $fakerID->date(),
                     'id_imam'       => rand(1, 5),
                     'id_penceramah' => rand(5, 10),
                     'id_bilal'      => rand(10, 15),

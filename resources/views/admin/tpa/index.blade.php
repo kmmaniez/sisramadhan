@@ -1,11 +1,15 @@
+@php
+    $DateConv = new Hijri_GregorianConvert;
+@endphp
 @extends('layouts.admin')
 
+@section('title', 'TPA')
 @section('content')
     
     {{-- <div class="container-fluid px-5"> --}}
         <div class="title text-center mb-5">
             <h1>Jadwal Ustad/zah Pengajar TPA HIDAYATUL FALAH</h1>
-            <h1>Tahun 2022/1443 H</h1>
+            <h1>Tahun {{ date('Y') }}/<?= $DateConv->GregorianToHijri(date('Y'),'YYYY'). 'H'; ?></h1>
             {{-- <div class="form-tahun d-flex justify-content-center gap-2 align-items-center">
                 <form action="" method="post">
                     <select name="" id="" style="width: 24px">

@@ -14,8 +14,14 @@ class KhatamanController extends Controller
     {
         //
         $khataman = Khataman::paginate(5);
-        // dd($khataman);
-        return view('admin.khataman.index', compact('khataman'));
+        $resultSearch = [];
+
+        if (request()->search) {
+            $params = request()->search;
+            $searchQuery = Khataman::where('jenis_kegiatan','like',"%$params%")->get();
+            array_push($resultSearch, $searchQuery);
+        }
+        return view('admin.khataman.index', compact('khataman','resultSearch'));
     }
 
     /**
@@ -34,7 +40,8 @@ class KhatamanController extends Controller
     {
         //
         Khataman::create([
-            'jenis_kegiatan'    => $request->jenis_kegiatan,
+            // 'jenis_kegiatan'    => $request->jenis_kegiatan,
+            'jenis_kegiatan'    => 'Khataman Nuzulul Qur\'an',
             'tgl_kegiatan'      => $request->tanggal,
             'keterangan'        => $request->keterangan,
         ]);
@@ -67,7 +74,8 @@ class KhatamanController extends Controller
     {
         //
         Khataman::where('id', $khataman->id)->update([
-            'jenis_kegiatan'    => $request->jenis_kegiatan,
+            // 'jenis_kegiatan'    => $request->jenis_kegiatan,
+            'jenis_kegiatan'    => 'Khataman Nuzulul Qur\'an',
             'tgl_kegiatan'      => $request->tanggal,
             'keterangan'        => $request->keterangan,
         ]);

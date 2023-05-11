@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Takbiran;
 use App\Models\Warga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TakbiranController extends Controller
 {
@@ -13,9 +14,15 @@ class TakbiranController extends Controller
      */
     public function index()
     {
+        $resultSearch = [];
         $takbiran = Takbiran::all();
-        // dd($takbiran);
-        return view('admin.takbiran.index', compact('takbiran'));
+
+        if (request()->only('search')) {
+            $params = request()->search;
+            $searchQuery = DB::select("SELECT * FROM takbiran join warga WHERE warga.id = takbiran.id_warga and warga.nama_alias LIKE '%$params%' ");
+            array_push($resultSearch, $searchQuery);
+        }
+        return view('admin.takbiran.index', compact('takbiran', 'resultSearch'));
     }
 
     /**
@@ -24,7 +31,6 @@ class TakbiranController extends Controller
     public function create()
     {
         $warga = Warga::all()->pluck('nama_alias','id');
-        // dd($warga);
         return view('admin.takbiran.create', compact('warga'));
     }
 
@@ -33,8 +39,6 @@ class TakbiranController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // dd($request->all());
         Takbiran::create([
             'id_warga' => $request->id_warga,
             'tgl_kegiatan' => $request->tanggal,
@@ -68,8 +72,6 @@ class TakbiranController extends Controller
      */
     public function update(Request $request, Takbiran $takbiran)
     {
-        //
-        // dd($request->all());
         Takbiran::where('id', $takbiran->id)->update([
             'id_warga' => $request->id_warga,
             'tgl_kegiatan' => $request->tanggal,

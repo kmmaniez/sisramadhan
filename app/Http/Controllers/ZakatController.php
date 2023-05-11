@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Zakat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class ZakatController extends Controller
 {
@@ -14,8 +15,28 @@ class ZakatController extends Controller
     public function index()
     {
         $zakat = Zakat::all();
-        // dd($zakat);
-        return view('admin.zakat.index', compact('zakat'));
+        $resultSearch = [];
+
+        if (request()->search) {
+            $params = request()->search;
+            $users = DB::table('zakat')
+                ->whereJsonContains('nama_petugas_zakat', $params)
+                ->orWhereJsonContains('nama_penerima_zakat', $params)
+                ->get();
+            $resultSearch['data'] = $users;
+        }
+        return view('admin.zakat.index', compact('zakat','resultSearch'));
+    }
+
+    public function filterDataByYears(Request $request)
+    {
+        if ($request->year) {
+            $data = DB::select("SELECT * FROM `zakat` WHERE YEAR(tgl_kegiatan)='$request->year'");
+            return response()->json([
+                'status' => 'success',
+                'data' => $data,
+            ]);
+        }
     }
 
     /**
@@ -31,11 +52,10 @@ class ZakatController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+
         $penerima   = json_encode(explode(',', $request->penerima));
         $petugas    = json_encode(explode(',', $request->petugas));
-        // print_r($new);
-        // die;
+
         Zakat::create([
            'nama_petugas_zakat'     => $petugas, 
            'nama_penerima_zakat'    => $penerima, 
@@ -58,25 +78,35 @@ class ZakatController extends Controller
      */
     public function edit(Zakat $zakat)
     {
-        // dump($zakat->nama_penerima_zakat);
-        $penerima = json_decode($zakat->nama_penerima_zakat);
-        $petugas = json_decode($zakat->nama_petugas_zakat);
+        $dataPenerima = json_decode($zakat->nama_penerima_zakat);
+        $dataPetugas = json_decode($zakat->nama_petugas_zakat);
         $penerimalist = '';
         $petugaslist = '';
-        foreach ($penerima as $key => $value) {
-            $penerimalist .= $value . ', ';
-            
+
+        foreach ($dataPenerima as $key => $value) {
+            $penerimalist .= $value . ',';
         }
-        foreach ($petugas as $key => $value) {
-            $petugaslist .= $value . ', ';
+
+        foreach ($dataPetugas as $key => $value) {
+            $petugaslist .= $value . ',';
         }
-        $ea = strrpos(',',$petugaslist);
-        
-        // print_r(strlen($penerimalist) - 2);
+
+        $newPenerimaList = '';
+        $arrPenerima = str_split($penerimalist);
+        for ($i=0; $i < count($arrPenerima) - 1 ; $i++) { 
+            $newPenerimaList .= $arrPenerima[$i];
+        }
+
+        $newPetugasList = '';
+        $arrPetugas = str_split($petugaslist);
+        for ($i=0; $i < count($arrPetugas) - 1 ; $i++) { 
+            $newPetugasList .= $arrPetugas[$i];
+        }
+
         return view('admin.zakat.edit',[
             'zakat' => $zakat,
-            'penerima' => $penerimalist,
-            'petugas' => $petugaslist
+            'penerima' => $newPenerimaList,
+            'petugas' => $newPetugasList
         ]);
     }
 
@@ -85,15 +115,10 @@ class ZakatController extends Controller
      */
     public function update(Request $request, Zakat $zakat)
     {
-        //
-        echo strlen($request->penerima) - 2;
-        // echo str_word_count($request->penerima);
-        dd($request->all());
         $penerima   = json_encode(explode(',', $request->penerima));
         $petugas    = json_encode(explode(',', $request->petugas));
-        // print_r($new);
-        // die;
-        Zakat::create([
+        
+        Zakat::where('id', $zakat->id)->update([
            'nama_petugas_zakat'     => $petugas, 
            'nama_penerima_zakat'    => $penerima, 
            'tgl_kegiatan'           => $request->tanggal, 
@@ -108,6 +133,6 @@ class ZakatController extends Controller
     public function destroy(Zakat $zakat)
     {
         $zakat->delete();
-        return redirect(route('zakat.index'));
+        return redirect()->back();
     }
 }

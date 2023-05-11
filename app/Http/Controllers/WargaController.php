@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Warga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class WargaController extends Controller
 {
@@ -12,11 +13,19 @@ class WargaController extends Controller
      */
     public function index()
     {
-        //
-        // $warga = Warga::all();
-        $warga = Warga::paginate(5);
-        // dump($warga);
-        return view('admin.warga.index', compact('warga'));
+        $warga = Warga::paginate(10);
+        $resultSearch = [];
+
+        if (request()->search) {
+            $params = request()->search;
+            $searchQuery = DB::table('warga')
+                ->where('nama_keluarga','like',"%$params%")
+                ->orWhere('nama_asli','like',"%$params%")
+                ->orWhere('nama_alias', 'like',"%$params%")
+                ->orWhere('alamat', 'like',"%$params%")->get();
+            array_push($resultSearch, $searchQuery);
+        }
+        return view('admin.warga.index', compact('warga', 'resultSearch'));
     }
 
     /**
@@ -31,7 +40,6 @@ class WargaController extends Controller
             array_push($listrt, $i);
             array_push($listrw, $i);
         }
-        // dd($list, $warga, $aw);
         return view('admin.warga.create', [
             'listrt' => $listrt,
             'listrw' => $listrw,
@@ -43,7 +51,6 @@ class WargaController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         Warga::create([
             'nama_keluarga' => $request->nama_keluarga,
             'nama_asli' => $request->nama_asli,

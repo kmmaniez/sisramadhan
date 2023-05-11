@@ -17,8 +17,8 @@
                 <input type="date" name="tanggal" class="form-control" id="tanggal">
             </div>
             <div class="form-group mb-3">
-                <label for="jenis_kegiatan" class="form-label">Jenis Kegiatan</label>
-                <input type="text" class="form-control" name="jenis_kegiatan" id="jenis_kegiatan">
+            <label for="jenis_kegiatan" class="form-label">Jenis Kegiatan</label>
+                <input type="text" class="form-control" name="jenis_kegiatan" id="jenis_kegiatan" value="Khataman nuzulul" disabled>
             </div>
             <div class="form-group mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Keterangan</label>

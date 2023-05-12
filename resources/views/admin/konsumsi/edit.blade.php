@@ -16,10 +16,7 @@
         </div>
         <hr class="mb-4">
         <a href="{{ route('konsumsi.index') }}" class="btn btn-lg btn-secondary mb-4">Kembali</a>
-        {{-- @dump($jabur) --}}
-        {{-- @foreach ($konsumsis as $item)
-            <span>{{ $item->tgl_kegiatan }}</span>
-        @endforeach --}}
+
         <form action="{{ route('konsumsi.update', $konsumsi->id) }}" method="post">
             @method('PUT')
             @csrf
@@ -45,6 +42,7 @@
                         <option value="{{ $value->nama_alias }}">{{ $value->nama_alias }}</option>
                     @endforeach
                 </select>
+                <small class="text-danger"><i>*Biarkan kosong jika tidak mengganti anggota</i></small>
             </div>
             <div class="form-group mb-3">
                 <div class="list-anggota mb-2 d-flex gap-1">
@@ -63,6 +61,7 @@
                         <option value="{{ $value->nama_alias }}">{{ $value->nama_alias }}</option>
                     @endforeach
                 </select>
+                <small class="text-danger"><i>*Biarkan kosong jika tidak mengganti anggota</i></small>
             </div>
             {{-- @dump($konsumsi) --}}
             <div class="form-group mb-3">
@@ -77,11 +76,12 @@
                     @endif
                 </div>
 
-                <select class="form-select select-jabur" id="wargajabur" name="wargajabur[]" multiple>
+                <select class="form-select select-anggota" id="wargajabur" name="wargajabur[]" multiple>
                     @foreach ($warga as $key => $value)
                         <option value="{{ $value->nama_alias }}">{{ $value->nama_alias }}</option>
                     @endforeach
                 </select>
+                <small class="text-danger"><i>*Biarkan kosong jika tidak mengganti anggota</i></small>
             </div>
 
             <div class="form-group">
@@ -101,10 +101,6 @@
         $(document).ready(function() {
             // Select2 Multiple
             $('.select-anggota').select2({
-                placeholder: "Pilih anggota",
-                allowClear: true
-            });
-            $('.select-jabur').select2({
                 placeholder: "Pilih anggota",
                 allowClear: true
             });

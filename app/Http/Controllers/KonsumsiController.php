@@ -95,14 +95,22 @@ class KonsumsiController extends Controller
      */
     public function update(Request $request, Konsumsi $konsumsi)
     {
-        dd($request->all());
+        // dd($request->all());    
         Konsumsi::where('id', $konsumsi->id)->update([
             'tgl_kegiatan'  => $request->tanggal,
-            'warga_takjil'    => json_encode($request->wargatakjil) ?? NULL,
-            'warga_bukber'  => json_encode($request->wargabukber) ?? NULL,
-            'warga_jabur'  => json_encode($request->wargajabur) ?? NULL,
+            'warga_bukber'  => empty($request->wargabukber) ? $konsumsi->warga_bukber : json_encode($request->wargabukber),
+            'warga_takjil'    => empty($request->wargatakjil) ? $konsumsi->warga_takjil : json_encode($request->wargatakjil),
+            'warga_jabur'  => empty($request->wargajabur) ? $konsumsi->warga_jabur : json_encode($request->wargajabur),
             'keterangan'  => $request->keterangan,
         ]);
+
+        // Konsumsi::where('id', $konsumsi->id)->update([
+        //     'tgl_kegiatan'  => $request->tanggal,
+        //     'warga_takjil'    => json_encode($request->wargatakjil) ?? NULL,
+        //     'warga_bukber'  => json_encode($request->wargabukber) ?? NULL,
+        //     'warga_jabur'  => json_encode($request->wargajabur) ?? NULL,
+        //     'keterangan'  => $request->keterangan,
+        // ]);
         return Redirect::to(route('konsumsi.index'));
     }
 

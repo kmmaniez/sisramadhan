@@ -22,7 +22,7 @@ class DashboardController extends Controller
     {
         $countUstad = JadwalAjar::select('id_ustadh')->groupBy('id_ustadh')->get();
         // $countUstad = JadwalAjar::select('id_ustadh')->where('tahun',date('Y'))->groupBy('id_ustadh')->get();
-        dump($countUstad);
+        // dump($countUstad);
         $jumlahustadh = [];
         $jumlahajar = [];
         foreach ($countUstad as $key => $value) {
@@ -33,7 +33,7 @@ class DashboardController extends Controller
                 static::countUstadhSchedule('tpa', $value->id_ustadh)
             ]);
         }
-        dump($jumlahajar,$jumlahustadh);
+        // dump($jumlahajar,$jumlahustadh);
         // $qq = DB::select('SELECT u.nama
         // FROM `jadwal_ajar` as j JOIN ustadh as u 
         // ON u.kode_ust = j.id_ustadh
@@ -138,8 +138,6 @@ class DashboardController extends Controller
                 'kontribusi_bilal'      => $kontribusiBilal,
             ];
         })->toArray();
-
-        arsort($dataKontribusiWarga);
         $dataSortedNew = array();
         array_push($dataSortedNew, array_values($dataKontribusiWarga));
         $getOnlyFourUsers = array(

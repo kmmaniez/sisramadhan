@@ -13,38 +13,24 @@
 
         <div class="box" style="max-height: 500px; overflow-y: scroll;">
             <table class="table table-striped">
-                <thead style="position: sticky; top:0;">
+                <thead style="position: sticky; top:0; background-color: #fff">
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Tanggal Kegiatan</th>
-                        <th scope="col">Nama Donatur Takjil</th>
-                        <th scope="col">Nama Donatur Jabur</th>
+                        <th scope="col">Nama Imam</th>
+                        <th scope="col">Nama Pengisi Kultum</th>
+                        <th scope="col">Nama Bilal</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    @foreach ($listkonsumsi as $data)
+                    @foreach ($listtarawih as $data)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }},
                                 {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
-                            <td>
-                                @if (is_null(json_decode($data->warga_takjil)))
-                                    <p>-</p>
-                                @else
-                                    @foreach (json_decode($data->warga_takjil) as $key => $donaturtakjil)
-                                        <span>{{ $donaturtakjil }}, </span>
-                                    @endforeach
-                                @endif
-                            </td>
-                            <td>
-                                @if (is_null(json_decode($data->warga_jabur)))
-                                    <p>-</p>
-                                @else
-                                    @foreach (json_decode($data->warga_jabur) as $key => $donaturjabur)
-                                        <span>{{ $donaturjabur }}, </span>
-                                    @endforeach
-                                @endif
-                            </td>
+                            <td>{{ $data->imam->nama_alias }}</td>
+                            <td>{{ $data->penceramah->nama_alias }}</td>
+                            <td>{{ $data->bilal->nama_alias }}</td>
                         </tr>
                     @endforeach
                 </tbody>

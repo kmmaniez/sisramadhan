@@ -51,6 +51,7 @@ class WargaController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->input());
         Warga::create([
             'nama_keluarga' => $request->nama_keluarga,
             'nama_asli' => $request->nama_asli,
@@ -60,6 +61,7 @@ class WargaController extends Controller
             'rw' => $request->rw,
             'nomor_hp' => $request->nomorhp,
             'email' => $request->email,
+            'status_keaktifan' => ($request->input('status') === 'aktif') ? true : false,
         ]);
         return redirect(route('warga.index'));
     }
@@ -96,6 +98,7 @@ class WargaController extends Controller
      */
     public function update(Request $request, Warga $warga)
     {
+        // dd($request->all());
         Warga::where('id', $warga->id)->update([
             'nama_keluarga' => $request->nama_keluarga,
             'nama_asli' => $request->nama_asli,
@@ -105,6 +108,7 @@ class WargaController extends Controller
             'rw' => $request->rw,
             'nomor_hp' => $request->nomorhp,
             'email' => $request->email,
+            'status_keaktifan' => ($request->input('status') === 'aktif') ? true : false,
         ]);
         return redirect(route('warga.index'));
     }

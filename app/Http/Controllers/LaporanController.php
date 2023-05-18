@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Konsumsi;
+use App\Models\Tarawih;
 use App\Models\Warga;
 use Illuminate\Http\Request;
 use PDF;
@@ -13,19 +14,19 @@ class LaporanController extends Controller
     public function index()
     {
         $warga = Warga::all();
-        $listkonsumsi = Konsumsi::all();
+        $listtarawih = Tarawih::all();
         return view('admin.laporan.lap_imam', [
             'warga' => $warga,
-            'listkonsumsi'  => $listkonsumsi
+            'listtarawih'  => $listtarawih
         ]);
     }
     public function cetakImam()
     {
         $data = Warga::all();
-        $listkonsumsi = Konsumsi::all();
+        $listtarawih = Tarawih::all();
         $pdf    = PDF::loadView('admin.laporan.print.cetak_imam',[
             'warga'  => $data,
-            'listkonsumsi'  => $listkonsumsi
+            'listtarawih'  => $listtarawih
         ]);
         return $pdf->download('cetak-imam.pdf');
     }

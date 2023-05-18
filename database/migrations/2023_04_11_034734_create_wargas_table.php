@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('rw');
             $table->string('nomor_hp');
             $table->string('email');
-            // $table->string('status_keaktifan');
+            $table->boolean('status_keaktifan')->default(false);
             // $table->string('status_kontributor');
             // $table->timestamps();
         });

@@ -74,7 +74,7 @@
       <!-- Cek user dengan role panitia / 1 -->
       <ul class="nav flex-column gap-2 w-100">
 
-        {{-- @if (Auth::user()->id_role == 1)  --}}
+        @if (Auth::user()->id_role == 1) 
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#dashboarCollapse" role="button" aria-expanded="false" aria-controls="dashboarCollapse">Dashboard</a>
             <ul class="child collapse {{ (request()->routeIs('dash*')) ? 'show' : '' }} border-0" id="dashboarCollapse">
@@ -84,7 +84,7 @@
               <li class="ps-4 mt-1 py-1"><a href="/admin/dashtadarus" class="dropdown-item {{ (request()->routeIs('dash.tadarus')) ? 'fw-bold' : '' }}">Tadarus DONE</a></li>
             </ul>
         </li>
-        {{-- @endif --}}
+        @endif
         <li class="nav-item {{ (request()->routeIs('tpa*')) ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('tpa.index') }}">TPA</a>
         </li>
@@ -112,6 +112,7 @@
         <li class="nav-item {{ (request()->routeIs('warga*')) ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('warga.index') }}">Warga</a>
         </li>
+        @if (Auth::user()->id_role == 1) 
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#laporanCollapse" role="button" aria-expanded="false" aria-controls="laporanCollapse">Laporan</a>
           <ul class="child collapse {{ (request()->routeIs('lap*')) ? 'show' : '' }} " id="laporanCollapse">
@@ -120,6 +121,7 @@
             <li class="ps-4 mt-1 py-1"><a href="/admin/laporan-konsumsi" class="dropdown-item {{ (request()->routeIs('lap.konsumsi')) ? 'fw-bold' : '' }}">Laporan Konsumsi</a></li>
           </ul>
         </li>
+        @endif
       </ul>
     </aside>
 

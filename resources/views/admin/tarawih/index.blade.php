@@ -126,7 +126,7 @@
                   let tableList = `
                   <tr>
                       <td>${index + 1}</td>
-                      <td>${listData[index].tgl_kegiatan}</td>
+                      <td>${moment(listData[index].tgl_kegiatan).format('dddd')}, ${listData[index].tgl_kegiatan}</td>
                       <td>${listData[index].imam}</td>
                       <td>${listData[index].penceramah}</td>
                       <td>${listData[index].bilal}</td>

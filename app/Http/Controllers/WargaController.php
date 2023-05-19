@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KontribusiWarga;
 use App\Models\Warga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -51,7 +52,6 @@ class WargaController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->input());
         Warga::create([
             'nama_keluarga' => $request->nama_keluarga,
             'nama_asli' => $request->nama_asli,
@@ -63,6 +63,7 @@ class WargaController extends Controller
             'email' => $request->email,
             'status_keaktifan' => ($request->input('status') === 'aktif') ? true : false,
         ]);
+        
         return redirect(route('warga.index'));
     }
 

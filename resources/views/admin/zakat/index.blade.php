@@ -134,7 +134,7 @@
                     let tableList = `
                     <tr>
                         <th scope="col">${index + 1}</th>
-                        <td>${listData[index].tgl_kegiatan}, ${listData[index].tgl_kegiatan}</td>
+                        <td>${moment(listData[index].tgl_kegiatan).format('dddd')}, ${listData[index].tgl_kegiatan}</td>
                         <td>${JSON.parse(listData[index].nama_penerima_zakat)}</td>
                         <td>${JSON.parse(listData[index].nama_petugas_zakat)}</td>
                         <td>${listData[index].keterangan}</td>

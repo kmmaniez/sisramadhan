@@ -64,17 +64,16 @@
                 <input type="text" class="form-control" name="email" id="email">
             </div>
 
-            {{-- <div class="form d-flex justify-content-around">
-                <h2>INI FUNGSI ??</h2>
+            <div class="form d-flex justify-content-around">
                 <div class="form-group w-25 d-flex flex-column gap-2">
                     <label for="">Status</label>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                        <label class="form-check-label" for="inlineRadio1">Aktif</label>
+                        <input class="form-check-input" type="radio" name="status" id="aktif" value="aktif">
+                        <label class="form-check-label" for="aktif">Aktif</label>
                         </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                        <label class="form-check-label" for="inlineRadio2">Tidak Aktif</label>
+                        <input class="form-check-input" type="radio" name="status" id="nonaktif" value="nonaktif">
+                        <label class="form-check-label" for="nonaktif">Tidak Aktif</label>
                     </div>                      
                 </div>
 
@@ -102,7 +101,7 @@
                         <label class="form-check-label" for="flexCheckDefault">Donatur</label> 
                     </div> 
                 </div>
-            </div> --}}
+            </div>
             
             <div class="form-group d-flex justify-content-between">
                 <a href="{{ route('warga.index') }}" class="btn btn-lg btn-secondary mt-3">Batal</a>

@@ -70,6 +70,49 @@
                 <input type="text" class="form-control" name="email" id="email" value="{{ old('email', $warga->email) }}">
             </div>
             
+            <div class="form d-flex justify-content-around">
+                <div class="form-group w-25 d-flex flex-column gap-2">
+                    <label for="">Status</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="status" id="aktif" value="aktif" @if ($warga->status_keaktifan)
+                            checked
+                        @endif>
+                        <label class="form-check-label" for="aktif">Aktif</label>
+                        </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="status" id="nonaktif" value="nonaktif" @if (!$warga->status_keaktifan)
+                        checked
+                    @endif>
+                        <label class="form-check-label" for="nonaktif">Tidak Aktif</label>
+                    </div>                      
+                </div>
+
+                <div class="form-group w-75 d-flex flex-column justify-content-center flex-wrap gap-2" style="height: 140px">
+                    <label for="">Kontribusi</label>
+                    
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="check[]" value="imam" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">Imam</label> 
+                    </div> 
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="check[]" value="bilal" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">Bilal</label> 
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="check[]" value="penceramah" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">Penceramah</label> 
+                    </div> 
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="check[]" value="pengajartpa" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">Pengajar TPA</label> 
+                    </div> 
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="check[]" value="donatur" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">Donatur</label> 
+                    </div> 
+                </div>
+            </div>
+
             <div class="form-group d-flex justify-content-between">
                 <a href="{{ route('warga.index') }}" class="btn btn-lg btn-secondary mt-3">Batal</a>
                 <button type="submit" class="btn btn-lg btn-dark mt-3">Update</button>

@@ -1,3 +1,11 @@
+@php
+    $DateConv = new Hijri_GregorianConvert;
+    $format="YYYY/MM/DD";
+    $listTahun = [];
+    for ($i=0; $i < 3; $i++) { 
+        array_push($listTahun, date('Y') - $i);
+    }
+@endphp
 @extends('layouts.admin')
 
 @section('content')
@@ -6,14 +14,7 @@
         <div class="title text-center mb-5">
             <h1>Kegiatan Zakat</h1>
             <div class="form-tahun d-flex justify-content-center gap-2 align-items-center">
-                <h1>Tahun 2022/1443 H</h1>
-                <form action="" method="post">
-                    <select name="" id="" style="width: 24px">
-                        <option value="2022" style="width: 100px;">2022/1443 H</option>
-                        <option value="2021" style="width: 100px;">2021/1442 H</option>
-                        <option value="2020" style="width: 100px;">2020/1441 H</option>
-                    </select>
-                </form>
+                <h1>Tahun <span id="masehi">{{ date('Y') }}</span>/<span id="hijri"><?= $DateConv->GregorianToHijri(date('Y'),'YYYY'); ?></span>H</h1>
             </div>
         </div>
         <hr class="mb-5">

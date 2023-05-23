@@ -1,45 +1,48 @@
+@php
+    $DateConv = new Hijri_GregorianConvert;
+    $format="YYYY/MM/DD";
+    $listTahun = [];
+    for ($i=0; $i < 3; $i++) { 
+        array_push($listTahun, date('Y') - $i);
+    }
+@endphp
 @extends('layouts.admin')
 
-@section('title', 'Laporan Kultum')
+@section('title', 'Laporan Imam')
 @section('content')
 
     <div class="container">
         <div class="title text-center mb-5">
             <h1>Jadwal Pengisi Kultum</h1>
-            <h2>Tahun 2022/1443 H</h2>
+            <h2>Tahun <span id="masehi">{{ date('Y') }}</span>/<span id="hijri"><?= $DateConv->GregorianToHijri(date('Y'),'YYYY'); ?></span>H</h2>
         </div>
         <hr class="mb-4">
         <a href="/admin" class="btn btn-lg btn-secondary mb-4">Kembali</a>
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Tanggal Kegiatan</th>
-                    <th scope="col">Nama Donatur Takjil</th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                @foreach ($listkonsumsi as $data)
+        <div class="box" style="max-height: 500px; overflow-y: scroll;">
+            <table class="table table-striped">
+                <thead style="position: sticky; top:0; background-color: #fff">
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }},
-                            {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
-                        <td>
-                            @if (is_null(json_decode($data->warga_takjil)))
-                                <p>-</p>
-                            @else
-                                @foreach (json_decode($data->warga_takjil) as $key => $donaturtakjil)
-                                    <span>{{ $donaturtakjil }}, </span>
-                                @endforeach
-                            @endif
-                        </td>
+                        <th scope="col">No</th>
+                        <th scope="col">Tanggal Kegiatan</th>
+                        <th scope="col">Nama Penceramah</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="table-group-divider">
+                    @foreach ($listpenceramah as $data)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }},
+                                {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
+                            <td>{{ $data->penceramah->nama_alias }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
 
-        <a href="/admin/lap-kultum/cetak" class="btn btn-lg btn-dark mt-5">Ektrak pdf</a>
+        </div>
+
+        <a href="/admin/lap-imam/cetak" class="btn btn-lg btn-dark mt-5">Ektrak pdf</a>
     </div>
 
 @endsection

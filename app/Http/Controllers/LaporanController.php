@@ -34,8 +34,8 @@ class LaporanController extends Controller
     // INDEX & CETAK KULTUM
     public function indexKultum()
     {
-        $listkonsumsi = Konsumsi::all();
-        return view('admin.laporan.lap_kultum', compact('listkonsumsi'));
+        $listpenceramah = Tarawih::all();
+        return view('admin.laporan.lap_kultum', compact('listpenceramah'));
     }
     public function cetakKultum()
     {

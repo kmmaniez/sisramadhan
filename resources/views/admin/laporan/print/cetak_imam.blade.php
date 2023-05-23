@@ -32,7 +32,6 @@
                 <th scope="col">No</th>
                 <th scope="col">Tanggal Kegiatan</th>
                 <th scope="col">Nama Imam</th>
-                <th scope="col">Nama Pengisi Kultum</th>
                 <th scope="col">Nama Bilal</th>
             </tr>
         </thead>
@@ -43,7 +42,6 @@
                     <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }},
                         {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
                     <td>{{ $data->imam->nama_alias }}</td>
-                    <td>{{ $data->penceramah->nama_alias }}</td>
                     <td>{{ $data->bilal->nama_alias }}</td>
                 </tr>
             @endforeach

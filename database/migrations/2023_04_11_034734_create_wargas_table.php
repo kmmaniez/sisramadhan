@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('nomor_hp');
             $table->string('email');
             $table->boolean('status_keaktifan')->default(false);
-            // $table->string('status_kontributor');
+            $table->json('kontribusi')->nullable();
             // $table->timestamps();
         });
     }

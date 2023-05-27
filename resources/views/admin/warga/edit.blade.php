@@ -69,7 +69,6 @@
                 <label for="email" class="form-label">Email</label>
                 <input type="text" class="form-control" name="email" id="email" value="{{ old('email', $warga->email) }}">
             </div>
-            
             <div class="form d-flex justify-content-around">
                 <div class="form-group w-25 d-flex flex-column gap-2">
                     <label for="">Status</label>
@@ -86,30 +85,32 @@
                         <label class="form-check-label" for="nonaktif">Tidak Aktif</label>
                     </div>                      
                 </div>
-
+                @php
+                    $datakontribusi = json_decode($warga->kontribusi);
+                @endphp
                 <div class="form-group w-75 d-flex flex-column justify-content-center flex-wrap gap-2" style="height: 140px">
                     <label for="">Kontribusi</label>
-                    
+
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="check[]" value="imam" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" name="check[]" value="imam" id="flexCheckDefault" {{ in_array('imam', $datakontribusi) ? 'checked' : '' }} >
                         <label class="form-check-label" for="flexCheckDefault">Imam</label> 
                     </div> 
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="check[]" value="bilal" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" name="check[]" value="bilal" id="flexCheckDefault" {{ in_array('bilal', $datakontribusi) ? 'checked' : '' }}>
                         <label class="form-check-label" for="flexCheckDefault">Bilal</label> 
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="check[]" value="penceramah" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" name="check[]" value="penceramah" id="flexCheckDefault" {{ in_array('penceramah', $datakontribusi) ? 'checked' : '' }}>
                         <label class="form-check-label" for="flexCheckDefault">Penceramah</label> 
                     </div> 
-                    <div class="form-check form-check-inline">
+                    {{-- <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" name="check[]" value="pengajartpa" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">Pengajar TPA</label> 
                     </div> 
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" name="check[]" value="donatur" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">Donatur</label> 
-                    </div> 
+                    </div>  --}}
                 </div>
             </div>
 

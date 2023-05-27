@@ -10,10 +10,13 @@
 <body>
   <header class="py-2 w-100">
     <div class="container-fluid d-flex justify-content-between align-items-center px-5">
-        <h1><strong><a href="/" class="text-decoration-none text-dark">Ramadhankus</a></strong></h1>
-        @if (!Auth::check())
-            <a href="/login" class="btn btn-lg btn-none"><strong>Login</strong></a>            
-        @endif
+        <h1><strong><a href="/" class="text-decoration-none text-dark">Ramadhanku</a></strong></h1>
+        @guest
+          <a href="/login" class="btn btn-lg btn-none"><strong>Login</strong></a>          
+          @endguest
+        @auth
+          <a href="/admin" class="btn btn-lg btn-none"><strong>Dashboard Admin</strong></a>          
+        @endauth
     </div>
   </header>
 

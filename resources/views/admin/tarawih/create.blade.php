@@ -30,17 +30,17 @@
                 <label for="id_imam" class="form-label">Nama Imam</label>
                 <select class="form-select" name="id_imam" id="id_imam">
                     <option value="" selected style="display: none;">Pilih imam</option>
-                    @foreach ($warga as $key => $value)
-                        <option value="{{ $key }}">{{ $value }}</option>
+                    @foreach ($usersImam as $key => $value)
+                        <option value="{{ $value->id }}">{{ $value->nama_alias }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="form-group mb-3">
-                <label for="id_penceramah" class="form-label">Nama Pengisi Kultum</label>
+                <label for="id_penceramah" class="form-label">Nama Pengisi Kultum / Penceramah</label>
                 <select class="form-select" name="id_penceramah" id="id_penceramah">
                     <option value="" selected style="display: none;">Pilih penceramah</option>
-                    @foreach ($warga as $key => $value)
-                        <option value="{{ $key }}">{{ $value }}</option>
+                    @foreach ($usersImam as $key => $value)
+                        <option value="{{ $value->id }}">{{ $value->nama_alias }}</option>
                     @endforeach
                 </select>
             </div>
@@ -48,8 +48,8 @@
                 <label for="id_bilal" class="form-label">Nama Bilal</label>
                 <select class="form-select" name="id_bilal" id="id_bilal">
                     <option value="" selected style="display: none;">Pilih bilal</option>
-                    @foreach ($warga as $key => $value)
-                        <option value="{{ $key }}">{{ $value }}</option>
+                    @foreach ($usersBilal as $key => $value)
+                        <option value="{{ $value->id }}">{{ $value->nama_alias }}</option>
                     @endforeach
                 </select>
             </div>

@@ -1,3 +1,11 @@
+@php
+    $DateConv = new Hijri_GregorianConvert;
+    $format="YYYY/MM/DD";
+    $listTahun = [];
+    for ($i=0; $i < 3; $i++) { 
+        array_push($listTahun, date('Y') - $i);
+    }
+@endphp
 @extends('layouts.admin')
 
 @section('content')
@@ -5,7 +13,7 @@
     <div class="container">
         <div class="title text-center mb-5">
             <h1>Menambah Kegiatan TPA</h1>
-            <h2>Tahun 2022/1443 H</h2>
+            <h2>Tahun <span id="masehi">{{ date('Y') }}</span>/<span id="hijri"><?= $DateConv->GregorianToHijri(date('Y'),'YYYY'); ?></span>H</h2>
         </div>
         <a href="{{ route('tpa.index') }}" class="btn btn-lg btn-secondary mb-4">Kembali</a>
 

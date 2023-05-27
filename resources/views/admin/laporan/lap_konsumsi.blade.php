@@ -49,7 +49,7 @@
                                 <p>-</p>
                             @else
                                 @foreach (json_decode($data->warga_jabur) as $key => $donaturjabur)
-                                    <span>{{ $donaturtakjil }}, </span>
+                                    <span>{{ $donaturjabur }}, </span>
                                 @endforeach
                             @endif
                         </td>

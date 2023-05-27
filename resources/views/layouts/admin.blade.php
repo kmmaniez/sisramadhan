@@ -79,9 +79,9 @@
             <a class="nav-link" data-bs-toggle="collapse" href="#dashboarCollapse" role="button" aria-expanded="false" aria-controls="dashboarCollapse">Dashboard</a>
             <ul class="child collapse {{ (request()->routeIs('dash*')) ? 'show' : '' }} border-0" id="dashboarCollapse">
               <li class="ps-4 py-1"><a href="/admin/dashtpa" class="dropdown-item {{ (request()->routeIs('dash.tpa')) ? 'fw-bold' : '' }}">TPA</a></li>
-              <li class="ps-4 mt-1 py-1"><a href="/admin/dashkonsumsi" class="dropdown-item {{ (request()->routeIs('dash.konsumsi')) ? 'fw-bold' : '' }}">Kelola Konsumsi Done</a></li>
-              <li class="ps-4 mt-1 py-1"><a href="/admin/dashtarawih" class="dropdown-item {{ (request()->routeIs('dash.tarawih')) ? 'fw-bold' : '' }}">Tarawih Done</a></li>
-              <li class="ps-4 mt-1 py-1"><a href="/admin/dashtadarus" class="dropdown-item {{ (request()->routeIs('dash.tadarus')) ? 'fw-bold' : '' }}">Tadarus DONE</a></li>
+              <li class="ps-4 mt-1 py-1"><a href="/admin/dashkonsumsi" class="dropdown-item {{ (request()->routeIs('dash.konsumsi')) ? 'fw-bold' : '' }}">Kelola Konsumsi</a></li>
+              <li class="ps-4 mt-1 py-1"><a href="/admin/dashtarawih" class="dropdown-item {{ (request()->routeIs('dash.tarawih')) ? 'fw-bold' : '' }}">Tarawih</a></li>
+              <li class="ps-4 mt-1 py-1"><a href="/admin/dashtadarus" class="dropdown-item {{ (request()->routeIs('dash.tadarus')) ? 'fw-bold' : '' }}">Tadarus</a></li>
             </ul>
         </li>
         @endif

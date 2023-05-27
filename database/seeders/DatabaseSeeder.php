@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         /* START SETTINGS ROLE, USERS (TAKMIR/PANITIA) & OTHER */
             $fakerID = fake('id_ID');
             $listTahun = ['2023', '2022', '2021'];
-            $listHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu', 'Minggu'];
+            $listHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
             $listGender = ['pria', 'wanita']; // sesuai tabel migration
             $listRole = ['panitia','takmir'];
             for ($i = 0; $i < count($listRole); $i++) {

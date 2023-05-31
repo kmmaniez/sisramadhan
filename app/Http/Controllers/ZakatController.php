@@ -55,7 +55,7 @@ class ZakatController extends Controller
 
         $penerima   = json_encode(explode(',', $request->penerima));
         $petugas    = json_encode(explode(',', $request->petugas));
-
+        
         Zakat::create([
            'nama_petugas_zakat'     => $petugas, 
            'nama_penerima_zakat'    => $penerima, 

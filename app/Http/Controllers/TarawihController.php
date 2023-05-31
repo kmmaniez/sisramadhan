@@ -28,6 +28,7 @@ class TarawihController extends Controller
                     ->orOn('tarawih.id_penceramah','=','warga.id')
                     ->orOn('tarawih.id_bilal','=','warga.id');
             })->where('warga.nama_alias','LIKE', "%$params%")->get();
+
             array_push($resultSearch, $searchQuery);            
         }
         return view('admin.tarawih.index', compact('tarawih','resultSearch'));
@@ -59,7 +60,10 @@ class TarawihController extends Controller
     public function create()
     {
         $warga = Warga::all()->pluck('nama_alias','id');
-        return view('admin.tarawih.create', compact('warga'));
+        $usersImam = Warga::select('*')->whereJsonContains('kontribusi','imam')->get();
+        $usersPenceramah = Warga::select('*')->whereJsonContains('kontribusi','penceramah')->get();
+        $usersBilal = Warga::select('*')->whereJsonContains('kontribusi','bilal')->get();
+        return view('admin.tarawih.create', compact('warga','usersImam','usersPenceramah','usersBilal'));
     }
 
     /**

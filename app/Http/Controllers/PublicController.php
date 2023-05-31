@@ -32,7 +32,6 @@ class PublicController extends Controller
     {
         $title  = 'Halaman Konsumsi';
         $konsumsi  = Konsumsi::all();
-
         return view('konsumsi', compact('title', 'konsumsi'));
     }
 

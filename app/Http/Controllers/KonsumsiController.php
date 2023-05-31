@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
-use function PHPUnit\Framework\isNull;
-
 class KonsumsiController extends Controller
 {
     /**
@@ -18,7 +16,6 @@ class KonsumsiController extends Controller
     public function index()
     {
         $konsumsi = Konsumsi::paginate(5);
-        $konsumsis = Konsumsi::all();
         $resultSearch = [];
         if (request()->search) {
             $params = request()->search;
@@ -27,7 +24,9 @@ class KonsumsiController extends Controller
                 ->orWhereJsonContains('warga_jabur', $params)
                 ->orWhereJsonContains('warga_bukber', $params)
                 ->get();
-            $resultSearch['data'] = $users;
+            if (count($users) > 0) {
+                $resultSearch['data'] = $users;
+            }
         }
         return view('admin.konsumsi.index', compact('konsumsi', 'resultSearch'));
     }

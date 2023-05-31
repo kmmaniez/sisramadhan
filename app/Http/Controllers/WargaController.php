@@ -16,7 +16,6 @@ class WargaController extends Controller
     {
         $warga = Warga::paginate(10);
         $resultSearch = [];
-
         if (request()->search) {
             $params = request()->search;
             $searchQuery = DB::table('warga')
@@ -52,6 +51,7 @@ class WargaController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         Warga::create([
             'nama_keluarga' => $request->nama_keluarga,
             'nama_asli' => $request->nama_asli,
@@ -62,6 +62,7 @@ class WargaController extends Controller
             'nomor_hp' => $request->nomorhp,
             'email' => $request->email,
             'status_keaktifan' => ($request->input('status') === 'aktif') ? true : false,
+            'kontribusi' => json_encode($request->check)
         ]);
         
         return redirect(route('warga.index'));
@@ -104,12 +105,14 @@ class WargaController extends Controller
             'nama_keluarga' => $request->nama_keluarga,
             'nama_asli' => $request->nama_asli,
             'nama_alias' => $request->nama_alias,
+            // 'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
             'rt' => $request->rt,
             'rw' => $request->rw,
             'nomor_hp' => $request->nomorhp,
             'email' => $request->email,
             'status_keaktifan' => ($request->input('status') === 'aktif') ? true : false,
+            'kontribusi' => json_encode($request->check)
         ]);
         return redirect(route('warga.index'));
     }

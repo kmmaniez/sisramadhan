@@ -42,7 +42,7 @@
 
         </div>
 
-        <a href="/admin/lap-imam/cetak" class="btn btn-lg btn-dark mt-5">Ektrak pdf</a>
+        <a href="/admin/lap-kultum/cetak" class="btn btn-lg btn-dark mt-5">Ektrak pdf</a>
     </div>
 
 @endsection

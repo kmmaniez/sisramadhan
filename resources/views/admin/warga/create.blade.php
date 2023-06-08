@@ -13,10 +13,10 @@
             {{-- <div class="form-group">
                 <input type="text" name="test" id="test">
             </div> --}}
-            <div class="form-group mb-3">
+            {{-- <div class="form-group mb-3">
                 <label for="nama_keluarga" class="form-label">Keluarga</label>
                 <input type="text" name="nama_keluarga" id="nama_keluarga" class="form-control">
-            </div>
+            </div> --}}
             <div class="form-group mb-3">
                 <label for="nama_asli" class="form-label">Nama Asli</label>
                 <input type="text" name="nama_asli" id="nama_asli" class="form-control">
@@ -32,7 +32,7 @@
                     <input type="text" class="form-control" name="alamat" id="alamat">
                 </div>
 
-                <div class="form-group mb-3">
+                {{-- <div class="form-group mb-3">
                     <label for="">Jenis Kelamin</label>
                     <div class="form-check mt-2">
                         <input class="form-check-input" type="radio" name="jenis_kelamin" id="pria" value="pria">
@@ -42,7 +42,7 @@
                         <input class="form-check-input" type="radio" name="jenis_kelamin" id="wanita" value="wanita">
                         <label class="form-check-label" for="wanita">Perempuan</label>
                     </div>                      
-                </div>
+                </div> --}}
                 
                 <div class="form d-flex justify-content-start align-items-center gap-3">
 

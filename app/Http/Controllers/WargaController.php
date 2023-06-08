@@ -19,8 +19,7 @@ class WargaController extends Controller
         if (request()->search) {
             $params = request()->search;
             $searchQuery = DB::table('warga')
-                ->where('nama_keluarga','like',"%$params%")
-                ->orWhere('nama_asli','like',"%$params%")
+                ->where('nama_asli','like',"%$params%")
                 ->orWhere('nama_alias', 'like',"%$params%")
                 ->orWhere('alamat', 'like',"%$params%")->get();
             array_push($resultSearch, $searchQuery);
@@ -53,7 +52,6 @@ class WargaController extends Controller
     {
         // dd($request->all());
         Warga::create([
-            'nama_keluarga' => $request->nama_keluarga,
             'nama_asli' => $request->nama_asli,
             'nama_alias' => $request->nama_alias,
             'alamat' => $request->alamat,
@@ -102,10 +100,8 @@ class WargaController extends Controller
     {
         // dd($request->all());
         Warga::where('id', $warga->id)->update([
-            'nama_keluarga' => $request->nama_keluarga,
             'nama_asli' => $request->nama_asli,
             'nama_alias' => $request->nama_alias,
-            // 'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat,
             'rt' => $request->rt,
             'rw' => $request->rw,

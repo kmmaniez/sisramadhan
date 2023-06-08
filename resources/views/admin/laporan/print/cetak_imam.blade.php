@@ -23,7 +23,7 @@
 <body>
     <h1>Jadwal Imam Tarawih</h1>
     <h1>Masjid Hidayatul Falah</h1>
-    <h3>Kecamatan Kalasan, Kabupaten Bantul</h3>
+    <h3>Kecamatan Kalasan, Kabupaten Sleman</h3>
     <br>
     <br>
     <table border="1">

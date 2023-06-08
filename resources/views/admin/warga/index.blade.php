@@ -21,8 +21,9 @@
         <thead>
             <tr>
             <th scope="col">No</th>
-            <th scope="col">Nama Keluarga</th>
-            <th scope="col">Nama Asli | Alias</th>
+            {{-- <th scope="col">Nama Keluarga</th> --}}
+            <th scope="col">Nama Asli</th>
+            <th scope="col">Nama Alias</th>
             <th scope="col">Alamat</th>
             <th scope="col">Nomor Hp</th>
             <th scope="col">Email</th>
@@ -34,9 +35,10 @@
                 @foreach ($warga as $data)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $data->nama_keluarga }}</td>
-                    <td>{{ $data->nama_asli }} | {{ $data->nama_alias }}</td>
-                    <td>{{ $data->alamat }} | RT {{ $data->rt }} | RW {{ $data->rw }}</td>
+                    {{-- <td>{{ $data->nama_keluarga }}</td> --}}
+                    <td>{{ $data->nama_asli }}</td>
+                    <td>{{ $data->nama_alias }}</td>
+                    <td>RT {{ $data->rt }} | RW {{ $data->rw }}</td>
                     <td>{{ $data->nomor_hp }}</td>
                     <td>{{ $data->email }}</td>
                     <td>

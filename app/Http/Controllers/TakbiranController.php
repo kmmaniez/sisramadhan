@@ -21,13 +21,10 @@ class TakbiranController extends Controller
     {
         $resultSearch = [];
         $takbiran = Takbiran::all();
-
-        // dump($ea);
         if (request()->only('search')) {
             $params = request()->search;
-            $searchQuery = DB::select("SELECT * FROM takbiran_warga join warga WHERE warga.id = takbiran_warga.warga_id and warga.nama_asli LIKE '%$params%' ");
-            // dump($searchQuery);
-            // $resultSearch['data'] = $searchQuery;
+            // $searchQuery = DB::select("SELECT * FROM takbiran WHERE takbiran.keterangan LIKE '%$params%' ");
+            $searchQuery = Takbiran::where('keterangan','LIKE',"%$params%")->get();
             array_push($resultSearch, $searchQuery);
             dump($resultSearch);
         }
@@ -80,45 +77,15 @@ class TakbiranController extends Controller
     public function edit(Takbiran $takbiran)
     {
         $warga = Warga::all();
-        // $takbiranwarga = DB::table('takbiran_warga')->where('takbiran_id',$takbiran->id)->get()->toArray();
-        // $takbiranwarga = Takbiran::with('wargas')->map(function ($data){
-
-        // })->where('');
-        $selected = [];
-        $arr1 = [
-            0 => [
-                'nama' => 'satu'
-            ],
-            1 => [
-                'nama' => 'dua',
-                'status' => true,
-            ],
-            2 => [
-                'nama' => 'tiga',
-                'status' => true,
-            ],
-            3 => [
-                'nama' => 'empat'
-            ]
-        ];
-        $arr2 = [
-            'nama' => 'empat',
-            'status' => true
-        ];
-        // $selected['select'] = $takbiranwarga[0];
-        // $selected['warga'] = $warga;
-        // foreach ($warga as $key => $value) {
-        //     array_push($selected,[
-        //         'id' => $value->id,
-        //         'nama' => $value->nama_alias,
-        //         'selected' => ($key %2 === 0) ? true : false
-        //     ]);
-        // }
-        // dump($selected,);
+        $takbiranByWarga = TakbiranWarga::select('warga_id')->where('takbiran_id', $takbiran->id)->get();
+        $selectedWarga = [];
+        foreach ($takbiranByWarga as $key => $value) {
+            array_push($selectedWarga, $value->warga_id);
+        }
         return view('admin.takbiran.edit', [
             'warga' => $warga,
             'takbiran' => $takbiran,
-            'pivot' => DB::table('takbiran_warga')->where('takbiran_id', $takbiran->id)->get()
+            'selected' => $selectedWarga
         ]);
     }
 
@@ -127,12 +94,23 @@ class TakbiranController extends Controller
      */
     public function update(Request $request, Takbiran $takbiran)
     {
-        dd($request->all());
-        Takbiran::where('id', $takbiran->id)->update([
-            'id_warga' => $request->id_warga, 
-            'tgl_kegiatan' => $request->tanggal,
-            'keterangan' => $request->keterangan,
-        ]);
+        // dd($request->all());
+        $wargakonsumsi = $request->wargakonsumsi;
+        try {
+            Takbiran::where('id', $takbiran->id)->update([
+                'tgl_kegiatan' => $request->tanggal,
+                'keterangan' => $request->keterangan
+            ]);
+            DB::table('takbiran_warga')->where('takbiran_id', $takbiran->id)->delete();
+            foreach ($wargakonsumsi as $data) {
+                DB::table('takbiran_warga')->insert([
+                    'takbiran_id' => $takbiran->id,
+                    'warga_id' => $data
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
         return redirect()->route('takbiran.index')->with('success','Berhasil diupdate');
     }
 

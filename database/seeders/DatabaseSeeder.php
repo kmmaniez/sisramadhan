@@ -33,23 +33,23 @@ class DatabaseSeeder extends Seeder
             $listHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
             $listGender = ['pria', 'wanita']; // sesuai tabel migration
             $listRole = ['panitia','takmir'];
-            for ($i = 0; $i < count($listRole); $i++) {
-                Role::create([
-                    'nama_role' => $listRole[$i],
-                ]);
-            }
+            // for ($i = 0; $i < count($listRole); $i++) {
+            //     Role::create([
+            //         'nama_role' => $listRole[$i],
+            //     ]);
+            // }
 
             // CREATE USER TAKMIR/PANITIA
-            for ($i=0; $i < 5; $i++) { 
-                \App\Models\User::factory()->create([
-                    'id_role'           => $i%2==0 ? 1 : 2,
-                    'name'              => $i%2==0 ? 'Panitia' : 'Takmir',
-                    'email'             => $i%2==0 ? 'panitia'.$i.'@gmail.com' : 'takmir'.$i.'@gmail.com',
-                    'email_verified_at' => now(),
-                    'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                    'remember_token'    => Str::random(10),
-                ]);
-            }
+            // for ($i=0; $i < 5; $i++) { 
+            //     \App\Models\User::factory()->create([
+            //         'id_role'           => $i%2==0 ? 1 : 2,
+            //         'name'              => $i%2==0 ? 'Panitia' : 'Takmir',
+            //         'email'             => $i%2==0 ? 'panitia'.$i.'@gmail.com' : 'takmir'.$i.'@gmail.com',
+            //         'email_verified_at' => now(),
+            //         'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            //         'remember_token'    => Str::random(10),
+            //     ]);
+            // }
         /* END SETTINGS ROLE & OTHER */
 
         /* WARGA SEEDER START*/

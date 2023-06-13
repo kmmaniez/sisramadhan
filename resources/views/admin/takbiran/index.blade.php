@@ -30,7 +30,7 @@
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            {{-- @if (empty($resultSearch[0])) --}}
+            @if (empty($resultSearch[0]))
                 @foreach ($takbiran as $data)
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
@@ -53,7 +53,7 @@
                         </td>
                     </tr>
                 @endforeach
-            {{-- @else
+            @else
                 @foreach ($resultSearch[0] as $data)
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
@@ -61,7 +61,7 @@
                             {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
                         <td style="width:700px">
                             @foreach ($data->wargas()->get() as $list)
-                                <span class="badge bg-success">{{ $list->nama_asli }}</span>
+                                <span class="badge bg-success">{{ $list->nama_alias }}</span>
                             @endforeach
                         </td>
                         <td>{{ $data->keterangan }}</td>
@@ -76,7 +76,7 @@
                         </td>
                     </tr>
                 @endforeach
-            @endif --}}
+            @endif
         </tbody>
     </table>
 

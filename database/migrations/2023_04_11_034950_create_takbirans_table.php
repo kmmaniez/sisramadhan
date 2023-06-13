@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('takbiran', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_warga')->references('id')->on('warga')->cascadeOnUpdate()->cascadeOnDelete();;
+            // $table->foreignId('id_warga')->references('id')->on('warga')->cascadeOnUpdate()->cascadeOnDelete();;
             $table->date('tgl_kegiatan');
             $table->string('keterangan');
             $table->timestamps();

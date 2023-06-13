@@ -130,7 +130,19 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     });
 
     // ROUTE TAKBIRAN
-    Route::resource('takbiran', TakbiranController::class)->except('show');
+    Route::controller(TakbiranController::class)->group(function () {
+        Route::get('/takbiran', 'index')->name('takbiran.index');
+
+        Route::get('/takbiran/create', 'create')->name('takbiran.create');
+        Route::post('/takbiran', 'store')->name('takbiran.store');
+
+        Route::get('/takbiran/edit/{takbiran}', 'edit')->name('takbiran.edit');
+        Route::put('/takbiran/edit/{takbiran}/edit', 'update')->name('takbiran.update');
+        Route::delete('/takbiran/{takbiran}', 'destroy')->name('takbiran.destroy');
+
+        Route::get('/takbiran/listwarga/{id}', 'listwarga')->name('takbiran.warga');
+    });
+    // Route::resource('takbiran', TakbiranController::class)->except('show');
     
     // ROUTE SHOLATIED
     Route::resource('sholatied',SholatiedController::class)->except('show');

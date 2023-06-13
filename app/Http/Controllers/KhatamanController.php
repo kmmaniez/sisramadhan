@@ -40,8 +40,7 @@ class KhatamanController extends Controller
     {
         //
         Khataman::create([
-            // 'jenis_kegiatan'    => $request->jenis_kegiatan,
-            'jenis_kegiatan'    => 'Khataman Nuzulul Qur\'an',
+            'jenis_kegiatan'    => $request->jenis_kegiatan,
             'tgl_kegiatan'      => $request->tanggal,
             'keterangan'        => $request->keterangan,
         ]);
@@ -74,8 +73,7 @@ class KhatamanController extends Controller
     {
         //
         Khataman::where('id', $khataman->id)->update([
-            // 'jenis_kegiatan'    => $request->jenis_kegiatan,
-            'jenis_kegiatan'    => 'Khataman Nuzulul Qur\'an',
+            'jenis_kegiatan'    => $request->jenis_kegiatan,
             'tgl_kegiatan'      => $request->tanggal,
             'keterangan'        => $request->keterangan,
         ]);

@@ -1,11 +1,19 @@
+@php
+    $DateConv = new Hijri_GregorianConvert();
+    $format = 'YYYY/MM/DD';
+    $listTahun = [];
+    for ($i = 0; $i < 3; $i++) {
+        array_push($listTahun, date('Y') - $i);
+    }
+@endphp
 @extends('layouts.admin')
 
 @section('content')
     
     <div class="container">
         <div class="title text-center mb-5">
-            <h1>Tambah Data Khataman & Nuzulul Quran</h1>
-            <h2>Tahun 2022/1443 H</h2>
+            <h1>Edit Data Khataman & Nuzulul Quran</h1>
+            <h2>Tahun {{ date('Y') }}/<?= $DateConv->GregorianToHijri(date('Y'), 'YYYY') . 'H' ?></h2>
         </div>
         <hr class="mb-5">
         <a href="{{ route('khataman.index') }}" class="btn btn-lg btn-secondary mb-4">Kembali</a>
@@ -19,8 +27,8 @@
             </div>
             <div class="form-group mb-3">
                 <label for="jenis_kegiatan" class="form-label">Jenis Kegiatan</label>
-                {{-- <input type="text" class="form-control" name="jenis_kegiatan" id="jenis_kegiatan" value="{{ old('jenis_kegiatan', $khataman->jenis_kegiatan) }}"> --}}
-                <input type="text" class="form-control" name="jenis_kegiatan" id="jenis_kegiatan" value="Khataman Nuzulul Qur'an" disabled>
+                <input type="text" class="form-control" name="jenis_kegiatan" id="jenis_kegiatan" value="{{ old('jenis_kegiatan', $khataman->jenis_kegiatan) }}">
+                {{-- <input type="text" class="form-control" name="jenis_kegiatan" id="jenis_kegiatan" value="Khataman Nuzulul Qur'an"> --}}
             </div>
             <div class="form-group mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Keterangan</label>

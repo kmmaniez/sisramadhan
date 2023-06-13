@@ -55,7 +55,6 @@ class DatabaseSeeder extends Seeder
         /* WARGA SEEDER START*/
             for ($i = 0; $i < 15; $i++) {
                 Warga::create([
-                    'nama_keluarga' => 'Keluarga ' . $fakerID->lastName(),
                     'nama_asli'     => $fakerID->name(),
                     'nama_alias'    => $fakerID->firstName(),
                     'alamat'        => $fakerID->streetAddress(),
@@ -63,6 +62,7 @@ class DatabaseSeeder extends Seeder
                     'rw'            => rand(1, 10),
                     'nomor_hp'      => $fakerID->phoneNumber(),
                     'email'         => $fakerID->email(),
+                    'status_keaktifan' => rand(0,1)
                 ]);
             }
         /* WARGA SEEDER END*/
@@ -151,13 +151,13 @@ class DatabaseSeeder extends Seeder
         /* SEEDER SHOLAT IED, KHATAMAN, ZAKAT */
 
         /* TAKBIRAN SEEDER START*/
-            for ($i = 0; $i < 5; $i++) {
-                Takbiran::create([
-                    'id_warga'      => rand(1, 10),
-                    'tgl_kegiatan'  => $fakerID->date(),
-                    'keterangan'    => 'Takbiran di Masjid Darussalam',
-                ]);
-            }
+            // for ($i = 0; $i < 5; $i++) {
+            //     Takbiran::create([
+            //         'id_warga'      => rand(1, 10),
+            //         'tgl_kegiatan'  => $fakerID->date(),
+            //         'keterangan'    => 'Takbiran di Masjid Darussalam',
+            //     ]);
+            // }
         /* TAKBIRAN SEEDER END*/
         
         /* TARAWIH SEEDER START*/

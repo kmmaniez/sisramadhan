@@ -36,4 +36,9 @@ class Warga extends Model
     {
         return $this->hasOne(Tarawih::class,'id');
     }
+
+    public function takbirans()
+    {
+        return $this->belongsToMany(Takbiran::class, 'takbiran_warga');
+    }
 }

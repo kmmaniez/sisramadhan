@@ -25,60 +25,42 @@
                 <input type="date" class="form-control" name="tanggal" id="tanggal"
                     value="{{ $konsumsi->tgl_kegiatan }}">
             </div>
-            <div class="form-group mb-3">
-                <div class="list-anggota mb-2 d-flex gap-1">
-                    <label for="exampleFormControlInput1" class="form-label"><strong>Nama Donatur Buka Bersama</strong></label>
-                    @if (is_null(json_decode($konsumsi->warga_bukber)))
-                        <p>-</p>
-                    @else
-                        @foreach (json_decode($konsumsi->warga_bukber) as $key => $donaturbukber)
-                            <h6><span class="badge bg-primary py-2 px-2">{{ $donaturbukber }}</span></h6>
-                        @endforeach
-                    @endif
-                </div>
-                <select class="form-select select-anggota" id="wargabukber" multiple="multiple" name="wargabukber[]"
-                    aria-label="Default select example" @if (date('D') === 'Wed') disabled @endif>
-                    @foreach ($warga as $key => $value)
-                        <option value="{{ $value->nama_alias }}">{{ $value->nama_alias }}</option>
-                    @endforeach
-                </select>
-                <small class="text-danger"><i>*Biarkan kosong jika tidak mengganti anggota</i></small>
-            </div>
+
             <div class="form-group mb-3">
                 <div class="list-anggota mb-2 d-flex gap-1">
                     <label for="exampleFormControlInput1" class="form-label"><strong>Nama Donatur Takjil</strong></label>
-                    @if (is_null(json_decode($konsumsi->warga_takjil)))
-                        <p>-</p>
-                    @else
-                        @foreach (json_decode($konsumsi->warga_takjil) as $key => $donaturtakjil)
-                            <h6><span class="badge bg-primary py-2 px-2">{{ $donaturtakjil }}</span></h6>
-                        @endforeach
-                    @endif
                 </div>
-                <select class="form-select select-anggota" id="wargatakjil" multiple="multiple" name="wargatakjil[]"
+                <select class="form-select" id="donaturtakjil" multiple="multiple" name="donaturtakjil[]"
                     aria-label="Default select example" @if (date('D') === 'Sat') disabled @endif>
                     @foreach ($warga as $key => $value)
-                        <option value="{{ $value->nama_alias }}">{{ $value->nama_alias }}</option>
+                        <option value="{{ $value->id }}">{{ $value->nama_alias }}</option>
                     @endforeach
                 </select>
                 <small class="text-danger"><i>*Biarkan kosong jika tidak mengganti anggota</i></small>
             </div>
             {{-- @dump($konsumsi) --}}
+
             <div class="form-group mb-3">
                 <div class="list-anggota mb-2 d-flex gap-1">
                     <label for="exampleFormControlInput1" class="form-label"><strong>Nama Donatur Jabur</strong></label>
-                    @if (is_null(json_decode($konsumsi->warga_jabur)))
-                        <p>-</p>
-                    @else
-                        @foreach (json_decode($konsumsi->warga_jabur) as $key => $donaturjabur)
-                            <h6><span class="badge bg-primary py-2 px-2">{{ $donaturjabur }}</span></h6>
-                        @endforeach
-                    @endif
                 </div>
 
-                <select class="form-select select-anggota" id="wargajabur" name="wargajabur[]" multiple>
+                <select class="form-select" id="donaturjabur" name="donaturjabur[]" multiple="multiple">
                     @foreach ($warga as $key => $value)
-                        <option value="{{ $value->nama_alias }}">{{ $value->nama_alias }}</option>
+                        <option value="{{ $value->id }}">{{ $value->nama_alias }}</option>
+                    @endforeach
+                </select>
+                <small class="text-danger"><i>*Biarkan kosong jika tidak mengganti anggota</i></small>
+            </div>
+
+            <div class="form-group mb-3">
+                <div class="list-anggota mb-2 d-flex gap-1">
+                    <label for="exampleFormControlInput1" class="form-label"><strong>Nama Donatur Buka Bersama</strong></label>
+                </div>
+                <select class="form-select" id="donaturbukber" multiple="multiple" name="donaturbukber[]"
+                    aria-label="Default select example" @if (date('D') === 'Wed') disabled @endif>
+                    @foreach ($warga as $key => $value)
+                        <option value="{{ $value->id }}">{{ $value->nama_alias }}</option>
                     @endforeach
                 </select>
                 <small class="text-danger"><i>*Biarkan kosong jika tidak mengganti anggota</i></small>
@@ -99,11 +81,27 @@
 @push('script')
     <script>
         $(document).ready(function() {
-            // Select2 Multiple
-            $('.select-anggota').select2({
+            $('#donaturbukber').select2({
+                allowClear: true
+            });
+            $('#donaturbukber').val({{ Js::from($selectedBukber) }});
+            $('#donaturbukber').trigger('change'); 
+            
+
+            $('#donaturtakjil').select2({
                 placeholder: "Pilih anggota",
                 allowClear: true
             });
+            $('#donaturtakjil').val({{ Js::from($selectedTakjil) }});
+            $('#donaturtakjil').trigger('change'); 
+            
+
+            $('#donaturjabur').select2({
+                placeholder: "Pilih anggota",
+                allowClear: true
+            });
+            $('#donaturjabur').val({{ Js::from($selectedJabur) }});
+            $('#donaturjabur').trigger('change'); 
 
         });
     </script>

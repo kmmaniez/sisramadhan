@@ -70,7 +70,7 @@ class PublicController extends Controller
     public function takbiranIndex()
     {
         $title  = 'Halaman Takbiran';
-        $takbiran = Takbiran::all();
+        $takbiran = Takbiran::all(); 
 
         return view('takbiran', compact('title','takbiran'));
     }

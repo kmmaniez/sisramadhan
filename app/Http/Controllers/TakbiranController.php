@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Konsumsi;
 use App\Models\Takbiran;
 use App\Models\TakbiranWarga;
 use App\Models\Tarawih;
@@ -78,6 +79,8 @@ class TakbiranController extends Controller
     {
         $warga = Warga::all();
         $takbiranByWarga = TakbiranWarga::select('warga_id')->where('takbiran_id', $takbiran->id)->get();
+        // $ea = $takbiran->wargas()->wherePivot('takbiran_id',$takbiran->id)->get();
+        // dump($takbiranByWarga, $ea);
         $selectedWarga = [];
         foreach ($takbiranByWarga as $key => $value) {
             array_push($selectedWarga, $value->warga_id);
@@ -94,20 +97,22 @@ class TakbiranController extends Controller
      */
     public function update(Request $request, Takbiran $takbiran)
     {
-        // dd($request->all());
         $wargakonsumsi = $request->wargakonsumsi;
         try {
             Takbiran::where('id', $takbiran->id)->update([
                 'tgl_kegiatan' => $request->tanggal,
                 'keterangan' => $request->keterangan
             ]);
-            DB::table('takbiran_warga')->where('takbiran_id', $takbiran->id)->delete();
-            foreach ($wargakonsumsi as $data) {
-                DB::table('takbiran_warga')->insert([
-                    'takbiran_id' => $takbiran->id,
-                    'warga_id' => $data
-                ]);
-            }
+            // DB::table('takbiran_warga')->where('takbiran_id', $takbiran->id)->delete();
+            // $takbiran->wargas()->detach();
+            $takbiran->wargas()->sync($wargakonsumsi);
+            // foreach ($wargakonsumsi as $data) {
+                
+            //     DB::table('takbiran_warga')->insert([
+            //         'takbiran_id' => $takbiran->id,
+            //         'warga_id' => $data
+            //     ]);
+            // }
         } catch (\Throwable $th) {
             DB::rollBack();
         }
@@ -121,19 +126,5 @@ class TakbiranController extends Controller
     {
         $takbiran->delete();
         return redirect(route('takbiran.index'));
-    }
-
-    public function listwarga($id = null)
-    {
-        // $mk = Nilai::with('matakuliah')->where('mahasiswas_id', $id)->get();
-        // $data = '';
-        // foreach ($takbiran as $row) {
-
-        //     $data .= "<option value='$row->id' selected>{$row->wargas->nama_alias}</option>";
-        // }
-        // return $data;
-        $takbiran = TakbiranWarga::select('takbiran_id')->where('takbiran_id', $id)->get();
-        $data = Warga::whereNotIn('id', $takbiran)->get();
-        dump($data);
     }
 }

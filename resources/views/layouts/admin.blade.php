@@ -138,7 +138,7 @@
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/locale/id.js"></script>
     
-  </body>
     @stack('script')
+  </body>
     @vite('resources/js/app.js')
 </html>

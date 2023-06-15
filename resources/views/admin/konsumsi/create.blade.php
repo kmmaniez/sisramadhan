@@ -24,37 +24,44 @@
                 <input type="date" class="form-control" name="tanggal" id="tanggal" placeholder="name@example.com">
             </div>
             <div class="form-group mb-3">
-                <label for="wargabukber" class="form-label"><strong>Nama Donatur Buka Bersama</strong></label>
+                <label for="donaturtakjil" class="form-label"><strong>Nama Donatur Takjil</strong></label>
                 <small class="text-danger"><i>*biarkan kosong jika tidak diisi</i></small>
-                {{-- <select class="form-select select-anggota" id="wargabukber" multiple="multiple" name="wargabukber[]" aria-label="Default select example" @if (date('D') != 'Sat') disabled @endif> --}}
-                <select class="form-select select-bukber" id="wargabukber" multiple="multiple" name="wargabukber[]"
+                <select class="form-select select-takjil" id="donaturtakjil" multiple="multiple" name="donaturtakjil[]"
                     aria-label="Default select example">
+                    {{-- @foreach ($warga as $key => $value)
+                        <option value="{{ $key }}">{{ $value }}</option>
+                    @endforeach --}}
                     @foreach ($warga as $key => $value)
-                        <option value="{{ $value->nama_alias }}">{{ $value->nama_alias }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group mb-3">
-                <label for="exampleFormControlInput1" class="form-label"><strong>Nama Donatur Takjil</strong></label>
-                <small class="text-danger"><i>*biarkan kosong jika tidak diisi</i></small>
-                <select class="form-select select-takjil" id="wargatakjil" multiple="multiple" name="wargatakjil[]"
-                    aria-label="Default select example">
-                    @foreach ($warga as $key => $value)
-                        <option value="{{ $value->nama_alias }}">{{ $value->nama_alias }}</option>
+                        <option value="{{ $value->id }}">{{ $value->nama_alias }}</option>
                     @endforeach
                 </select>
                 
             </div>
             <div class="form-group mb-3">
-                <label for="exampleFormControlInput1" class="form-label"><strong>Nama Donatur Jabur</strong></label>
+                <label for="donaturjabur" class="form-label"><strong>Nama Donatur Jabur</strong></label>
                 <small class="text-danger"><i>*biarkan kosong jika tidak diisi</i></small>
-                <select class="form-select select-jabur" id="wargajabur" multiple="multiple" name="wargajabur[]"
+                <select class="form-select select-jabur" id="donaturjabur" multiple="multiple" name="donaturjabur[]"
                     aria-label="Default select example">
+                    {{-- @foreach ($warga as $key => $value)
+                        <option value="{{ $key }}">{{ $value }}</option>
+                    @endforeach --}}
                     @foreach ($warga as $key => $value)
-                        <option value="{{ $value->nama_alias }}">{{ $value->nama_alias }}</option>
+                        <option value="{{ $value->id }}">{{ $value->nama_alias }}</option>
                     @endforeach
                 </select>
-                
+            </div>
+            <div class="form-group mb-3">
+                <label for="donaturbukber" class="form-label"><strong>Nama Donatur Buka Bersama</strong></label>
+                <small class="text-danger"><i>*biarkan kosong jika tidak diisi</i></small>
+                <select class="form-select select-bukber" id="donaturbukber" multiple="multiple" name="donaturbukber[]"
+                    aria-label="Default select example">
+                    {{-- @foreach ($warga as $key => $value)
+                        <option value="{{ $key }}">{{ $value }}</option>
+                    @endforeach --}}
+                    @foreach ($warga as $key => $value)
+                        <option value="{{ $value->id }}">{{ $value->nama_alias }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">

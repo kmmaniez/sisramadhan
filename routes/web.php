@@ -31,7 +31,7 @@ Route::get('/', function () {
     return view('index');
 });
 Route::get('/dashboard', function(){
-    return view('admin.dashboard.index');
+    return redirect()->to('/admin');
 })->middleware('auth')->name('dashboard');
 
 Route::controller(PublicController::class)->group(function(){

@@ -74,17 +74,9 @@
       <!-- Cek user dengan role panitia / 1 -->
       <ul class="nav flex-column gap-2 w-100">
 
-        @if (Auth::user()->id_role == 1) 
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#dashboarCollapse" role="button" aria-expanded="false" aria-controls="dashboarCollapse">Dashboard</a>
-            <ul class="child collapse {{ (request()->routeIs('dash*')) ? 'show' : '' }} border-0" id="dashboarCollapse">
-              <li class="ps-4 py-1"><a href="/admin/dashtpa" class="dropdown-item {{ (request()->routeIs('dash.tpa')) ? 'fw-bold' : '' }}">TPA</a></li>
-              <li class="ps-4 mt-1 py-1"><a href="/admin/dashkonsumsi" class="dropdown-item {{ (request()->routeIs('dash.konsumsi')) ? 'fw-bold' : '' }}">Kelola Konsumsi</a></li>
-              <li class="ps-4 mt-1 py-1"><a href="/admin/dashtarawih" class="dropdown-item {{ (request()->routeIs('dash.tarawih')) ? 'fw-bold' : '' }}">Tarawih</a></li>
-              <li class="ps-4 mt-1 py-1"><a href="/admin/dashtadarus" class="dropdown-item {{ (request()->routeIs('dash.tadarus')) ? 'fw-bold' : '' }}">Tadarus</a></li>
-            </ul>
+        <li class="nav-item {{ (request()->routeIs('admin')) ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('admin') }}">Dashboard</a>
         </li>
-        @endif
         <li class="nav-item {{ (request()->routeIs('tpa*')) ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('tpa.index') }}">TPA</a>
         </li>

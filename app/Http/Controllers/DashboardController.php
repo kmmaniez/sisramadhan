@@ -36,20 +36,23 @@ class DashboardController extends Controller
             'nama_ustadh' => collect($jumlahustadh),
             'total_ajar' => collect($jumlahajar),
         ];
+
         // KONSUMSI
         $dataWarga = Warga::all()->map(function ($data) {
-            $countByTakjil = DB::table('konsumsi')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->whereJsonContains('warga_takjil', $data->nama_alias)->get()->count();
-            $countByJabur = DB::table('konsumsi')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->whereJsonContains('warga_jabur', $data->nama_alias)->get()->count();
-            $countByBukber = DB::table('konsumsi')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->whereJsonContains('warga_bukber', $data->nama_alias)->get()->count();
+            $countByTakjil = DB::table('konsumsi')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->whereJsonContains('warga_takjil', "$data->id")->get()->count();
+            $countByJabur = DB::table('konsumsi')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->whereJsonContains('warga_jabur', "$data->id")->get()->count();
+            $countByBukber = DB::table('konsumsi')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->whereJsonContains('warga_bukber', "$data->id")->get()->count();
             return [
-                'bukber' => $countByBukber,
-                'takjil' => $countByTakjil,
                 'warga' => $data->nama_alias,
+                'takjil' => $countByTakjil,
                 'jabur' => $countByJabur,
                 'bukber' => $countByBukber,
+                'total' => $countByTakjil + $countByJabur + $countByBukber,
             ];
         })->toArray();
-        arsort($dataWarga);
+        usort($dataWarga, function ($a, $b) {
+            return $b['total'] <=> $a['total'];
+        });
         $dataSortedKonsumsiNew = array();
         array_push($dataSortedKonsumsiNew, array_values($dataWarga));
         $getOnlyFourUsersKonsumsi = array(
@@ -57,6 +60,7 @@ class DashboardController extends Controller
             'jumlah_takjil'       => [],
             'jumlah_bukber' => [],
             'jumlah_jabur'      => [],
+            'total' => []
         );
         foreach ($dataSortedKonsumsiNew[0] as $key => $value) {
             if ($key < 4) {
@@ -64,8 +68,10 @@ class DashboardController extends Controller
                 array_push($getOnlyFourUsersKonsumsi['jumlah_takjil'], $value['takjil']);
                 array_push($getOnlyFourUsersKonsumsi['jumlah_bukber'], $value['bukber']);
                 array_push($getOnlyFourUsersKonsumsi['jumlah_jabur'], $value['jabur']);
+                array_push($getOnlyFourUsersKonsumsi['total'], $value['total']);
             }
         }
+
         // TARAWIH
         $dataKontribusiWarga = Warga::all()->map(function ($data, $index) {
             $kontribusiImam         = Tarawih::select('*')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->where('id_imam', $data->id)->get()->count();
@@ -159,11 +165,9 @@ class DashboardController extends Controller
                 'total' => $countByTakjil + $countByJabur + $countByBukber,
             ];
         })->toArray();
-        // dump($dataWarga);
         usort($dataWarga, function ($a, $b) {
             return $b['total'] <=> $a['total'];
         });
-        // dump($dataWarga);
         // arsort($dataWarga);
         $dataSortedNew = array();
         array_push($dataSortedNew, array_values($dataWarga));

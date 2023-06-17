@@ -9,26 +9,26 @@
         </div>
         <div class="row">
             <div class="col-6">
-                <div class="card">
+                <div class="card" style="height: 400px;">
                     <div class="card-body">
                         <canvas id="tarawih"></canvas>
                     </div>
                 </div>
             </div>
             <div class="col-3">
-                <div class="card">
-                    <div class="card-body" style="height: 400px">
+                <div class="card" style="height: 400px;">
+                    <div class="card-body">
                         <h1 style="font-size: 96px"><strong>{{ $jumlahwarga ?? '-' }}</strong></h1>
-                        <h2 style="font-size: 54px">Warga</h2>
+                        <h2 style="font-size: 38px">Warga</h2>
                         <small>Jumlah warga aktif terdaftar</small>
                     </div>
                 </div>
             </div>
             <div class="col-3">
-                <div class="card">
-                    <div class="card-body" style="height: 400px">
+                <div class="card" style="height: 400px;">
+                    <div class="card-body">
                         <h1 style="font-size: 96px"><strong>{{ $jumlahbilal[0]->jumlahbilal }}</strong></h1>
-                        <h2 style="font-size: 54px">Bilal</h2>
+                        <h2 style="font-size: 38px">Bilal</h2>
                         <small>Jumlah bilal per warga </small>
                     </div>
                 </div>
@@ -37,26 +37,26 @@
 
         <div class="row mt-3">
             <div class="col-6">
-                <div class="card">
+                <div class="card" style="height: 400px;">
                     <div class="card-body">
                         <canvas id="konsumsi"></canvas>
                     </div>
                 </div>
             </div>
             <div class="col-3">
-                <div class="card">
-                    <div class="card-body" style="height: 400px">
+                <div class="card" style="height: 400px;">
+                    <div class="card-body">
                         <h1 style="font-size: 96px"><strong>{{ $jumlahimam[0]->jumlahimam  }}</strong></h1>
-                        <h2 style="font-size: 54px">Imam</h2>
+                        <h2 style="font-size: 38px">Imam</h2>
                         <small>Jumlah imam per warga</small>
                     </div>
                 </div>
             </div>
             <div class="col-3">
-                <div class="card">
-                    <div class="card-body" style="height: 400px">
+                <div class="card" style="height: 400px;">
+                    <div class="card-body">
                         <h1 style="font-size: 96px"><strong>{{ $jumlahpenceramah[0]->jumlahpenceramah }}</strong></h1>
-                        <h2 style="font-size: 54px">Penceramah</h2>
+                        <h2 style="font-size: 38px">Penceramah</h2>
                         <small>Jumlah peneceramah per warga </small>
                     </div>
                 </div>
@@ -65,14 +65,14 @@
 
         <div class="row mt-3">
             <div class="col-6">
-                <div class="card">
+                <div class="card" style="height: 400px;">
                     <div class="card-body">
                         <canvas id="tpa"></canvas>
                     </div>
                 </div>
             </div>
             <div class="col-6">
-                <div class="card">
+                <div class="card" style="height: 400px;">
                     <div class="card-body">
                         <canvas id="tadarus"></canvas>
                     </div>

@@ -53,7 +53,7 @@ Route::middleware('guest')->group(function(){
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     
-    Route::get('/',[DashboardController::class, 'index']);
+    Route::get('/',[DashboardController::class, 'index'])->name('admin');
 
     // ROUTE DASHBOARD
     Route::get('/dashtpa',      [DashboardController::class,'tpa'])->name('dash.tpa');

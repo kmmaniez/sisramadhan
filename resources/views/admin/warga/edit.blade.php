@@ -11,11 +11,6 @@
             @method('PUT')
 
             <div class="form-group mb-3">
-                <label for="nama_keluarga" class="form-label">Keluarga</label>
-                <input type="text" name="nama_keluarga" id="nama_keluarga" class="form-control"
-                    value="{{ old('nama_keluarga', $warga->nama_keluarga) }}">
-            </div>
-            <div class="form-group mb-3">
                 <label for="nama_asli" class="form-label">Nama Asli</label>
                 <input type="text" name="nama_asli" id="nama_asli" class="form-control"
                     value="{{ old('nama_asli', $warga->nama_asli) }}">

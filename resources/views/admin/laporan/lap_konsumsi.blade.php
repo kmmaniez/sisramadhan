@@ -36,31 +36,28 @@
                         <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }},
                             {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
                         <td>
-                            @if (is_null(json_decode($data->warga_takjil)))
-                                <p>-</p>
-                            @else
-                                @foreach (json_decode($data->warga_takjil) as $key => $donaturtakjil)
-                                    <span>{{ $donaturtakjil }}, </span>
-                                @endforeach
+                            @if (!count($data->takjils()->get()) > 0)
+                                <span>-</span>
                             @endif
+                            @foreach ($data->takjils()->get() as $key => $donaturtakjil)
+                                <span>{{ $donaturtakjil->nama_alias }}, </span>
+                            @endforeach
                         </td>
                         <td>
-                            @if (is_null(json_decode($data->warga_jabur)))
-                                <p>-</p>
-                            @else
-                                @foreach (json_decode($data->warga_jabur) as $key => $donaturjabur)
-                                    <span>{{ $donaturjabur }}, </span>
-                                @endforeach
+                            @if (!count($data->jaburs()->get()) > 0)
+                                <span>-</span>
                             @endif
+                            @foreach ($data->jaburs()->get() as $key => $donaturjabur)
+                                <span>{{ $donaturjabur->nama_alias }}, </span>
+                            @endforeach
                         </td>
                         <td>
-                            @if (is_null(json_decode($data['warga_bukber'])))
-                                <p>-</p>
-                            @else
-                                @foreach (json_decode($data->warga_bukber) as $key => $donaturbukber)
-                                    <span>{{ $donaturbukber }}, </span>
-                                @endforeach
+                            @if (!count($data->bukbers()->get()) > 0)
+                                <span>-</span>
                             @endif
+                            @foreach ($data->bukbers()->get() as $key => $donaturbukber)
+                                <span>{{ $donaturbukber->nama_alias }}, </span>
+                            @endforeach
                         </td>
                     </tr>
                 @endforeach

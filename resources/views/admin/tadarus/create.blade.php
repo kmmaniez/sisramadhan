@@ -28,22 +28,15 @@
                     @endforeach
                 </select>
             </div>
-            {{-- @dump($listJuz) --}}
             <div class="form-group mb-3">
                 <label for="nama_kelompok" class="form-label">Nama Kelompok Tadarus</label>
                 <input type="text" class="form-control" name="nama_kelompok" id="nama_kelompok">
-                {{-- <select class="form-select mb-2" name="listkelompok" aria-label="Default select example">
-                    @foreach ($listkelompok as $key => $value)
-                    <option value="{{ $key }}">{{ $value }}</option>
-                        
-                    @endforeach
-                </select> --}}
             </div>
             <div class="form-group mb-3">
                 <label for="anggota" class="form-label">Anggota Aktif</label>
                 <select class="form-select select-anggota" id="anggota" multiple="multiple" name="anggota[]" aria-label="Default select example">
-                    @foreach ($warga as $key => $value)
-                    <option value="{{ $value }}">{{ $value }}</option>
+                    @foreach ($warga as $key => $data)
+                    <option value="{{ $data->id }}">{{ $data->nama_alias }}</option>
                        
                     @endforeach
                 </select>

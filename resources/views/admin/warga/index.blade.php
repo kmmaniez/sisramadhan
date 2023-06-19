@@ -35,7 +35,6 @@
                 @foreach ($warga as $data)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    {{-- <td>{{ $data->nama_keluarga }}</td> --}}
                     <td>{{ $data->nama_asli }}</td>
                     <td>{{ $data->nama_alias }}</td>
                     <td>RT {{ $data->rt }} | RW {{ $data->rw }}</td>
@@ -55,9 +54,9 @@
                 @foreach ($resultSearch[0] as $data)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $data->nama_keluarga }}</td>
-                    <td>{{ $data->nama_asli }} | {{ $data->nama_alias }}</td>
-                    <td>{{ $data->alamat }} | RT {{ $data->rt }} | RW {{ $data->rw }}</td>
+                    <td>{{ $data->nama_asli }}</td>
+                    <td>{{ $data->nama_alias }}</td>
+                    <td>RT {{ $data->rt }} | RW {{ $data->rw }}</td>
                     <td>{{ $data->nomor_hp }}</td>
                     <td>{{ $data->email }}</td>
                     <td>
@@ -76,6 +75,5 @@
     @if (empty(request('search')))
         {{ $warga->links() }}
     @endif
-    <a href="/" class="btn btn-lg btn-secondary">Kembali</a>
 
 @endsection

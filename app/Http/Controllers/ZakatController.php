@@ -20,10 +20,11 @@ class ZakatController extends Controller
         if (request()->search) {
             $params = request()->search;
             $users = DB::table('zakat')
-                ->whereJsonContains('nama_petugas_zakat', $params)
-                ->orWhereJsonContains('nama_penerima_zakat', $params)
+                ->whereJsonContains('nama_petugas_zakat',"$params")
+                ->orWhereJsonContains('nama_penerima_zakat', "$params")
                 ->get();
             $resultSearch['data'] = $users;
+            dump($resultSearch['data']);
         }
         return view('admin.zakat.index', compact('zakat','resultSearch'));
     }

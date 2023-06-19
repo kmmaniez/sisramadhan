@@ -179,7 +179,6 @@
             @endif
         </tbody>
     </table>
-    {{ $konsumsi->links() }}
 
 @endsection
 @push('script')
@@ -215,7 +214,7 @@
                         const bukberWarga = bukberList[i];
                         let tableList = `
                     <tr>
-                        <td>1</td>
+                        <td>${ i + 1}</td>
                         <td>${moment(bukberWarga.tgl_kegiatan).format('dddd')}, ${bukberWarga.tgl_kegiatan}</td>
                         
                         <td>`;
@@ -252,35 +251,8 @@
                           </form>
                         </td>
                     </tr>`;
-                        // console.log(bukberWarga.tgl_kegiatan);
-
-                        // for (let j = 0; j < bukberWarga.bukbers.length; j++) {
-                        //     const bukberObj = bukberWarga.bukbers[j];
-                        //     console.log(bukberObj.nama_alias);
-                        // }
                         tableBody.append(tableList)
                     }
-                    // let listData = data.data;
-                    // for (let index = 0; index < listData.length; index++) {
-                    //     let tableList = `
-                    // <tr>
-                    //     <td>${index + 1}</td>
-                    //     <td>${moment(listData[index].tgl_kegiatan).format('dddd')}, ${listData[index].tgl_kegiatan}</td>
-                    //     <td>${JSON.parse(listData[index].warga_bukber)}</td>
-                    //     <td>${JSON.parse(listData[index].warga_jabur)}</td>
-                    //     <td>${JSON.parse(listData[index].warga_takjil)}</td>
-                    //     <td>${listData[index].keterangan}</td>
-                    //     <td>
-                    //       <form action="${window.location.pathname}/${listData[index].id}" method="post">
-                    //           @csrf
-                    //           @method('DELETE')
-                    //           <a href="${window.location.pathname}/edit/${listData[index].id}" class="btn btn-sm btn-warning">Edit</a>
-                    //           <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
-                    //       </form>
-                    //     </td>
-                    // </tr>`;
-                    //     tableBody.append(tableList)
-                    // }
                 })
         })
     </script>

@@ -11,7 +11,7 @@ class Tadarus extends Model
     protected $table = 'tadarus';
     protected $guarded = ['id'];
 
-    // protected $with = ['kelompok'];
+    protected $with = ['wargas'];
     // public $timestamps = false;
 
     // public function kelompok()
@@ -23,4 +23,8 @@ class Tadarus extends Model
     // {
     //     return $this->belongsTo(Warga::class,'id_warga');
     // }
+    public function wargas()
+    {
+        return $this->belongsToMany(Warga::class,'tadarus_warga');
+    }
 }

@@ -48,6 +48,7 @@
                 <th scope="col">Aksi</th>
             </tr>
             </thead>
+            {{-- @dump($tadarus) --}}
             <tbody class="table-group-divider" id="tblcontent">
                 <!-- default not search -->
                 @if (empty($resultSearch['data']))
@@ -58,8 +59,8 @@
                         <td>{{ $data->nama_kelompok }}</td>
                         <td>{{ $data->jumlah_khatam }}</td>
                         <td>
-                            @foreach (json_decode($data->nama_warga) as $key => $warga)
-                                {{ $warga }},
+                            @foreach ($data->wargas()->get() as $item)
+                                {{ $item->nama_alias }},
                             @endforeach
                         </td>
                         <td>
@@ -80,8 +81,8 @@
                         <td>{{ $data->nama_kelompok }}</td>
                         <td>{{ $data->jumlah_khatam }}</td>
                         <td>
-                            @foreach (json_decode($data->nama_warga) as $key => $warga)
-                                {{ $warga }},
+                            @foreach ($data->wargas()->get() as $item)
+                                {{ $item->nama_alias }},
                             @endforeach
                         </td>
                         <td>
@@ -127,26 +128,37 @@
             fetch(window.location.origin+ '/admin/tadarus/filterYear?year='+pilihtahun.value)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                let listData = data.data;
-                for (let index = 0; index < listData.length; index++) {
-                    let tableList = `
+                // console.log(data);
+                let {
+                        datan: listAnggota
+                    } = data;
+                for (let i = 0; i < listAnggota.length; i++) {
+                        const anggota = listAnggota[i];
+                        console.log(anggota);
+                        let tableList = `
                     <tr>
-                        <th scope="col">${index + 1}</th>
-                        <td>${listData[index].nama_kelompok}</td>
-                        <td>${listData[index].jumlah_khatam}</td>
-                        <td>${JSON.parse(listData[index].nama_warga)}</td>
+                        <td>${i + 1}</td>
+                        <td>${anggota.nama_kelompok}</td>
+                        <td>${anggota.jumlah_khatam}</td>
+                        <td>`;
+                        for (let j = 0; j < anggota.wargas.length; j++) {
+                            const takjilObj = anggota.wargas[j];
+                            tableList += `${takjilObj.nama_alias}, `;
+                        }
+                        tableList += `
+                        </td>;
+
                         <td>
-                            <form action="${window.location.pathname}/${listData[index].id}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <a href="${window.location.pathname}/edit/${listData[index].id}" class="btn btn-sm btn-warning">Edit</a>
-                                <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
-                            </form>
+                          <form action="${window.location.pathname}/${anggota.id}" method="post">
+                              @csrf
+                              @method('DELETE')
+                              <a href="${window.location.pathname}/edit/${anggota.id}" class="btn btn-sm btn-warning">Edit</a>
+                              <button class="btn btn-danger btn-sm" onclick="return confirm('hapus data?')">Delete</button>
+                          </form>
                         </td>
                     </tr>`;
-                    tableBody.append(tableList)
-                }
+                        tableBody.append(tableList)
+                    }
             })
         })
     </script>

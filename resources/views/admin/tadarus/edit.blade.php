@@ -41,18 +41,13 @@
             <div class="form-group mb-3">
                 <div class="list-anggota mb-2 d-flex gap-1">
                     <label for="anggota" class="form-label">Anggota Aktif</label>
-                    @foreach (json_decode($tadarus->nama_warga) as $data)
-                        <h6><span class="badge bg-primary py-2 px-2">{{ $data }}</span></h6> 
-                    @endforeach
                 </div>
                 <select class="form-select select-anggota" id="anggota" multiple="multiple" name="anggota[]"
                     aria-label="Default select example">
-
                     @foreach ($warga as $key => $data)
-                        <option value="{{ $data->nama_alias }}">{{ $data->nama_alias }}</option>
+                        <option value="{{ $data->id }}">{{ $data->nama_alias }}</option>
                     @endforeach
                 </select>
-                <small class="text-danger"><i>*Biarkan kosong jika tidak mengganti anggota</i></small>
             </div>
 
             <button type="submit" class="btn btn-lg btn-dark mt-3">Simpan</button>
@@ -64,23 +59,11 @@
 
 @push('script')
     <script>
-        $(document).ready(function() {
-            // Select2 Multiple
-            // let datanew = []
-            // $.ajax({
-            //     method: 'GET',
-            //     url: '{{ route('tadarus.select') }}',
-            //     dataType: 'json',
-            //     success: function(response) {
-            //         const {
-            //             data: data_warga
-            //         } = response.warga
-            //     }
-            // })
-            $(".select-anggota").select2({
+        $(".select-anggota").select2({
                 tags: true,
                 allowClear: true,
-            })
         });
+        $('.select-anggota').val({{ Js::from($selected) }});
+        $('.select-anggota').trigger('change'); 
     </script>
 @endpush

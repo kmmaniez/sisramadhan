@@ -11,6 +11,7 @@ use App\Models\Warga;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -73,7 +74,7 @@ class DashboardController extends Controller
         }
 
         // TARAWIH
-        $dataKontribusiWarga = Warga::all()->map(function ($data, $index) {
+        $dataKontribusiWarga = Warga::all()->whereNotNull('kontribusi')->map(function ($data, $index) {
             $kontribusiImam         = Tarawih::select('*')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->where('id_imam', $data->id)->get()->count();
             $kontribusiPenceramah   = Tarawih::select('*')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->where('id_penceramah', $data->id)->get()->count();
             $kontribusiBilal        = Tarawih::select('*')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->where('id_bilal', $data->id)->get()->count();
@@ -232,7 +233,7 @@ class DashboardController extends Controller
 
     public function tarawih()
     {
-        $dataKontribusiWarga = Warga::all()->map(function ($data, $index) {
+        $dataKontribusiWarga = Warga::all()->whereNotNull('kontribusi')->map(function ($data) {
             $kontribusiImam         = Tarawih::select('*')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->where('id_imam', $data->id)->get()->count();
             $kontribusiPenceramah   = Tarawih::select('*')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->where('id_penceramah', $data->id)->get()->count();
             $kontribusiBilal        = Tarawih::select('*')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->where('id_bilal', $data->id)->get()->count();
@@ -248,6 +249,22 @@ class DashboardController extends Controller
                 'kontribusi_bilal'      => $kontribusiBilal,
             ];
         })->toArray();
+        // $dataKontribusiWarga = Warga::all()->map(function ($data, $index) {
+        //     $kontribusiImam         = Tarawih::select('*')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->where('id_imam', $data->id)->get()->count();
+        //     $kontribusiPenceramah   = Tarawih::select('*')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->where('id_penceramah', $data->id)->get()->count();
+        //     $kontribusiBilal        = Tarawih::select('*')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->where('id_bilal', $data->id)->get()->count();
+        //     $jumlahKontribusi       = Tarawih::select('*')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->where('id_imam', $data->id)
+        //         ->orWhere('id_penceramah', $data->id)
+        //         ->orWhere('id_bilal', $data->id)
+        //         ->count();
+        //     return [
+        //         'total_kontribusi'      => $jumlahKontribusi,
+        //         'nama_warga'            => $data->nama_alias,
+        //         'kontribusi_imam'       => $kontribusiImam,
+        //         'kontribusi_penceramah' => $kontribusiPenceramah,
+        //         'kontribusi_bilal'      => $kontribusiBilal,
+        //     ];
+        // })->toArray();
         $dataSortedNew = array();
         array_push($dataSortedNew, array_values($dataKontribusiWarga));
         $getOnlyFourUsers = array(

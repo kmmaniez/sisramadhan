@@ -16,7 +16,7 @@ class KonsumsiController extends Controller
      */
     public function index()
     {
-        $konsumsi = Konsumsi::paginate(5);
+        $konsumsi = Konsumsi::all();
         $resultSearch = ['data' => []];
         if (request()->search) {
             $params = request()->search;

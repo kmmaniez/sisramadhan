@@ -18,7 +18,7 @@ class TarawihController extends Controller
      */
     public function index()
     {
-        $tarawih = Tarawih::paginate(5);
+        $tarawih = Tarawih::all();
         $resultSearch = [];
 
         if (request()->search) {

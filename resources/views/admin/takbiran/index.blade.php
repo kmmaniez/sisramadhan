@@ -10,7 +10,7 @@
     <hr class="mb-4">
     <form action="" method="get" class="d-flex justify-content-between align-items-center mb-3">
         <div class="form-group  d-flex justify-content-start gap-2">
-            <input type="text" class="form-control" name="search" id="search" placeholder="Search">
+            <input type="text" class="form-control" name="search" id="search" placeholder="Search" value="{{ request('search') }}">
             <button type="submit" class="btn btn-md btn-secondary">Search</button>
         </div>
         <a href="{{ route('takbiran.create') }}" class="btn btn-lg btn-dark">Tambah Data</a>
@@ -38,7 +38,7 @@
                             {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
                         <td style="width:700px">
                             @foreach ($data->wargas()->get() as $list)
-                                <span class="badge bg-success">{{ $list->nama_alias }}</span>
+                                <span>{{ $list->nama_alias }}, </span>
                             @endforeach
                         </td>
                         <td>{{ $data->keterangan }}</td>
@@ -61,7 +61,7 @@
                             {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
                         <td style="width:700px">
                             @foreach ($data->wargas()->get() as $list)
-                                <span class="badge bg-success">{{ $list->nama_alias }}</span>
+                                <span>{{ $list->nama_alias }}, </span>
                             @endforeach
                         </td>
                         <td>{{ $data->keterangan }}</td>

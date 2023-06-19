@@ -92,8 +92,6 @@
               @endif
         </table>
 
-        {{ $tarawih->links() }}
-
 @endsection
 @push('script')
     <script>

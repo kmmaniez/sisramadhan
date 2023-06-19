@@ -74,7 +74,7 @@ class DashboardController extends Controller
         }
 
         // TARAWIH
-        $dataKontribusiWarga = Warga::all()->map(function ($data, $index) {
+        $dataKontribusiWarga = Warga::all()->whereNotNull('kontribusi')->map(function ($data, $index) {
             $kontribusiImam         = Tarawih::select('*')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->where('id_imam', $data->id)->get()->count();
             $kontribusiPenceramah   = Tarawih::select('*')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->where('id_penceramah', $data->id)->get()->count();
             $kontribusiBilal        = Tarawih::select('*')->havingRaw('YEAR(tgl_kegiatan) = ?', [date('Y')])->where('id_bilal', $data->id)->get()->count();

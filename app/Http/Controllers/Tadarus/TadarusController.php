@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Tadarus;
 use App\Http\Controllers\Controller;
 use App\Models\KelTadarus;
 use App\Models\Tadarus;
+use App\Models\Takbiran;
 use App\Models\Tarawih;
 use App\Models\Warga;
 use Illuminate\Console\View\Components\Warn;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,15 +29,16 @@ class TadarusController extends Controller
         $resultSearch = [];
         if (request()->search) {
             $params = request()->search;
-            // $searchQuery = DB::select("SELECT * FROM tadarus WHERE nama_kelompok LIKE '%$params%' ");
-            // array_push($resultSearch, $searchQuery);
-
             $users = DB::table('tadarus')
                 ->whereJsonContains('nama_warga', $params)
                 ->orWhere('nama_kelompok','LIKE', "%$params%")
                 ->get();
-            $resultSearch['data'] = $users;
-            // dump($resultSearch['data']);
+            // $resultSearch['data'] = Tadarus::where('nama_kelompok','LIKE',"%$params%")->get();
+            $resultSearch['data'] = Tadarus::with('wargas')
+            ->where('nama_kelompok','LIKE',"%$params%")
+            ->orWhereHas('wargas', function($query) use ($params){
+                $query->where('nama_alias','LIKE',"%$params%");
+            })->get();
         }
         return view('admin.tadarus.index', compact('tadarus','resultSearch'));
     }
@@ -43,10 +46,10 @@ class TadarusController extends Controller
     public function filterDataByYears(Request $request)
     {
         if ($request->year) {
-            $data = DB::select("SELECT * FROM `tadarus` WHERE YEAR(tahun_kegiatan)='$request->year'");
+            $datanew = Tadarus::query()->where(DB::raw('YEAR(tahun_kegiatan)'),"$request->year")->get()->toArray();
             return response()->json([
                 'status' => 'success',
-                'data' => $data,
+                'datan' => $datanew
             ]);
         }
     }
@@ -56,7 +59,7 @@ class TadarusController extends Controller
      */
     public function create()
     {
-        $warga  = Warga::all()->pluck('nama_alias','id');
+        $warga  = Warga::select('id','nama_alias')->get();
         $listJuz = [];
 
         for ($i=1; $i <= 30; $i++) { 
@@ -72,14 +75,23 @@ class TadarusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $listanggota = $request->anggota;
         // dd($request->all());
-        Tadarus::create([
-            'tahun_kegiatan' => date(now()),
-            'nama_kelompok' => $request->nama_kelompok,
-            'nama_warga' => json_encode($request->anggota),
-            'jumlah_khatam' => $request->jumlah_khatam,
-        ]);
+        try {
+            $TadarusId = Tadarus::create([
+                'tahun_kegiatan' => date(now()),
+                'nama_kelompok' => $request->nama_kelompok,
+                'jumlah_khatam' => $request->jumlah_khatam,
+            ])->id;
+            foreach ($listanggota as $data) {
+                DB::table('tadarus_warga')->insert([
+                    'tadarus_id' => $TadarusId,
+                    'warga_id' => $data
+                ]);
+            }
+        } catch (\Throwable $th) {
+                DB::rollBack();
+        }
         return redirect(route('tadarus.index'));
     }
 
@@ -100,25 +112,17 @@ class TadarusController extends Controller
         for ($i=1; $i <= 30; $i++) { 
             array_push($listJuz, $i);
         }
-        // $listwarga = Warga::all('id',DB::raw('nama_alias as text'))->toArray();
-        // $arrwargatadarus = [
-        // ];
-        // $listwargatadarus = json_decode($tadarus->nama_warga);
-        // for ($i=0; $i < count($listwargatadarus); $i++) { 
-        //     array_push($arrwargatadarus,[
-        //         'nama_alias' => $listwargatadarus[$i]
-        //     ]);
-        // }
-        // $wargabaru = [];
-        // $wargabaru['data'] = $listwargatadarus;
-
-        // echo 'arrwargabaru';
-        // dump($arrwargatadarus);
-
+        // $takbiranByWarga = Tadarus::select('warga_id')->where('tadarus_id', $tadarus->id)->get();
+        $takbiranByWarga = DB::table('tadarus_warga')->where('tadarus_id', $tadarus->id)->get();
+        $selectedWarga = [];
+        foreach ($takbiranByWarga as $key => $value) {
+            array_push($selectedWarga, $value->warga_id);
+        }
         return view('admin.tadarus.edit', [
             'tadarus' => $tadarus,
             'warga' => Warga::all(),
             'listJuz' => $listJuz,
+            'selected' => $selectedWarga
         ]);
     }
     public function select()
@@ -144,27 +148,32 @@ class TadarusController extends Controller
      */
     public function update(Request $request, Tadarus $tadarus)
     {
+        // dd($request->all());
         $listanggota = $request->anggota;
-        if (empty($request->anggota)) {
-            // echo 'kosong';
+        // dd($listanggota);
+        try {
             Tadarus::where('id', $tadarus->id)->update([
                 'nama_kelompok' => $request->nama_kelompok,
-                'nama_warga' => $tadarus->nama_warga,
                 'jumlah_khatam' => $request->jumlah_khatam,
             ]);
-        }else{
-            // echo 'ada';
-            Tadarus::where('id', $tadarus->id)->update([
-                'nama_kelompok' => $request->nama_kelompok,
-                'nama_warga' => json_encode($request->anggota),
-                'jumlah_khatam' => $request->jumlah_khatam,
-            ]);
+            
+            $tadarus->wargas()->sync($listanggota);
+        } catch (\Throwable $th) {
+            DB::rollBack();
         }
-        // Tadarus::where('id', $tadarus->id)->update([
-        //     'nama_kelompok' => $request->nama_kelompok,
-        //     'nama_warga' => json_encode($request->anggota),
-        //     'jumlah_khatam' => $request->jumlah_khatam,
-        // ]);
+        // if (empty($request->anggota)) {
+        //     Tadarus::where('id', $tadarus->id)->update([
+        //         'nama_kelompok' => $request->nama_kelompok,
+        //         'nama_warga' => $tadarus->nama_warga,
+        //         'jumlah_khatam' => $request->jumlah_khatam,
+        //     ]);
+        // }else{
+        //     Tadarus::where('id', $tadarus->id)->update([
+        //         'nama_kelompok' => $request->nama_kelompok,
+        //         'nama_warga' => json_encode($request->anggota),
+        //         'jumlah_khatam' => $request->jumlah_khatam,
+        //     ]);
+        // }
         return redirect(route('tadarus.index'));
     }
 

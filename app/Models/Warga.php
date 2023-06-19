@@ -52,6 +52,11 @@ class Warga extends Model
 
 
 
+    public function tadaruses()
+    {
+        return $this->belongsToMany(Tadarus::class, 'tadarus_warga');
+    }
+
     public function takbirans()
     {
         return $this->belongsToMany(Takbiran::class, 'takbiran_warga');

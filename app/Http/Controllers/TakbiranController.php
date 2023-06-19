@@ -25,9 +25,14 @@ class TakbiranController extends Controller
         if (request()->only('search')) {
             $params = request()->search;
             // $searchQuery = DB::select("SELECT * FROM takbiran WHERE takbiran.keterangan LIKE '%$params%' ");
-            $searchQuery = Takbiran::where('keterangan','LIKE',"%$params%")->get();
-            array_push($resultSearch, $searchQuery);
-            dump($resultSearch);
+            // $searchQuery = Takbiran::where('keterangan','LIKE',"%$params%")->get();
+            $sq = Takbiran::with('wargas')
+            ->where('keterangan','LIKE',"%$params%")
+            ->orWhereHas('wargas', function($query) use ($params){
+                $query->where('nama_alias','LIKE',"%$params%");
+            })->get();
+            array_push($resultSearch, $sq);
+            // dump($takbiran,$sq);
         }
         return view('admin.takbiran.index', compact('takbiran', 'resultSearch'));
     }

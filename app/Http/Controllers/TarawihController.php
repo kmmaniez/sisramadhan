@@ -94,9 +94,15 @@ class TarawihController extends Controller
      */
     public function edit(Tarawih $tarawih)
     {
+        $usersImam = Warga::select('*')->whereJsonContains('kontribusi','imam')->get();
+        $usersPenceramah = Warga::select('*')->whereJsonContains('kontribusi','penceramah')->get();
+        $usersBilal = Warga::select('*')->whereJsonContains('kontribusi','bilal')->get();
         return view('admin.tarawih.edit', [
             'tarawih' => $tarawih,
             'warga' => Warga::all(),
+            'usersImam' => $usersImam,
+            'usersPenceramah' => $usersPenceramah,
+            'usersBilal' => $usersBilal
         ]);
     }
 

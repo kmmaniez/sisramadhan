@@ -39,7 +39,7 @@
                 <label for="id_penceramah" class="form-label">Nama Pengisi Kultum / Penceramah</label>
                 <select class="form-select" name="id_penceramah" id="id_penceramah">
                     <option value="" selected style="display: none;">Pilih penceramah</option>
-                    @foreach ($usersImam as $key => $value)
+                    @foreach ($usersPenceramah as $key => $value)
                         <option value="{{ $value->id }}">{{ $value->nama_alias }}</option>
                     @endforeach
                 </select>

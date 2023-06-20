@@ -1,3 +1,6 @@
+@php
+    $DateConv = new Hijri_GregorianConvert;
+    @endphp
 @extends('layouts.admin')
 
 @section('title', 'Warga')
@@ -5,7 +8,7 @@
     
     <div class="title text-center mb-5">
         <h1>Daftar Warga</h1>
-        <h2>Tahun 2022/1443 H</h2>
+        <h2>Tahun {{ date('Y') }}/<?= $DateConv->GregorianToHijri(date('Y'),'YYYY'). 'H'; ?></h2>
     </div>
     <hr class="mb-4">
     <form action="" method="get" class="d-flex justify-content-between align-items-center mb-3">

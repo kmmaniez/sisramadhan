@@ -54,20 +54,6 @@ Route::middleware('guest')->group(function(){
 Route::prefix('admin')->middleware('auth')->group(function () {
     
     Route::get('/',[DashboardController::class, 'index'])->name('admin');
-
-    // ROUTE DASHBOARD
-    Route::get('/dashtpa',      [DashboardController::class,'tpa'])->name('dash.tpa');
-
-    Route::get('/dashkonsumsi', [DashboardController::class,'konsumsi'])->name('dash.konsumsi');
-    Route::get('/dashkonsumsi/filterYear', [DashboardController::class,'filterKonsumsiByYears'])->name('dashkonsumsi.search');
-    
-    Route::get('/dashtarawih',  [DashboardController::class,'tarawih'])->name('dash.tarawih');
-    Route::get('/dashtarawih/filterYear', [DashboardController::class,'filterTarawihByYears'])->name('dashtarawih.search');
-    
-    Route::get('/dashtadarus',  [DashboardController::class,'tadarus'])->name('dash.tadarus');
-    Route::get('/dashtadarus/filterYear', [DashboardController::class,'filterTadarusByYears'])->name('dashtadarus.search');
-    
-    Route::get('/getTadarus',   [DashboardController::class,'getTadarus']);
        
     // ROUTE TPA
     Route::resource('tpa', JadwalAjarController::class)->except('show');
@@ -103,7 +89,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('/tadarus', 'index')->name('tadarus.index');
         Route::get('/tadarus/filterYear', 'filterDataByYears')->name('tadarus.search');
         Route::get('/tadarus/select', 'select')->name('tadarus.select');
-        
 
         Route::get('/tadarus/create', 'create')->name('tadarus.create');
         Route::post('/tadarus', 'store')->name('tadarus.store');
@@ -142,7 +127,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
         Route::get('/takbiran/listwarga/{id}', 'listwarga')->name('takbiran.warga');
     });
-    // Route::resource('takbiran', TakbiranController::class)->except('show');
     
     // ROUTE SHOLATIED
     Route::resource('sholatied',SholatiedController::class)->except('show');

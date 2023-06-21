@@ -31,9 +31,9 @@
                         <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }},
                             {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
                         <td>
-                            {{-- @foreach ($data->wargas()->get() as $list)
+                            @foreach ($data->wargas()->get() as $list)
                                 {{ $list->nama_alias }},
-                            @endforeach --}}
+                            @endforeach
                         </td>
                         <td>{{ $data->keterangan }}</td>
                     </tr>

@@ -33,13 +33,6 @@
                         <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }},
                             {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
                         <td class="">
-                            {{-- @if (is_null(json_decode($data['warga_takjil'])))
-                                <p>-</p>
-                            @else
-                                @foreach (json_decode($data->warga_takjil) as $key => $donaturtakjil)
-                                    <span>{{ $donaturtakjil }}, </span>
-                                @endforeach
-                            @endif --}}
                             @if (!count($data->takjils()->get()) > 0)
                                 <span>-</span>
                             @endif
@@ -47,14 +40,6 @@
                                 <span>{{ $donaturtakjil->nama_alias }}, </span>
                             @endforeach
                         </td>
-                        <td class="">
-                            {{-- @if (is_null(json_decode($data['warga_jabur'])))
-                                <p>-</p>
-                            @else
-                                @foreach (json_decode($data->warga_jabur) as $key => $donaturjabur)
-                                    <span>{{ $donaturjabur }}, </span>
-                                @endforeach
-                            @endif --}}
                             @if (!count($data->jaburs()->get()) > 0)
                                 <span>-</span>
                             @endif
@@ -63,13 +48,6 @@
                             @endforeach
                         </td>
                         <td class="">
-                            {{-- @if (is_null(json_decode($data->warga_bukber)))
-                                <p>-</p>
-                            @else
-                                @foreach (json_decode($data->warga_bukber) as $key => $donaturbukber)
-                                    <span>{{ $donaturbukber }}, </span>
-                                @endforeach
-                            @endif --}}
                             @if (!count($data->bukbers()->get()) > 0)
                                 <span>-</span>
                             @endif

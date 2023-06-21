@@ -104,6 +104,7 @@
         <li class="nav-item {{ (request()->routeIs('warga*')) ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('warga.index') }}">Warga</a>
         </li>
+
         @if (Auth::user()->id_role == 1) 
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#laporanCollapse" role="button" aria-expanded="false" aria-controls="laporanCollapse">Laporan</a>
@@ -114,6 +115,7 @@
           </ul>
         </li>
         @endif
+        
       </ul>
     </aside>
 

@@ -11,7 +11,6 @@
 @section('title', 'Tarawih')
 @section('content')
     
-    {{-- <div class="container-fluid px-5"> --}}
         <div class="title text-center mb-5">
             <h1>Kegiatan Tarawih</h1>
             <div class="form-tahun d-flex justify-content-center gap-2 align-items-center">
@@ -34,7 +33,6 @@
             <a href="{{ route('tarawih.create') }}" class="btn btn-lg btn-dark">Tambah Data</a>
         </form>
         
-        {{-- <h1 class="text-secondary w-25 mx-auto" style="margin-top: 10rem; margin-bottom: 15rem;">Belum Ada Data</h1> --}}
         <table class="table table-striped">
             <thead>
               <tr>
@@ -48,7 +46,6 @@
             </tr>
             </thead>
             <tbody class="table-group-divider" id="tblcontent">
-              {{-- @dump($resultSearch) --}}
               @if (empty($resultSearch[0]))
                 @foreach ($tarawih as $data)
                 <tr>
@@ -70,7 +67,6 @@
                 @endforeach
               @else
                 @foreach ($resultSearch[0] as $data)
-                {{-- @dump($data) --}}
                 <tr>
                   <th scope="row">{{ $loop->iteration }}</th>
                   <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }}, {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
@@ -114,7 +110,6 @@
             });
             inputSearch.value = '';
             tabelContent.innerHTML = ''
-            // console.log(window.location);
             fetch(window.location.origin+ '/admin/tarawih/filterYear?year='+pilihtahun.value)
             .then(response => response.json())
             .then(data => {

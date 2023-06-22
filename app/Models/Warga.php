@@ -10,18 +10,8 @@ class Warga extends Model
     use HasFactory;
     protected $table = 'warga';
     protected $guarded = ['id'];
-    // protected $with = ['bukbers'];
     public $timestamps = false;
 
-    // public function tadarus()
-    // {
-    //     return $this->hasMany(Tadarus::class,'id');
-    // }
-    // public function takbiran()
-    // {
-    //     return $this->hasOne(Takbiran::class,'id');
-    // }
-    
     public function imam()
     {
         return $this->hasOne(Tarawih::class,'id');
@@ -49,8 +39,6 @@ class Warga extends Model
     {
         return $this->belongsToMany(Konsumsi::class, 'bukber_warga');
     }
-
-
 
     public function tadaruses()
     {

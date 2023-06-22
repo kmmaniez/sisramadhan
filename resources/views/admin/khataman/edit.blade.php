@@ -28,7 +28,6 @@
             <div class="form-group mb-3">
                 <label for="jenis_kegiatan" class="form-label">Jenis Kegiatan</label>
                 <input type="text" class="form-control" name="jenis_kegiatan" id="jenis_kegiatan" value="{{ old('jenis_kegiatan', $khataman->jenis_kegiatan) }}">
-                {{-- <input type="text" class="form-control" name="jenis_kegiatan" id="jenis_kegiatan" value="Khataman Nuzulul Qur'an"> --}}
             </div>
             <div class="form-group mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Keterangan</label>

@@ -93,11 +93,9 @@
             type: 'bar',
             data: {
                 labels: {{ Js::from($tadarus['listnama']) }},
-                // labels: [],
                 datasets: [{
                     label: 'Jumlah Khataman',
                     data: {{ Js::from($tadarus['jumlah']) }},
-                    // data: [],
                     borderWidth: 1,
                     backgroundColor: 'rgba(68, 68, 255, 0.693)',
                 }],
@@ -181,7 +179,6 @@
                     // data: [4,5,3,5,6],
                     data: <?= json_encode(Arr::collapse($listustad['total_ajar'])) ?>,
                     borderWidth: 1,
-                    // borderColor: '#FF6384',
                     backgroundColor: 'rgba(68, 68, 255, 0.693)',
                 }],
             },

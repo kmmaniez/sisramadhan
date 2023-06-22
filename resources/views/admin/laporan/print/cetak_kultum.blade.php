@@ -42,13 +42,14 @@
                     <td>{{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('l') }},
                         {{ Carbon::parse($data->tgl_kegiatan)->translatedFormat('d F Y') }}</td>
                     <td>
-                        @if (is_null(json_decode($data->warga_takjil)))
+                        {{ $data->penceramah->nama_alias }}
+                        {{-- @if (is_null(json_decode($data->warga_takjil)))
                             <p>-</p>
                         @else
                             @foreach (json_decode($data->warga_takjil) as $key => $donaturtakjil)
                                 <span>{{ $donaturtakjil }}, </span>
                             @endforeach
-                        @endif
+                        @endif --}}
                     </td>
                 </tr>
             @endforeach

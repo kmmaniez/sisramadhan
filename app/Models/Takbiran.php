@@ -11,12 +11,7 @@ class Takbiran extends Model
     protected $table = 'takbiran';
     protected $guarded = ['id'];
     protected $with = ['wargas'];
-    // public $timestamps = false;
-    
-    // public function warga()
-    // {
-    //     return $this->belongsTo(Warga::class, 'id_warga');
-    // }
+
     public function wargas()
     {
         return $this->belongsToMany(Warga::class, 'takbiran_warga');

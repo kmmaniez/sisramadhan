@@ -24,9 +24,5 @@ class Konsumsi extends Model
     {
         return $this->belongsToMany(Warga::class, 'bukber_warga');
     }
-    // public function konsumsibukber()
-    // {
-    //     return $this->belongsToMany(Warga::class, 'konsumsi_warga', 'warga_bukber_id','konsumsi_id');
-    // }
     
 }

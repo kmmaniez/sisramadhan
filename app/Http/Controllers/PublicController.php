@@ -31,8 +31,8 @@ class PublicController extends Controller
     public function konsumsiIndex()
     {
         $title  = 'Halaman Konsumsi';
-        $konsumsi  = Konsumsi::all();
-        return view('konsumsi', compact('title', 'konsumsi'));
+        $konsumsis  = Konsumsi::all();
+        return view('konsum', compact('title', 'konsumsis'));
     }
 
     public function tarawihIndex()

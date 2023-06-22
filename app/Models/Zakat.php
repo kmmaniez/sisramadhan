@@ -10,6 +10,4 @@ class Zakat extends Model
     use HasFactory;
     protected $table = 'zakat';
     protected $guarded = ['id'];
-
-    // public $timestamps = false;
 }

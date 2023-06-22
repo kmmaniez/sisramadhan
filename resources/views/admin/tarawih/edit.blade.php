@@ -28,7 +28,6 @@
             <div class="form-group mb-3">
                 <label for="id_imam" class="form-label">Nama Imam</label>
                 <select class="form-select" name="id_imam" id="id_imam">
-                    {{-- <option value="" selected style="display: none;">Pilih imam</option> --}}
                     @foreach ($usersImam as $key => $value)
                         @if (old('id_imam', $tarawih->imam->id) == $value->id)
                             <option value="{{ $value->id }}" selected>{{ $tarawih->imam->nama_alias }}</option>
@@ -41,7 +40,6 @@
             <div class="form-group mb-3">
                 <label for="id_penceramah" class="form-label">Nama Pengisi Kultum</label>
                 <select class="form-select" name="id_penceramah" id="id_penceramah">
-                    {{-- <option value="" selected style="display: none;">Pilih penceramah</option> --}}
                     @foreach ($usersPenceramah as $key => $value)
                         @if (old('id_penceramah', $tarawih->penceramah->id) == $value->id)
                             <option value="{{ $value->id }}" selected>{{ $tarawih->penceramah->nama_alias }}</option>
@@ -54,7 +52,6 @@
             <div class="form-group mb-3">
                 <label for="id_bilal" class="form-label">Nama Bilal</label>
                 <select class="form-select" name="id_bilal" id="id_bilal">
-                    {{-- <option value="" selected style="display: none;">Pilih bilal</option> --}}
                     @foreach ($usersBilal as $key => $value)
                         @if (old('id_bilal', $tarawih->bilal->id) == $value->id)
                             <option value="{{ $value->id }}" selected>{{ $tarawih->bilal->nama_alias }}</option>

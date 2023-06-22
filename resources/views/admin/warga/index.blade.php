@@ -19,12 +19,10 @@
         <a href="{{ route('warga.create') }}" class="btn btn-lg btn-dark">Tambah Data</a>
     </form>
     
-    {{-- <h1 class="text-secondary w-25 mx-auto" style="margin-top: 10rem; margin-bottom: 15rem;">Belum Ada Data</h1> --}}
     <table class="table table-striped">
         <thead>
             <tr>
             <th scope="col">No</th>
-            {{-- <th scope="col">Nama Keluarga</th> --}}
             <th scope="col">Nama Asli</th>
             <th scope="col">Nama Alias</th>
             <th scope="col">Alamat</th>

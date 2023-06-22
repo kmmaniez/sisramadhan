@@ -24,15 +24,12 @@ class TakbiranController extends Controller
         $takbiran = Takbiran::all();
         if (request()->only('search')) {
             $params = request()->search;
-            // $searchQuery = DB::select("SELECT * FROM takbiran WHERE takbiran.keterangan LIKE '%$params%' ");
-            // $searchQuery = Takbiran::where('keterangan','LIKE',"%$params%")->get();
             $sq = Takbiran::with('wargas')
             ->where('keterangan','LIKE',"%$params%")
             ->orWhereHas('wargas', function($query) use ($params){
                 $query->where('nama_alias','LIKE',"%$params%");
             })->get();
             array_push($resultSearch, $sq);
-            // dump($takbiran,$sq);
         }
         return view('admin.takbiran.index', compact('takbiran', 'resultSearch'));
     }
@@ -84,8 +81,6 @@ class TakbiranController extends Controller
     {
         $warga = Warga::all();
         $takbiranByWarga = TakbiranWarga::select('warga_id')->where('takbiran_id', $takbiran->id)->get();
-        // $ea = $takbiran->wargas()->wherePivot('takbiran_id',$takbiran->id)->get();
-        // dump($takbiranByWarga, $ea);
         $selectedWarga = [];
         foreach ($takbiranByWarga as $key => $value) {
             array_push($selectedWarga, $value->warga_id);
@@ -108,16 +103,7 @@ class TakbiranController extends Controller
                 'tgl_kegiatan' => $request->tanggal,
                 'keterangan' => $request->keterangan
             ]);
-            // DB::table('takbiran_warga')->where('takbiran_id', $takbiran->id)->delete();
-            // $takbiran->wargas()->detach();
             $takbiran->wargas()->sync($wargakonsumsi);
-            // foreach ($wargakonsumsi as $data) {
-                
-            //     DB::table('takbiran_warga')->insert([
-            //         'takbiran_id' => $takbiran->id,
-            //         'warga_id' => $data
-            //     ]);
-            // }
         } catch (\Throwable $th) {
             DB::rollBack();
         }

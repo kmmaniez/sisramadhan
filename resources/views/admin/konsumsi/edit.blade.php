@@ -38,8 +38,7 @@
                 </select>
                 <small class="text-danger"><i>*Biarkan kosong jika tidak mengganti anggota</i></small>
             </div>
-            {{-- @dump($konsumsi) --}}
-
+            
             <div class="form-group mb-3">
                 <div class="list-anggota mb-2 d-flex gap-1">
                     <label for="exampleFormControlInput1" class="form-label"><strong>Nama Donatur Jabur</strong></label>

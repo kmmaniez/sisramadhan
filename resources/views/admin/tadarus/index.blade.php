@@ -11,7 +11,6 @@
 @section('title', 'Tadarus')
 @section('content')
     
-    {{-- <div class="container-fluid px-5"> --}}
         <div class="title text-center mb-5">
             <h1>Kegiatan Tadarus</h1>
             <div class="form-tahun d-flex justify-content-center gap-2 align-items-center">
@@ -33,29 +32,23 @@
             </div>
             <a href="{{ route('tadarus.create') }}" class="btn btn-lg btn-dark">Tambah Data</a>
         </form>
-        
-        {{-- <h1 class="text-secondary w-25 mx-auto" style="margin-top: 10rem; margin-bottom: 15rem;">Belum Ada Data</h1> --}}
-       
 
         <table class="table table-striped">
             <thead>
               <tr>
                 <th scope="col">No</th>
-                {{-- <th scope="col">Tahun</th> --}}
                 <th scope="col">Kelompok Tadarus</th>
                 <th scope="col">Jumlah Khataman</th>
                 <th scope="col">Anggota Aktif</th>
                 <th scope="col">Aksi</th>
             </tr>
             </thead>
-            {{-- @dump($tadarus) --}}
             <tbody class="table-group-divider" id="tblcontent">
                 <!-- default not search -->
                 @if (empty($resultSearch['data']))
                     @foreach ($tadarus as $data)
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
-                        {{-- <td>{{ Carbon::parse($data->tahun_kegiatan)->translatedFormat('Y') }}</td> --}}
                         <td>{{ $data->nama_kelompok }}</td>
                         <td>{{ $data->jumlah_khatam }}</td>
                         <td>
@@ -98,10 +91,6 @@
                 @endif
             </tbody>
         </table>
-
-        {{-- <a href="/" class="btn btn-lg btn-secondary">Kembali</a> --}}
-       
-    {{-- </div> --}}
 
 @endsection
 @push('script')

@@ -24,7 +24,6 @@ class ZakatController extends Controller
                 ->orWhereJsonContains('nama_penerima_zakat', "$params")
                 ->get();
             $resultSearch['data'] = $users;
-            dump($resultSearch['data']);
         }
         return view('admin.zakat.index', compact('zakat','resultSearch'));
     }

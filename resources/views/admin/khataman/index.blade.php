@@ -3,7 +3,6 @@
 @section('title', 'Khataman')
 @section('content')
     
-    {{-- <div class="container-fluid px-5"> --}}
         <div class="title text-center mb-5">
             <h1>Tambah Data Khataman & Nuzulul <br>Qur'an</h1>
         </div>
@@ -16,7 +15,6 @@
             <a href="{{ route('khataman.create') }}" class="btn btn-lg btn-dark">Tambah Data</a>
         </form>
         
-        {{-- <h1 class="text-secondary w-25 mx-auto" style="margin-top: 10rem; margin-bottom: 15rem;">Belum Ada Data</h1> --}}
         <table class="table table-striped">
             <thead>
               <tr>

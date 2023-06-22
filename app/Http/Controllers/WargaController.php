@@ -106,7 +106,6 @@ class WargaController extends Controller
             'nomor_hp' => $request->nomorhp,
             'email' => $request->email,
             'status_keaktifan' => ($request->input('status') === 'aktif') ? true : false,
-            // 'kontribusi' => json_encode($request->check)
             'kontribusi' => ($request->check) ? json_encode($request->check) : NULL
         ]);
         return redirect(route('warga.index'));

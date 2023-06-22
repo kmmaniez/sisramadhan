@@ -31,7 +31,6 @@
                     @endforeach
                 </select>
             </div>
-            {{-- @dd($listustadh) --}}
             <div class="form-group mb-3">
                 <label for="listustadh" class="form-label">Pilih Ustadz/Ustadzah</label>
                 <select class="form-select" name="listustadh" id="listustadh" aria-label="Default select example">

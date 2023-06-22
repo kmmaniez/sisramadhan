@@ -28,9 +28,6 @@
                 <small class="text-danger"><i>*biarkan kosong jika tidak diisi</i></small>
                 <select class="form-select select-takjil" id="donaturtakjil" multiple="multiple" name="donaturtakjil[]"
                     aria-label="Default select example">
-                    {{-- @foreach ($warga as $key => $value)
-                        <option value="{{ $key }}">{{ $value }}</option>
-                    @endforeach --}}
                     @foreach ($warga as $key => $value)
                         <option value="{{ $value->id }}">{{ $value->nama_alias }}</option>
                     @endforeach
@@ -42,9 +39,6 @@
                 <small class="text-danger"><i>*biarkan kosong jika tidak diisi</i></small>
                 <select class="form-select select-jabur" id="donaturjabur" multiple="multiple" name="donaturjabur[]"
                     aria-label="Default select example">
-                    {{-- @foreach ($warga as $key => $value)
-                        <option value="{{ $key }}">{{ $value }}</option>
-                    @endforeach --}}
                     @foreach ($warga as $key => $value)
                         <option value="{{ $value->id }}">{{ $value->nama_alias }}</option>
                     @endforeach
@@ -55,9 +49,6 @@
                 <small class="text-danger"><i>*biarkan kosong jika tidak diisi</i></small>
                 <select class="form-select select-bukber" id="donaturbukber" multiple="multiple" name="donaturbukber[]"
                     aria-label="Default select example">
-                    {{-- @foreach ($warga as $key => $value)
-                        <option value="{{ $key }}">{{ $value }}</option>
-                    @endforeach --}}
                     @foreach ($warga as $key => $value)
                         <option value="{{ $value->id }}">{{ $value->nama_alias }}</option>
                     @endforeach
@@ -78,8 +69,6 @@
 
 @push('script')
     <script>
-        const inputBukber = document.getElementById('wargabukber');
-        const inputTakjil = document.getElementById('wargatakjil');
 
         // Select2 Multiple
         $('.select-bukber').select2({

@@ -3,7 +3,6 @@
 @section('title', 'Sholat Ied')
 @section('content')
     
-    {{-- <div class="container-fluid px-5"> --}}
         <div class="title text-center mb-5">
             <h1>Kegiatan Sholat Ied</h1>
         </div>
@@ -16,7 +15,6 @@
             <a href="{{ route('sholatied.create') }}" class="btn btn-lg btn-dark">Tambah Data</a>
         </form>
         
-        {{-- <h1 class="text-secondary w-25 mx-auto" style="margin-top: 10rem; margin-bottom: 15rem;">Belum Ada Data</h1> --}}
         <table class="table table-striped">
             <thead>
               <tr>
@@ -65,9 +63,5 @@
                 @endif
             </tbody>
         </table>
-
-        {{-- <a href="/" class="btn btn-lg btn-secondary">Kembali</a> --}}
-       
-    {{-- </div> --}}
 
 @endsection

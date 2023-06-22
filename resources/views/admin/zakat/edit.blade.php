@@ -25,7 +25,7 @@
                 <label for="tanggal" class="form-label">Tanggal</label>
                 <input type="date" class="form-control" name="tanggal" id="tanggal" value="{{ old('tanggal', $zakat->tgl_kegiatan) }}">
             </div>
-            {{-- @dump($zakat->nama_penerima_zakat) --}}
+            
             <div class="form-group">
                 <label for="penerima" class="form-label">Penerima Zakat</label>
                 <input type="text" class="form-control" name="penerima" id="penerima" value="{{ $penerima }}">

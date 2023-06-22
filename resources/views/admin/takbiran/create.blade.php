@@ -17,12 +17,6 @@
             </div>
             <div class="form-group mb-3">
                 <label for="wargakonsumsi" class="form-label">Nama Donatur Konsumsi</label>
-                {{-- <select class="form-select" name="id_warga" id="id_warga">
-                    @foreach ($warga as $key => $value)
-                    <option value="{{ $key }}">{{ $value }}</option>
-                        
-                    @endforeach
-                </select> --}}
                 <select class="form-select wargakonsumsi" id="wargakonsumsi" multiple="multiple" name="wargakonsumsi[]"
                     aria-label="Default select example">
                     @foreach ($warga as $key => $value)

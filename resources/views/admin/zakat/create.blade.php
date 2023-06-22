@@ -36,31 +36,7 @@
                 <label for="petugas" class="form-label">Petugas Zakat</label>
                 <input type="text" class="form-control" name="petugas" id="petugas">
             </div>
-            {{-- <div class="form-group mb-3">
-                
-                <label for="penerima" class="form-label">Nama Penerima Zakat multiple select</label>
-                <select class="form-select" name="penerima" id="penerima" aria-label="Default select example">
-                    <option selected>Bapak ina</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div> --}}
-            {{-- <div class="form-group mb-3 d-flex flex-column">
-                <label for="petugas" class="form-label">Petugas Zakat  multiple select</label>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="petugas[]" value="imam" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">Imam</label> 
-                </div> 
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="petugas[]" value="bilal" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">Bilal</label> 
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="petugas[]" value="penceramah" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">Penceramah</label> 
-                </div> 
-            </div> --}}
+
             <div class="form-group mb-3">
                 <label for="keterangan" class="form-label">Keterangan</label>
                 <textarea name="keterangan" id="keterangan" cols="" rows="5" class="form-control"></textarea>

@@ -40,7 +40,7 @@ class LaporanController extends Controller
     public function cetakKultum()
     {
         $data = Warga::all();
-        $listkonsumsi = Konsumsi::all();
+        $listkonsumsi = Tarawih::all();
         $pdf    = PDF::loadView('admin.laporan.print.cetak_kultum',[
             'warga'  => $data,
             'listkonsumsi'  => $listkonsumsi

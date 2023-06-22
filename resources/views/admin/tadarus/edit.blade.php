@@ -16,7 +16,7 @@
         </div>
         <hr class="mb-4">
         <a href="{{ route('tadarus.index') }}" class="btn btn-lg btn-secondary mb-4">Kembali</a>
-        {{-- @dump($tadarus) --}}
+        
         <form action="{{ route('tadarus.update', $tadarus->id) }}" method="post">
             @csrf
             @method('PUT')

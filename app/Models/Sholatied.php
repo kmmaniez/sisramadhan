@@ -10,6 +10,4 @@ class Sholatied extends Model
     use HasFactory;
     protected $table = 'sholatied';
     protected $guarded = ['id'];
-
-    // public $timestamps = false;
 }

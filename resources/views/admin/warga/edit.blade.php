@@ -34,7 +34,6 @@
                     <label for="rt" class="form-label">RT</label>
                     <select class="form-select" name="rt" id="rt" style="width: 80px;"
                         aria-label="Default select example">
-                        {{-- <option value="" selected style="display: none">0</option> --}}
                         @foreach ($listrt as $datart)
                             @if (old('rt', $warga->rt) == $datart)
                                 <option value="{{ $datart }}" selected>{{ $warga->rt }}</option>
@@ -48,7 +47,6 @@
                     <label for="rw" class="form-label">RW</label>
                     <select class="form-select" name="rw" id="rw" style="width: 80px;"
                         aria-label="Default select example">
-                        {{-- <option value="" selected style="display: none">0</option> --}}
                         @foreach ($listrw as $datarw)
                             @if (old('rt', $warga->rw) == $datarw)
                                 <option value="{{ $datarw }}" selected>{{ $warga->rw }}</option>

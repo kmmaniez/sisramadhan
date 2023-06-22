@@ -10,13 +10,6 @@
         <form action="{{ route('warga.store') }}" method="post">
             @csrf
 
-            {{-- <div class="form-group">
-                <input type="text" name="test" id="test">
-            </div> --}}
-            {{-- <div class="form-group mb-3">
-                <label for="nama_keluarga" class="form-label">Keluarga</label>
-                <input type="text" name="nama_keluarga" id="nama_keluarga" class="form-control">
-            </div> --}}
             <div class="form-group mb-3">
                 <label for="nama_asli" class="form-label">Nama Asli</label>
                 <input type="text" name="nama_asli" id="nama_asli" class="form-control">
@@ -31,18 +24,6 @@
                     <label for="alamat" class="form-label">Alamat</label>
                     <input type="text" class="form-control" name="alamat" id="alamat">
                 </div>
-
-                {{-- <div class="form-group mb-3">
-                    <label for="">Jenis Kelamin</label>
-                    <div class="form-check mt-2">
-                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="pria" value="pria">
-                        <label class="form-check-label" for="pria">Laki-laki</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="wanita" value="wanita">
-                        <label class="form-check-label" for="wanita">Perempuan</label>
-                    </div>                      
-                </div> --}}
                 
                 <div class="form d-flex justify-content-start align-items-center gap-3">
 
@@ -104,14 +85,6 @@
                         <input class="form-check-input" type="checkbox" name="check[]" value="penceramah" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">Penceramah</label> 
                     </div> 
-                    {{-- <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="check[]" value="pengajartpa" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">Pengajar TPA</label> 
-                    </div> 
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="check[]" value="donatur" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">Donatur</label> 
-                    </div>  --}}
                 </div>
             </div>
             

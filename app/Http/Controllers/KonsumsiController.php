@@ -21,21 +21,20 @@ class KonsumsiController extends Controller
 
         if (request()->search) {
             $params = request()->search;
-            $listwargatakjil = Warga::where('nama_alias','LIKE',"%$params%")->get();
-            $listwargajabur = Warga::where('nama_alias','LIKE',"%$params%")->get();
-            $listwargabukber = Warga::where('nama_alias','LIKE',"%$params%")->get();
+            $listwargatakjil = Warga::where('nama_alias', 'LIKE', "%$params%")->get();
+            $listwargajabur = Warga::where('nama_alias', 'LIKE', "%$params%")->get();
+            $listwargabukber = Warga::where('nama_alias', 'LIKE', "%$params%")->get();
 
             $takjilId = $listwargatakjil[0]->id ?? NULL;
             $jaburId = $listwargajabur[0]->id ?? NULL;
             $bukberId = $listwargabukber[0]->id ?? NULL;
 
             $users = Konsumsi::query()->whereJsonContains('warga_takjil', "$takjilId")
-            ->orWhereJsonContains('warga_jabur', "$jaburId")
-            ->orWhereJsonContains('warga_bukber',"$bukberId")
-            ->get();
+                ->orWhereJsonContains('warga_jabur', "$jaburId")
+                ->orWhereJsonContains('warga_bukber', "$bukberId")
+                ->get();
             if (count($users) > 0) {
                 $resultSearch['data'] = $users;
-                $dataLength = count($resultSearch['data']);
             }
         }
         return view('admin.konsumsi.index', compact('konsumsi', 'resultSearch'));
@@ -45,7 +44,7 @@ class KonsumsiController extends Controller
     {
         if ($request->year) {
             $data = DB::select("SELECT * FROM `konsumsi` WHERE YEAR(tgl_kegiatan)='$request->year'");
-            $datanew = Konsumsi::query()->where(DB::raw('YEAR(tgl_kegiatan)'),"$request->year")->get()->toArray();
+            $datanew = Konsumsi::query()->where(DB::raw('YEAR(tgl_kegiatan)'), "$request->year")->get()->toArray();
             return response()->json([
                 'status' => 'success',
                 'data' => $data,
@@ -71,35 +70,40 @@ class KonsumsiController extends Controller
         $donaturBukber = $request->donaturbukber;
         $donaturTakjil = $request->donaturtakjil;
         $donaturJabur = $request->donaturjabur;
-        
         try {
             $konsumsiId = Konsumsi::create([
                 'tgl_kegiatan'    => $request->tanggal,
-                'warga_takjil'    => json_encode($request->donaturtakjil) ?? NULL,
-                'warga_bukber'    => json_encode($request->donaturbukber) ?? NULL,
-                'warga_jabur'     => json_encode($request->donaturjabur) ?? NULL,
+                'warga_takjil'    => ($request->donaturtakjil) ? json_encode($request->donaturtakjil): NULL,
+                'warga_bukber'    => ($request->donaturbukber) ? json_encode($request->donaturbukber): NULL,
+                'warga_jabur'     => ($request->donaturjabur) ? json_encode($request->donaturjabur) : NULL,
                 'keterangan'      => $request->keterangan,
             ])->id;
-            foreach ($donaturBukber as $data) {
+            if (!is_null($donaturTakjil)) {
+                foreach ($donaturTakjil as $data) {
+                    DB::table('takjil_warga')->insert([
+                        'konsumsi_id' => $konsumsiId,
+                        'warga_id' => $data
+                    ]);
+                }
+            }
+            if (!is_null($donaturJabur)) {
+                foreach ($donaturJabur as $data) {
+                    DB::table('jabur_warga')->insert([
+                        'konsumsi_id' => $konsumsiId,
+                        'warga_id' => $data
+                    ]);
+                }
+            }
+            if (!is_null($donaturBukber)) {
+                foreach ($donaturBukber as $data) {
                     DB::table('bukber_warga')->insert([
                         'konsumsi_id' => $konsumsiId,
                         'warga_id' => $data
                     ]);
-            }
-            foreach ($donaturTakjil as $data) {
-                DB::table('takjil_warga')->insert([
-                    'konsumsi_id' => $konsumsiId,
-                    'warga_id' => $data
-                ]);
-            }
-            foreach ($donaturJabur as $data) {
-                DB::table('jabur_warga')->insert([
-                    'konsumsi_id' => $konsumsiId,
-                    'warga_id' => $data
-                ]);
+                }
             }
         } catch (\Throwable $th) {
-                DB::rollBack();
+            DB::rollBack();
         }
         return Redirect::to(route('konsumsi.index'));
     }
@@ -121,34 +125,28 @@ class KonsumsiController extends Controller
         $selectedBukber = [];
         $selectedTakjil = [];
         $selectedJabur = [];
-        $takjil = Konsumsi::select('warga_takjil')->where('id',$konsumsi->id)->get();
-        $bukber = Konsumsi::select('warga_bukber')->where('id',$konsumsi->id)->get();
-        $jabur = Konsumsi::select('warga_jabur')->where('id',$konsumsi->id)->get();
+        $takjil = Konsumsi::with('takjils')->where('id', $konsumsi->id)->get();
+        $bukber = Konsumsi::with('bukbers')->where('id', $konsumsi->id)->get();
+        $jabur = Konsumsi::with('jaburs')->where('id', $konsumsi->id)->get();
+
         foreach ($takjil as $data) {
-            if (!is_null(json_decode($data->warga_takjil))) {
-                foreach (json_decode($data->warga_takjil) as $key => $value) {
-                    array_push($selectedTakjil, $value);
-                }
-            }
-        }
-        foreach ($bukber as $data) {
-            if (!is_null(json_decode($data->warga_bukber))) {
-                foreach (json_decode($data->warga_bukber) as $key => $value) {
-                    array_push($selectedBukber, $value);
-                }
+            foreach ($data->takjils()->get() as $key => $value) {
+                array_push($selectedTakjil, $value->id);
             }
         }
         foreach ($jabur as $data) {
-            if (!is_null(json_decode($data->warga_jabur))) {
-                foreach (json_decode($data->warga_jabur) as $key => $value) {
-                    array_push($selectedJabur, $value);
-                }
+            foreach ($data->jaburs()->get() as $key => $value) {
+                array_push($selectedJabur, $value->id);
+            }
+        }
+        foreach ($bukber as $data) {
+            foreach ($data->bukbers()->get() as $key => $value) {
+                array_push($selectedBukber, $value->id);
             }
         }
         return view('admin.konsumsi.edit', [
             'konsumsi' => $konsumsi,
             'warga' => Warga::all(),
-            'jabur' => Konsumsi::select('warga_jabur')->where('id', $konsumsi->id)->get(), 
             'selectedBukber' => $selectedBukber,
             'selectedTakjil' => $selectedTakjil,
             'selectedJabur' => $selectedJabur,
@@ -159,7 +157,7 @@ class KonsumsiController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Konsumsi $konsumsi)
-    {    
+    {
         $donaturBukber = $request->donaturbukber;
         $donaturTakjil = $request->donaturtakjil;
         $donaturJabur = $request->donaturjabur;

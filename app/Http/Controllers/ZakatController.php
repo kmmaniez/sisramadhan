@@ -19,8 +19,7 @@ class ZakatController extends Controller
 
         if (request()->search) {
             $params = request()->search;
-            $users = DB::table('zakat')
-                ->whereJsonContains('nama_petugas_zakat',"$params")
+            $users = Zakat::query()->whereJsonContains('nama_petugas_zakat',"$params")
                 ->orWhereJsonContains('nama_penerima_zakat', "$params")
                 ->get();
             $resultSearch['data'] = $users;
@@ -31,7 +30,7 @@ class ZakatController extends Controller
     public function filterDataByYears(Request $request)
     {
         if ($request->year) {
-            $data = DB::select("SELECT * FROM `zakat` WHERE YEAR(tgl_kegiatan)='$request->year'");
+            $data = Zakat::query()->where(DB::raw('YEAR(tgl_kegiatan)'), "$request->year")->get();
             return response()->json([
                 'status' => 'success',
                 'data' => $data,

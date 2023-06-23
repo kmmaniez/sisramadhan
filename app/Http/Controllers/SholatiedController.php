@@ -18,7 +18,7 @@ class SholatiedController extends Controller
 
         if (request()->search) {
             $params = request()->search;
-            $searchQuery = DB::select("SELECT * FROM sholatied WHERE tmpt_sholat LIKE '%$params%' ");
+            $searchQuery = Sholatied::where('tmpt_sholat','LIKE',"%$params%")->orWhere('keterangan','LIKE',"%$params%")->get();
             array_push($resultSearch, $searchQuery);
         }
         return view('admin.sholatied.index', compact('sholatied', 'resultSearch'));

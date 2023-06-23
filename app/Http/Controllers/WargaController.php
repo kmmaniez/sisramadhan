@@ -18,10 +18,10 @@ class WargaController extends Controller
         $resultSearch = [];
         if (request()->search) {
             $params = request()->search;
-            $searchQuery = DB::table('warga')
-                ->where('nama_asli','like',"%$params%")
-                ->orWhere('nama_alias', 'like',"%$params%")
-                ->orWhere('alamat', 'like',"%$params%")->get();
+            $searchQuery = Warga::where('nama_asli','LIKE',"%$params%")
+                ->orWhere('nama_alias','LIKE',"%$params%")
+                ->orWhere('alamat','LIKE',"%$params%")
+                ->get();
             array_push($resultSearch, $searchQuery);
         }
         return view('admin.warga.index', compact('warga', 'resultSearch'));
